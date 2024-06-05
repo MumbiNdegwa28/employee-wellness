@@ -5,6 +5,7 @@
         </h2>
     </x-slot>
 <div class="container">
+    <!-- a serious change -->
         <!-- Button to toggle the form -->
         <button class="btn btn-primary mb-3" id="toggleFormButton">Create New Entry</button>
 
