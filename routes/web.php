@@ -11,6 +11,8 @@ use App\Http\Controllers\PlanActivitiesController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ViewUserRecordsController;
+use App\Http\Controllers\ManageUserPermissionsController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -43,5 +45,5 @@ Route::post('/journals', [JournalController::class, 'store'])->name('journals.st
  Route::get('/feedback', [FeedbackController::class, 'feedback'])->name('feedback');
 
  Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.home');
- Route::get('/admin/view-user-records', [AdminController::class, 'viewUserRecords'])->name('admin.viewUserRecords');
- Route::get('/admin/manage-user-permissions', [AdminController::class, 'manageUserPermissions'])->name('admin.manageUserPermissions');
+ Route::get('/admin/view-user-records', [ViewUserRecordsController::class, 'show'])->name('admin.viewUserRecords');
+ Route::get('/admin/manage-user-permissions', [ManageUserPermissionsController::class, 'update'])->name('admin.manageUserPermissions');
