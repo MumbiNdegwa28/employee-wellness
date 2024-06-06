@@ -6,6 +6,10 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\JournalController;
+use App\Http\Controllers\EvaluationFormReportController;
+use App\Http\Controllers\PlanActivitiesController;
+use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\ManagerController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,4 +35,9 @@ Route::get('/employee/resources', [ResourceController::class, 'showResources'])-
 Route::get('/employee/journals', [JournalController::class, 'show'])->name('journals.show');
 Route::post('/journals', [JournalController::class, 'store'])->name('journals.store');
 
+ // Manager specific routes
+ Route::get('/manager/dashboard', [ManagerController::class, 'index'])->name('manager.home');
+ Route::get('/evaluation-form-report', [EvaluationFormReportController::class, 'evaluationFormReport'])->name('evaluation.form.report');
+ Route::get('/plan-activities', [PlanActivitiesController::class, 'planActivities'])->name('plan.activities');
+ Route::get('/feedback', [FeedbackController::class, 'feedback'])->name('feedback');
 
