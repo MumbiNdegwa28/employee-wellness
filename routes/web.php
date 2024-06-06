@@ -43,5 +43,5 @@ Route::post('/journals', [JournalController::class, 'store'])->name('journals.st
  Route::get('/feedback', [FeedbackController::class, 'feedback'])->name('feedback');
 
  Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.home');
- Route::get('/view-user-records', [AdminController::class, 'viewUserRecords'])->name('viewUserRecords');
- Route::get('/manage-user-permissions', [AdminController::class, 'manageUserPermissions'])->name('manageUserPermissions');
+ Route::get('/admin/view-user-records', [AdminController::class, 'viewUserRecords'])->name('admin.viewUserRecords');
+ Route::get('/admin/manage-user-permissions', [AdminController::class, 'manageUserPermissions'])->name('admin.manageUserPermissions');
