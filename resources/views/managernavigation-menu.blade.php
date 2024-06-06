@@ -15,9 +15,9 @@
                     <x-nav-link href="{{ route('manager.home') }}" :active="request()->routeIs('manager.home')">
                         {{ __('Manager Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('evaluation.form.report') }}" :active="request()->routeIs('evaluation.form.report')">
+                    <x-nav-link href="{{ route('evaluation-form-report') }}" :active="request()->routeIs('evaluation-form-report')">
                         {{ __('Evaluation Form Report') }}
-                    </x-nav-link><x-nav-link href="{{ route('plan.activities') }}" :active="request()->routeIs('plan.activities')">
+                    </x-nav-link><x-nav-link href="{{ route('plan-activities') }}" :active="request()->routeIs('plan-activities')">
                         {{ __('Plan Activities') }}
                     </x-nav-link><x-nav-link href="{{ route('feedback') }}" :active="request()->routeIs('feedback')">
                         {{ __('Feedback') }}

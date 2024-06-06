@@ -37,7 +37,7 @@ Route::post('/journals', [JournalController::class, 'store'])->name('journals.st
 
  // Manager specific routes
  Route::get('/manager/dashboard', [ManagerController::class, 'index'])->name('manager.home');
- Route::get('/evaluation-form-report', [EvaluationFormReportController::class, 'evaluationFormReport'])->name('evaluation.form.report');
- Route::get('/plan-activities', [PlanActivitiesController::class, 'planActivities'])->name('plan.activities');
+ Route::get('/evaluation-form-report', [EvaluationFormReportController::class, 'evaluation-form-report'])->name('evaluation-form-report');
+ Route::get('/plan-activities', [PlanActivitiesController::class, 'planActivities'])->name('plan-activities');
  Route::get('/feedback', [FeedbackController::class, 'feedback'])->name('feedback');
 
