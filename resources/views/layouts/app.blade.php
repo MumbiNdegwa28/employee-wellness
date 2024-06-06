@@ -25,7 +25,26 @@
         <x-banner />
 
         <div class="min-h-screen bg-gray-100">
-            @livewire('navigation-menu')
+        @if (Auth::check())
+            @php
+                $roleid = Auth::user()->role_id;
+            @endphp
+
+            @if ($roleid == 1)
+                <!-- Admin Navigation Bar -->
+                @include('adminnavigation-menu')
+            @elseif ($roleid == 2)
+                <!-- Manager Navigation Bar -->
+                @include('managernavigation-menu')
+            @elseif ($roleid == 3)
+                <!-- Therapist Navigation Bar -->
+                @include('therapistnavigation-menu')
+            @else 
+                <!-- Employee Navigation Bar -->
+                @include('employeenavigation-menu')
+                @endif
+        @endif
+           
 
             <!-- Page Heading -->
             @if (isset($header))
