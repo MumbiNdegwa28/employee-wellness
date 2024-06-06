@@ -10,6 +10,7 @@ use App\Http\Controllers\EvaluationFormReportController;
 use App\Http\Controllers\PlanActivitiesController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -41,3 +42,6 @@ Route::post('/journals', [JournalController::class, 'store'])->name('journals.st
  Route::get('/plan-activities', [PlanActivitiesController::class, 'planActivities'])->name('plan-activities');
  Route::get('/feedback', [FeedbackController::class, 'feedback'])->name('feedback');
 
+ Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.home');
+ Route::get('/view-user-records', [AdminController::class, 'viewUserRecords'])->name('viewUserRecords');
+ Route::get('/manage-user-permissions', [AdminController::class, 'manageUserPermissions'])->name('manageUserPermissions');
