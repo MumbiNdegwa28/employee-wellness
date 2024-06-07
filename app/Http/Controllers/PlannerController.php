@@ -10,4 +10,8 @@ class PlannerController extends Controller
     {
         return view('therapist.planner');
     }
+    public function store(Request $request)
+    {
+        return Planner::create($request->all());
+    }
 }

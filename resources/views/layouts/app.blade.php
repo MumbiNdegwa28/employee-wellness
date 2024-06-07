@@ -20,6 +20,60 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_style.min.css">
 
+        <!--therapist planner calender scripts-->
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@5.10.1/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@5.10.1/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@5.10.1/main.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                plugins: [ 'dayGrid', 'interaction' ],
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,dayGridWeek,dayGridDay'
+                },
+                dateClick: function(info) {
+                    var title = prompt('Enter Event Title:');
+                    var description = prompt('Enter Event Description:');
+                    if (title) {
+                        fetch('/events', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            body: JSON.stringify({
+                                title: title,
+                                description: description,
+                                start: info.dateStr
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(event => {
+                            calendar.addEvent({
+                                title: event.title,
+                                start: event.start,
+                                allDay: true,
+                                description: event.description
+                            });
+                        });
+                    }
+                },
+                eventClick: function(info) {
+                    alert('Event: ' + info.event.title);
+                    alert('Description: ' + info.event.extendedProps.description);
+                },
+                editable: true,
+                selectable: true,
+                events: '/events'
+            });
+
+            calendar.render();
+        });
+    </script>
     </head>
     <body class="font-sans antialiased">
         <x-banner />

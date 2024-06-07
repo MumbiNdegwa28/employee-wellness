@@ -62,7 +62,9 @@ Route::post('/journals', [JournalController::class, 'store'])->name('journals.st
  Route::get('/therapist/home', [TherapistController::class, 'index'])->name('therapist.home');
  Route::get('/therapist/planner', [PlannerController::class, 'index'])->name('therapist.planner');
  Route::get('/therapist/chats', [ChatController::class, 'index'])->name('therapist.chats');
- 
+ Route::post('therapist/events', [PlannerController::class, 'store']);
+
+
  //Route::get('/admin/manage-user-permissions', [ManageUserPermissionsController::class, 'update'])->name('admin.manageUserPermissions');//
  // Route to edit user permissions
 Route::get('/admin/users/{user}/edit', [ManageUserPermissionsController::class, 'edit'])->name('admin.users.edit');
