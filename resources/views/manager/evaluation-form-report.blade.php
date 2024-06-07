@@ -13,7 +13,10 @@
                         Evaluation Form Report
                     </div>
                     <div class="mt-6 text-gray-500">
-                        <!-- Content for evaluation form report -->
+                        <!-- Add a button to view the evaluation form report -->
+                        <a href="{{ route('evaluation.report') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            View Evaluation Form Report
+                        </a>
                     </div>
                 </div>
             </div>
