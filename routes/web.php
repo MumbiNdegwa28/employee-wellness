@@ -48,4 +48,9 @@ Route::post('/journals', [JournalController::class, 'store'])->name('journals.st
  //Route::get('/admin/view-user-records', [ViewUserRecordsController::class, 'show'])->name('admin.viewUserRecords'); //
  Route::get('/admin/users', [ViewUserRecordsController::class, 'index'])->name('admin.users.index');
  Route::get('/admin/users/{user}', [ViewUserRecordsController::class, 'show'])->name('admin.users.show');
- Route::get('/admin/manage-user-permissions', [ManageUserPermissionsController::class, 'update'])->name('admin.manageUserPermissions');
+ //Route::get('/admin/manage-user-permissions', [ManageUserPermissionsController::class, 'update'])->name('admin.manageUserPermissions');//
+ // Route to edit user permissions
+Route::get('/admin/users/{user}/edit', [ManageUserPermissionsController::class, 'edit'])->name('admin.users.edit');
+
+// Route to update user permissions
+Route::put('/admin/users/{user}', [ManageUserPermissionsController::class, 'update'])->name('admin.users.update');
