@@ -43,7 +43,7 @@ Route::post('/journals', [JournalController::class, 'store'])->name('journals.st
 
  // Manager specific routes
  Route::get('/manager/dashboard', [ManagerController::class, 'index'])->name('manager.home');
- Route::get('/evaluation-form-report', [EvaluationFormReportController::class, 'index'])->name('evaluation-form-report.index');
+ Route::get('/evaluation-report', [EvaluationFormReportController::class, 'index'])->name('evaluation.report.index');
  Route::get('/plan-activities', [PlanActivitiesController::class, 'index'])->name('plan-activities.index');
  Route::get('/plan-activities', [ActivityController::class, 'index'])->name('activities.index');
  Route::post('/plan-activities', [ActivityController::class, 'store'])->name('activities.store');

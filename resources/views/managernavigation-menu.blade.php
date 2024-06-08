@@ -15,9 +15,9 @@
                     <x-nav-link href="{{ route('manager.home') }}" :active="request()->routeIs('manager.home')">
                         {{ __('Manager Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('evaluation-form-report') }}" :active="request()->routeIs('evaluation-form-report')">
+                    <x-nav-link href="{{ route('evaluation.report') }}" :active="request()->routeIs('evaluation.report')">
                         {{ __('Evaluation Form Report') }}
-                    </x-nav-link><x-nav-link href="{{ route('plan-activities') }}" :active="request()->routeIs('plan-activities')">
+                    </x-nav-link><x-nav-link href="{{ route('plan-activities.index') }}" :active="request()->routeIs('plan-activities.index')">
                         {{ __('Plan Activities') }}
                     </x-nav-link><x-nav-link href="{{ route('feedback') }}" :active="request()->routeIs('feedback')">
                         {{ __('Feedback') }}
@@ -150,6 +150,15 @@
             <x-responsive-nav-link href="{{ route('employee.home') }}" :active="request()->routeIs('employee.home')">
                 {{ __('manager.home') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('evaluation.report') }}" :active="request()->routeIs('evaluation.report')">
+                {{ __('Evaluation Form Report') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('plan-activities.index') }}" :active="request()->routeIs('plan-activities.index')">
+                {{ __('Plan Activities') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('feedback') }}" :active="request()->routeIs('feedback')">
+                {{ __('Feedback') }}
+            </x-responsive-nav-link>    
         </div>
 
         <!-- Responsive Settings Options -->
