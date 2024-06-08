@@ -15,6 +15,9 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EvaluationFormController;
 use App\Http\Controllers\ViewUserRecordsController;
 use App\Http\Controllers\ManageUserPermissionsController;
+use App\Http\Controllers\TherapistController;
+use App\Http\Controllers\PlannerController;
+use App\Http\Controllers\ChatController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -53,7 +56,15 @@ Route::post('/journals', [JournalController::class, 'store'])->name('journals.st
  //Route::get('/admin/view-user-records', [ViewUserRecordsController::class, 'show'])->name('admin.viewUserRecords'); //
  Route::get('/admin/users', [ViewUserRecordsController::class, 'index'])->name('admin.users.index');
  Route::get('/admin/users/{user}', [ViewUserRecordsController::class, 'show'])->name('admin.users.show');
- 
+ Route::get('/admin/manage-user-permissions', [ManageUserPermissionsController::class, 'update'])->name('admin.manageUserPermissions');
+
+ //therapist routes
+ Route::get('/therapist/home', [TherapistController::class, 'index'])->name('therapist.home');
+ Route::get('/therapist/planner', [PlannerController::class, 'index'])->name('therapist.planner');
+ Route::get('/therapist/chats', [ChatController::class, 'index'])->name('therapist.chats');
+ Route::post('therapist/events', [PlannerController::class, 'store']);
+
+
  //Route::get('/admin/manage-user-permissions', [ManageUserPermissionsController::class, 'update'])->name('admin.manageUserPermissions');//
  // Route to edit user permissions
 Route::get('/admin/users/{user}/edit', [ManageUserPermissionsController::class, 'edit'])->name('admin.users.edit');
