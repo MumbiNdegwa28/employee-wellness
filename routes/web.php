@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\EvaluationFormReportController;
