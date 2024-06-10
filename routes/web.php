@@ -38,13 +38,13 @@ Route::get('/employee/resources',[EmployeeController::class,'resources'])->name(
 Route::get('/employee/appointments',[EmployeeController::class,'appointment'])->name('employee.appointment');
 Route::get('/employee/chats',[EmployeeController::class,'chats'])->name('employee.chats');
 Route::post('/submit-evaluation', [EvaluationFormController::class, 'submit'])->name('submit-evaluation');
-Route::get('/evaluation-report', [EvaluationFormController::class, 'showReport'])->name('evaluation.report');
 Route::get('/employee/resources', [ResourceController::class, 'showResources'])->name('employee.resources');
 Route::get('/employee/journals', [JournalController::class, 'show'])->name('journals.show');
 Route::post('/journals', [JournalController::class, 'store'])->name('journals.store');
 
  // Manager specific routes
  Route::get('/manager/dashboard', [ManagerController::class, 'index'])->name('manager.home');
+ Route::get('/evaluation-report', [EvaluationFormController::class, 'showReport'])->name('evaluation.report');
  Route::get('/evaluation-report', [EvaluationFormReportController::class, 'index'])->name('evaluation.report.index');
  Route::get('/plan-activities', [PlanActivitiesController::class, 'index'])->name('plan-activities.index');
  Route::get('/plan-activities', [ActivityController::class, 'index'])->name('activities.index');
