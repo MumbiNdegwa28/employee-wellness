@@ -36,7 +36,7 @@ class ManageUserPermissionsController extends Controller
     public function index(Request $request)
     {
         // Your logic here
-        return view('your-view-name'); // Replace 'your-view-name' with your actual view name
+        return view('users.index'); // Replace 'your-view-name' with your actual view name
     }
 
 }
