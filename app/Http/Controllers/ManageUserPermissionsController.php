@@ -36,7 +36,8 @@ class ManageUserPermissionsController extends Controller
     public function index(Request $request)
     {
         // Your logic here
-        return view('users.index'); // Replace 'your-view-name' with your actual view name
+        $users = User::all(); // Fetch all users from the database
+        return view('admin.users.index', compact('users')); // Pass users to the view
     }
 
 }
