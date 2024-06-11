@@ -32,4 +32,11 @@ class ManageUserPermissionsController extends Controller
 
         return redirect()->route('admin.users.show', $user)->with('success', 'User permissions updated successfully.');
     }
+
+    public function index(Request $request)
+    {
+        // Your logic here
+        return view('your-view-name'); // Replace 'your-view-name' with your actual view name
+    }
+
 }
