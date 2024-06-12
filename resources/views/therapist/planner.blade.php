@@ -15,6 +15,8 @@
                     <div class="mt-6 text-gray-500">
                         Use this section to manage your daily, weekly, and monthly schedules.
                     </div>
+                    </div>
+                    <div id="calendar" class="mt-6"></div>
                 </div>
             </div>
         </div>

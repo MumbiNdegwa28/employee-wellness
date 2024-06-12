@@ -24,56 +24,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@5.10.1/main.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@5.10.1/main.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@5.10.1/main.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                plugins: [ 'dayGrid', 'interaction' ],
-                headerToolbar: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,dayGridWeek,dayGridDay'
-                },
-                dateClick: function(info) {
-                    var title = prompt('Enter Event Title:');
-                    var description = prompt('Enter Event Description:');
-                    if (title) {
-                        fetch('/events', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                            },
-                            body: JSON.stringify({
-                                title: title,
-                                description: description,
-                                start: info.dateStr
-                            })
-                        })
-                        .then(response => response.json())
-                        .then(event => {
-                            calendar.addEvent({
-                                title: event.title,
-                                start: event.start,
-                                allDay: true,
-                                description: event.description
-                            });
-                        });
-                    }
-                },
-                eventClick: function(info) {
-                    alert('Event: ' + info.event.title);
-                    alert('Description: ' + info.event.extendedProps.description);
-                },
-                editable: true,
-                selectable: true,
-                events: '/events'
-            });
-
-            calendar.render();
-        });
-    </script>
     </head>
     <body class="font-sans antialiased">
         <x-banner />
@@ -118,6 +68,43 @@
         @stack('modals')
 
         @livewireScripts
+         <!-- FullCalendar Scripts -->
+    <link rel="stylesheet" href="{{ asset('css/fullcalendar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/fullcalendar-daygrid.css') }}">
+    <script src="{{ asset('js/fullcalendar.js') }}"></script>
+    <script src="{{ asset('js/fullcalendar-daygrid.js') }}"></script>
+    <script src="{{ asset('js/fullcalendar-interaction.js') }}"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                plugins: ['dayGrid', 'interaction'],
+                initialView: 'dayGridMonth',
+                editable: true,
+                selectable: true,
+                events: [
+                    {
+                        title: 'Event 1',
+                        start: '2023-06-01',
+                        end: '2023-06-02'
+                    },
+                    {
+                        title: 'Event 2',
+                        start: '2023-06-05',
+                        end: '2023-06-07'
+                    }
+                ],
+                dateClick: function(info) {
+                    alert('Date: ' + info.dateStr);
+                },
+                eventClick: function(info) {
+                    alert('Event: ' + info.event.title);
+                }
+            });
+            calendar.render();
+        });
+    </script>
         <script src="https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
@@ -133,5 +120,41 @@
                 });
             });
         </script>
+        <!--pusher scripts-->
+        <script>
+        document.getElementById('message-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const message = document.getElementById('message').value;
+
+            fetch('/send-message', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ message: message })
+            }).then(response => response.json()).then(data => {
+                if (data.status === 'Message sent!') {
+                    alert('Message sent successfully!');
+                    document.getElementById('message').value = '';
+                } else {
+                    alert('Failed to send message.');
+                }
+            });
+        });
+
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
+            cluster: '{{ env('PUSHER_APP_CLUSTER') }}',
+            encrypted: true
+        });
+
+        var channel = pusher.subscribe('private-messages.{{ auth()->user()->id }}');
+        channel.bind('App\\Events\\MessageSent', function(data) {
+            alert('New message: ' + data.message);
+        });
+    </script>
+
     </body>
 </html>

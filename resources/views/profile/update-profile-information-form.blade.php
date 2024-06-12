@@ -52,11 +52,18 @@
             </div>
         @endif
 
-        <!-- Name -->
+        <!-- First Name -->
         <div class="col-span-6 sm:col-span-4">
-            <x-label for="name" value="{{ __('Name') }}" />
-            <x-input id="name" type="text" class="mt-1 block w-full" wire:model="state.name" required autocomplete="name" />
-            <x-input-error for="name" class="mt-2" />
+            <x-label for="fname" value="{{ __('First Name') }}" />
+            <x-input id="fname" type="text" class="mt-1 block w-full" wire:model="state.fname" required autocomplete="fname" />
+            <x-input-error for="fname" class="mt-2" />
+        </div>
+
+        <!-- Last Name -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="lname" value="{{ __('Last Name') }}" />
+            <x-input id="lname" type="text" class="mt-1 block w-full" wire:model="state.lname" required autocomplete="lname" />
+            <x-input-error for="lname" class="mt-2" />
         </div>
 
         <!-- Email -->

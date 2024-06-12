@@ -17,6 +17,7 @@ use App\Http\Controllers\ManageUserPermissionsController;
 use App\Http\Controllers\TherapistController;
 use App\Http\Controllers\PlannerController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\RequestAppointmentController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -42,6 +43,7 @@ Route::get('/evaluation-report', [EvaluationFormController::class, 'showReport']
 Route::get('/employee/resources', [ResourceController::class, 'showResources'])->name('employee.resources');
 Route::get('/employee/journals', [JournalController::class, 'show'])->name('journals.show');
 Route::post('/journals', [JournalController::class, 'store'])->name('journals.store');
+Route::post('/send-message', [MessageController::class, 'sendMessage']);
 
  // Manager specific routes
  Route::get('/manager/dashboard', [ManagerController::class, 'index'])->name('manager.home');
