@@ -32,4 +32,12 @@ class ManageUserPermissionsController extends Controller
 
         return redirect()->route('admin.users.show', $user)->with('success', 'User permissions updated successfully.');
     }
+
+    public function index(Request $request)
+    {
+        // Your logic here
+        $users = User::all(); // Fetch all users from the database
+        return view('admin.users.index', compact('users')); // Pass users to the view
+    }
+
 }

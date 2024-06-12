@@ -31,7 +31,8 @@ class CreateNewUser implements CreatesNewUsers
             'gender' => ['required', 'string', 'max:255'],
         ])->validate();
 
-        $role = Role::where('name', 'default_role_name')->first();
+        $role = Role::where('fname', 'default_role_name')->first();
+        $role = Role::where('lname', 'default_role_name')->first();
 
         return User::create([
             'fname' => $input['fname'],

@@ -39,7 +39,6 @@ Route::get('/employee/resources',[EmployeeController::class,'resources'])->name(
 Route::get('/employee/appointments',[EmployeeController::class,'appointment'])->name('employee.appointment');
 Route::get('/employee/chats',[EmployeeController::class,'chats'])->name('employee.chats');
 Route::post('/submit-evaluation', [EvaluationFormController::class, 'submit'])->name('submit-evaluation');
-Route::get('/evaluation-report', [EvaluationFormController::class, 'showReport'])->name('evaluation.report');
 Route::get('/employee/resources', [ResourceController::class, 'showResources'])->name('employee.resources');
 Route::get('/employee/journals', [JournalController::class, 'show'])->name('journals.show');
 Route::post('/journals', [JournalController::class, 'store'])->name('journals.store');
@@ -47,6 +46,7 @@ Route::post('/send-message', [MessageController::class, 'sendMessage']);
 
  // Manager specific routes
  Route::get('/manager/dashboard', [ManagerController::class, 'index'])->name('manager.home');
+ Route::get('/evaluation-report', [EvaluationFormController::class, 'showReport'])->name('evaluation.report');
  Route::get('/evaluation-report', [EvaluationFormReportController::class, 'index'])->name('evaluation.report.index');
  Route::get('/plan-activities', [PlanActivitiesController::class, 'index'])->name('plan-activities.index');
  Route::get('/plan-activities', [ActivityController::class, 'index'])->name('activities.index');
@@ -57,6 +57,7 @@ Route::post('/send-message', [MessageController::class, 'sendMessage']);
  //Route::get('/admin/view-user-records', [ViewUserRecordsController::class, 'show'])->name('admin.viewUserRecords'); //
  Route::get('/admin/users', [ViewUserRecordsController::class, 'index'])->name('admin.users.index');
  Route::get('/admin/users/{user}', [ViewUserRecordsController::class, 'show'])->name('admin.users.show');
+ Route::get('/admin/manage-user-permissions', [ManageUserPermissionsController::class, 'index'])->name('admin.manageUserPermissions');
  Route::get('/admin/users/{user}/edit', [ManageUserPermissionsController::class, 'edit'])->name('admin.users.edit');
  Route::put('/admin/users/{user}', [ManageUserPermissionsController::class, 'update'])->name('admin.users.update');
 
