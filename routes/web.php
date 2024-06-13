@@ -18,6 +18,7 @@ use App\Http\Controllers\TherapistController;
 use App\Http\Controllers\PlannerController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\RequestAppointmentController;
+use App\Http\Controllers\AppointmentRequestController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -64,5 +65,6 @@ Route::post('/send-message', [RequestAppointmentController::class, 'sendMessage'
  //therapist routes
  Route::get('/therapist/home', [TherapistController::class, 'index'])->name('therapist.home');
  Route::get('/therapist/planner', [PlannerController::class, 'index'])->name('therapist.planner');
- Route::get('/therapist/chats', [ChatController::class, 'index'])->name('therapist.chats');
+ Route::get('/therapist/appointmentrequests', [AppointmentRequestController::class, 'index'])->name('therapist.chats');
  Route::post('therapist/events', [PlannerController::class, 'store']);
+ Route::post('/send-message', [AppointmentRequestController::class, 'sendMessage'])->name('send-message');

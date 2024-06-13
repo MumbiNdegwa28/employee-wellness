@@ -19,7 +19,7 @@
                         {{ __('Planner') }}
                     </x-nav-link>
                     <x-nav-link href="{{ route('therapist.chats') }}" :active="request()->routeIs('therapist.chats')">
-                        {{ __('Chats') }}
+                        {{ __('Appointment Requests') }}
                     </x-nav-link>
                 </div>
             </div>

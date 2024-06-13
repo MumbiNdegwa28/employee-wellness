@@ -7,7 +7,7 @@ use App\Notifications\MessageNotification;
 use App\Events\MessageSent;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Bus\Queueable;
-use App\Models\RequestAppointment;
+// use App\Models\RequestAppointment;
 
 
 class RequestAppointmentController extends Controller
@@ -26,7 +26,7 @@ class RequestAppointmentController extends Controller
         $user = auth()->user();
 
         // Send the notification
-        RequestAppointment::send($user, new MessageNotification($message));
+        Notification::send($user, new MessageNotification($message));
 
         // Redirect back with a success message
         return redirect()->back()->with('status', 'Message sent!');
