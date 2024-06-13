@@ -3,42 +3,48 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+
 
 class MessageNotification extends Notification
 {
     use Queueable;
 
-    public $message;
-    public $user;
+    private $message;
 
-    public function __construct($message, $user)
+    /**
+     * Create a new notification instance.
+     *
+     * @param string $message
+     */
+    public function __construct($message)
     {
         $this->message = $message;
-        $this->user = $user;
     }
 
+    /**
+     * Get the notification's delivery channels.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
     public function via($notifiable)
     {
-        return ['database', 'broadcast'];
+        return ['database'];
     }
 
+    /**
+     * Get the array representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
     public function toArray($notifiable)
     {
         return [
             'message' => $this->message,
-            'user' => $this->user,
+            'user' => auth()->user(),
         ];
-    }
-
-    public function toBroadcast($notifiable)
-    {
-        return new BroadcastMessage([
-            'message' => $this->message,
-            'user' => $this->user,
-        ]);
     }
 }

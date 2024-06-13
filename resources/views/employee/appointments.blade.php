@@ -16,7 +16,7 @@
                         Use the form below to send a message to the therapist.
                     </div>
 
-                    <form id="message-form" class="mt-6">
+                    <form action="{{ route('send-message') }}" method="POST" class="mt-6">
                         @csrf
                         <div>
                             <textarea id="message" name="message" rows="4" class="block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"></textarea>

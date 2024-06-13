@@ -122,26 +122,26 @@
         </script>
         <!--pusher scripts-->
         <script>
-        document.getElementById('message-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const message = document.getElementById('message').value;
+        //  document.getElementById('message-form').addEventListener('submit', function(e) {
+        //     e.preventDefault();
+        //     const message = document.getElementById('message').value;
 
-            fetch('/send-message', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify({ message: message })
-            }).then(response => response.json()).then(data => {
-                if (data.status === 'Message sent!') {
-                    alert('Message sent successfully!');
-                    document.getElementById('message').value = '';
-                } else {
-                    alert('Failed to send message.');
-                }
-            });
-        });
+        //     fetch('/send-message', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        //         },
+        //         body: JSON.stringify({ message: message })
+        //     }).then(response => response.json()).then(data => {
+        //         if (data.status === 'Message sent!') {
+        //             alert('Message sent successfully!');
+        //             document.getElementById('message').value = '';
+        //         } else {
+        //             alert('Failed to send message.');
+        //         }
+        //     });
+        // }); 
 
         Pusher.logToConsole = true;
 

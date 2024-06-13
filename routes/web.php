@@ -42,7 +42,7 @@ Route::post('/submit-evaluation', [EvaluationFormController::class, 'submit'])->
 Route::get('/employee/resources', [ResourceController::class, 'showResources'])->name('employee.resources');
 Route::get('/employee/journals', [JournalController::class, 'show'])->name('journals.show');
 Route::post('/journals', [JournalController::class, 'store'])->name('journals.store');
-Route::post('/send-message', [MessageController::class, 'sendMessage']);
+Route::post('/send-message', [RequestAppointmentController::class, 'sendMessage'])->name('send-message');
 
  // Manager specific routes
  Route::get('/manager/dashboard', [ManagerController::class, 'index'])->name('manager.home');

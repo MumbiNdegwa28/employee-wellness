@@ -3,21 +3,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Notifications\MessageNotification
+use App\Notifications\MessageNotification;
+use App\Events\MessageSent;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Bus\Queueable;
+use App\Models\RequestAppointment;
+
 
 class RequestAppointmentController extends Controller
 {
     public function sendMessage(Request $request)
     {
+        // Validate the message
+        $request->validate([
+            'message' => 'required|string|max:255',
+        ]);
+
+        // Get the validated message
+        $message = $request->input('message');
+
+        // Get the user (assuming you want to notify the authenticated user)
         $user = auth()->user();
-        $message = $request->message;
 
-        // Send the message notification
-        $user->notify(new MessageNotification($message, $user));
+        // Send the notification
+        RequestAppointment::send($user, new MessageNotification($message));
 
-        // Broadcast the event
-        broadcast(new MessageSent($message, $user))->toOthers();
-
-        return response()->json(['status' => 'Message sent!']);
+        // Redirect back with a success message
+        return redirect()->back()->with('status', 'Message sent!');
     }
 }
