@@ -5,39 +5,44 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Permission;
-
 use Illuminate\Http\Request;
 
 class ManageUserPermissionsController extends Controller
 {
+    public function index()
+    {
+        // Fetch all users from the database
+        $users = User::all();
+        return view('admin.manageUserPermissions.index', compact('users'));
+    }
+
     public function edit(User $user)
     {
         $roles = Role::all();
         $permissions = Permission::all();
 
-        return view('admin.users.edit', compact('user', 'roles', 'permissions'));
+         // Load the user's current permissions
+        $user->load('permissions');
+        return view('admin.manageUserPermissions.edit', compact('user', 'roles', 'permissions'));
     }
 
     public function update(Request $request, User $user)
     {
         // Validate the request
         $request->validate([
-            'roles' => 'array|nullable',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
             'permissions' => 'array|nullable',
         ]);
 
+         // Update user details
+         $user->name = $request->name;
+         $user->email = $request->email;
+         $user->save();
+
         // Sync roles and permissions
-        $user->roles()->sync($request->input('roles', []));
         $user->permissions()->sync($request->input('permissions', []));
 
-        return redirect()->route('admin.users.show', $user)->with('success', 'User permissions updated successfully.');
+        return redirect()->route('admin.manageUserPermissions.index')->with('success', 'User permissions updated successfully.');
     }
-
-    public function index(Request $request)
-    {
-        // Your logic here
-        $users = User::all(); // Fetch all users from the database
-        return view('admin.users.index', compact('users')); // Pass users to the view
-    }
-
 }

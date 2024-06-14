@@ -10,7 +10,7 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
                 <h3 class="text-lg font-semibold mb-4">{{ $user->name }} - {{ $user->email }}</h3>
                 
-                <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
+                <form action="{{ route('admin.manageUserPermissions.update', $user->id) }}" method="POST">
                     @csrf
                     @method('PUT')
 
