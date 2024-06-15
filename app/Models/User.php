@@ -92,4 +92,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->roles->contains('name', $role);
     } 
+    public function isTherapist()
+    {
+        return $this->role && $this->role->role_name === 'Therapist';
+    }
 }
+
