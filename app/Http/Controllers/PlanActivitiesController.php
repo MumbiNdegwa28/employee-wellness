@@ -8,6 +8,6 @@ class PlanActivitiesController extends Controller
 {
     public function index()
     {
-        return view('plan-activities');
+        return view('/plan-activities/s');
     }
 }

@@ -24,6 +24,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@5.10.1/main.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@5.10.1/main.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@5.10.1/main.min.js"></script>
+
     </head>
     <body class="font-sans antialiased">
         <x-banner />
@@ -145,16 +146,24 @@
 
         Pusher.logToConsole = true;
 
-        var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
-            cluster: '{{ env('PUSHER_APP_CLUSTER') }}',
-            encrypted: true
-        });
+        // Ensure Pusher is loaded before using it
+       import Pusher from 'pusher-js';
 
-        var channel = pusher.subscribe('private-messages.{{ auth()->user()->id }}');
+        // Initialize Pusher with the appropriate credentials
+
+        var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
+    cluster: '{{ env('PUSHER_APP_CLUSTER') }}',
+    encrypted: true
+    });
+
+
+        var userId = "{{ auth()->user()->id }}";
+        var channel = pusher.subscribe('private-messages.' + userId);
         channel.bind('App\\Events\\MessageSent', function(data) {
             alert('New message: ' + data.message);
         });
     </script>
+     <script src="https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js"></script>
 
     </body>
 </html>

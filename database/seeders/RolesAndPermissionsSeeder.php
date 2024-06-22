@@ -25,14 +25,5 @@ class RolesAndPermissionsSeeder extends Seeder
             Permission::create(['name' => $permission]);
         }
 
-        $roles = [
-            'admin',
-            'editor',
-            'viewer',
-        ];
-
-        foreach ($roles as $role) {
-            Role::create(['name' => $role]);
-        }
     }
 }
