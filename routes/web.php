@@ -67,4 +67,6 @@ Route::post('/send-message', [RequestAppointmentController::class, 'sendMessage'
  Route::get('/therapist/planner', [PlannerController::class, 'index'])->name('therapist.planner');
  Route::get('/therapist/appointmentrequests', [AppointmentRequestController::class, 'index'])->name('therapist.chats');
  Route::post('therapist/events', [PlannerController::class, 'store']);
- Route::post('/send-message', [AppointmentRequestController::class, 'sendMessage'])->name('send-message');
+ Route::get('/appointmentrequests', [AppointmentRequestController::class, 'showNotifications'])->name('appointmentrequests.index');
+ Route::put('/notifications/{id}', [AppointmentRequestController::class, 'markAsRead'])->name('notifications.markAsRead');
+ Route::post('/send-reply', [AppointmentRequestController::class, 'sendReply'])->name('send-reply');
