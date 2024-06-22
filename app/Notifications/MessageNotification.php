@@ -3,9 +3,9 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\MailMessage;
 
 class MessageNotification extends Notification
 {
@@ -16,7 +16,7 @@ class MessageNotification extends Notification
     /**
      * Create a new notification instance.
      *
-     * @param string $message
+     * @return void
      */
     public function __construct($message)
     {
@@ -31,7 +31,22 @@ class MessageNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['mail', 'database'];
+    }
+
+    /**
+     * Get the mail representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return \Illuminate\Notifications\Messages\MailMessage
+     */
+    public function toMail($notifiable)
+    {
+        return (new MailMessage)
+                    ->line('You have received a new message.')
+                    ->line($this->message)
+                    ->action('View Message', url('/'))
+                    ->line('Thank you for using our application!');
     }
 
     /**
@@ -44,7 +59,7 @@ class MessageNotification extends Notification
     {
         return [
             'message' => $this->message,
-            'user' => auth()->user(),
+            'user' => auth()->user()
         ];
     }
 }

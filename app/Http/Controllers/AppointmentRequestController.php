@@ -10,32 +10,42 @@ use App\Models\User;
 
 class AppointmentRequestController extends Controller
 {
-    public function index()
+    public function showNotifications(Request $request)
     {
-        return view('therapist.appointmentrequests');
+        $notifications = $request->user()->unreadNotifications;
+
+        return view('appointmentrequests', compact('notifications'));
     }
-    public function sendMessage(Request $request)
+
+    public function markAsRead($id)
     {
-        // Validate the message
+        $notification = auth()->user()->notifications()->findOrFail($id);
+        $notification->markAsRead();
+
+        return redirect()->back()->with('status', 'Notification marked as read!');
+    }
+
+    public function sendReply(Request $request)
+    {
+        // Validate the reply
         $request->validate([
-            'message' => 'required|string|max:255',
+            'reply' => 'required|string|max:255',
         ]);
 
-        // Get the validated message
-        $message = $request->input('message');
+        // Get the validated reply
+        $reply = $request->input('reply');
 
         // Get all therapists
         $therapists = User::whereHas('role', function($query) {
-            $query->where('role_name', 'Therapist'); // Use 'role_name' instead of 'name'
+            $query->where('role_name', 'Therapist');
         })->get();
 
         // Send the notification to all therapists
         foreach ($therapists as $therapist) {
-            $therapist->notify(new MessageNotification($message));
+            $therapist->notify(new MessageNotification($reply));
         }
 
         // Redirect back with a success message
-        return redirect()->back()->with('status', 'Message sent to all therapists!');
+        return redirect()->back()->with('status', 'Reply sent to all therapists!');
     }
 }
-
