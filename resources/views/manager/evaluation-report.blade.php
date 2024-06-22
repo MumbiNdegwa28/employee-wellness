@@ -13,10 +13,42 @@
                         Evaluation Form Report
                     </div>
                     <div class="mt-6 text-gray-500">
-                        <!-- Add a button to view the evaluation form report -->
-                        <a href="{{ route('evaluation.report') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                            View Evaluation Form Report
-                        </a>
+                        <table class="table-auto w-full">
+                            <thead>
+                                <tr>
+                                    <th class="px-4 py-2">ID</th>
+                                    <th class="px-4 py-2">Q1</th>
+                                    <th class="px-4 py-2">Q2</th>
+                                    <th class="px-4 py-2">Q3</th>
+                                    <th class="px-4 py-2">Q4</th>
+                                    <th class="px-4 py-2">Q5</th>
+                                    <th class="px-4 py-2">Q6</th>
+                                    <th class="px-4 py-2">Q7</th>
+                                    <th class="px-4 py-2">Q8</th>
+                                    <th class="px-4 py-2">Q9</th>
+                                    <th class="px-4 py-2">Total Score</th>
+                                    <th class="px-4 py-2">Severity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($evaluationForms as $form)
+                                    <tr>
+                                        <td class="border px-4 py-2">{{ $form->id }}</td>
+                                        <td class="border px-4 py-2">{{ $form->q1 }}</td>
+                                        <td class="border px-4 py-2">{{ $form->q2 }}</td>
+                                        <td class="border px-4 py-2">{{ $form->q3 }}</td>
+                                        <td class="border px-4 py-2">{{ $form->q4 }}</td>
+                                        <td class="border px-4 py-2">{{ $form->q5 }}</td>
+                                        <td class="border px-4 py-2">{{ $form->q6 }}</td>
+                                        <td class="border px-4 py-2">{{ $form->q7 }}</td>
+                                        <td class="border px-4 py-2">{{ $form->q8 }}</td>
+                                        <td class="border px-4 py-2">{{ $form->q9 }}</td>
+                                        <td class="border px-4 py-2">{{ $form->total_score }}</td>
+                                        <td class="border px-4 py-2">{{ $form->severity }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

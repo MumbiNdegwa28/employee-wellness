@@ -10,7 +10,7 @@ class ActivityController extends Controller
     public function index()
     {
         $activities = Activity::all();
-        return view('plan-activities', compact('activities'));
+        return view('plan-activities.index', compact('activities'));
     }
 
     public function store(Request $request)
@@ -24,6 +24,6 @@ class ActivityController extends Controller
 
         Activity::create($request->all());
 
-        return redirect()->route('activities.index');
+        return redirect()->route('plan-activities.index');
     }
 }

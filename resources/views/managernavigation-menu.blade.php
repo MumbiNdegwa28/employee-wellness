@@ -15,10 +15,10 @@
                     <x-nav-link href="{{ route('manager.home') }}" :active="request()->routeIs('manager.home')">
                         {{ __('Manager Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('evaluation.report') }}" : active="request()->routeIs('evaluation.report')">
+                    <x-nav-link href="{{ route('evaluation.form.report') }}" :active="request()->routeIs('evaluation.form.report')">
                         {{ __('Evaluation Form Report') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('plan-activities.index.s') }}" :active="request()->routeIs('plan-activities.index.s')">
+                    <x-nav-link href="{{ route('plan-activities.index') }}" :active="request()->routeIs('plan-activities.index')">
                         {{ __('Plan Activities') }}
                     </x-nav-link>
                     <x-nav-link href="{{ route('feedback') }}" :active="request()->routeIs('feedback')">
@@ -136,4 +136,60 @@
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 
+                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                        <path d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Responsive Navigation Menu -->
+    <div :class="{ 'block': open, 'hidden': ! open }" class="hidden sm:hidden">
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link href="{{ route('manager.home') }}" :active="request()->routeIs('manager.home')">
+                {{ __('Manager Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('evaluation.form.report') }}" :active="request()->routeIs('evaluation.form.report')">
+                {{ __('Evaluation Form Report') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('plan-activities.index') }}" :active="request()->routeIs('plan-activities.index')">
+                {{ __('Plan Activities') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('feedback') }}" :active="request()->routeIs('feedback')">
+                {{ __('Feedback') }}
+            </x-responsive-nav-link>
+        </div>
+
+        <!-- Responsive Settings Options -->
+        <div class="pt-4 pb-1 border-t border-gray-200">
+            <div class="px-4">
+                <div class="font-medium text-base text-gray-800">{{ Auth::user()->fname }}</div>
+                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+            </div>
+
+            <div class="mt-3 space-y-1">
+                <!-- Account Management -->
+                <x-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+                    {{ __('Profile') }}
+                </x-responsive-nav-link>
+
+                @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
+                    <x-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">
+                        {{ __('API Tokens') }}
+                    </x-responsive-nav-link>
+                @endif
+
+                <!-- Authentication -->
+                <form method="POST" action="{{ route('logout') }}" x-data>
+                    @csrf
+
+                    <x-responsive-nav-link href="{{ route('logout') }}"
+                                   @click.prevent="$root.submit();">
+                        {{ __('Log Out') }}
+                    </x-responsive-nav-link>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>

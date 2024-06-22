@@ -48,12 +48,13 @@ Route::post('/send-message', [RequestAppointmentController::class, 'sendMessage'
  // Manager specific routes
  Route::get('/manager/dashboard', [ManagerController::class, 'index'])->name('manager.home');
 
- Route::get('/evaluation-report/showReport', [EvaluationFormController::class, 'showReport'])->name('evaluation.report');
+ Route::get('/report', [EvaluationFormController::class, 'showReport'])->name('evaluation.form.report');
  Route::get('/evaluation-report', [EvaluationReportController::class, 'index'])->name('evaluation.report.index');
+ Route::get('/evaluation/{id}', [EvaluationFormController::class, 'show'])->name('evaluation.show');
 
- Route::get('/plan-activities/s', [PlanActivitiesController::class, 'index'])->name('plan-activities.index.s');
- Route::get('/plan-activities', [ActivityController::class, 'index'])->name('activities.index');
- Route::post('/plan-activities/store', [ActivityController::class, 'store'])->name('activities.store');
+ Route::get('/plan-activities/summary', [PlanActivitiesController::class, 'index'])->name('plan-activities.index');
+ Route::get('/activities', [ActivityController::class, 'index'])->name('activities.index');
+ Route::post('/activities/store', [ActivityController::class, 'store'])->name('activities.store');
 
  Route::get('/feedback', [FeedbackController::class, 'feedback'])->name('feedback');
  Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.home');
