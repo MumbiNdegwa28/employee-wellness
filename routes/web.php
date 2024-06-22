@@ -58,9 +58,9 @@ Route::post('/send-message', [RequestAppointmentController::class, 'sendMessage'
  //Route::get('/admin/view-user-records', [ViewUserRecordsController::class, 'show'])->name('admin.viewUserRecords'); //
  Route::get('/admin/users', [ViewUserRecordsController::class, 'index'])->name('admin.users.index');
  Route::get('/admin/users/{user}', [ViewUserRecordsController::class, 'show'])->name('admin.users.show');
- Route::get('/admin/manage-user-permissions', [ManageUserPermissionsController::class, 'index'])->name('admin.manageUserPermissions');
- Route::get('/admin/users/{user}/edit', [ManageUserPermissionsController::class, 'edit'])->name('admin.users.edit');
- Route::put('/admin/users/{user}', [ManageUserPermissionsController::class, 'update'])->name('admin.users.update');
+ Route::get('/admin/manage-user-permissions', [ManageUserPermissionsController::class, 'index'])->name('admin.manageUserPermissions.index');
+ Route::get('/admin/users/{user}/edit', [ManageUserPermissionsController::class, 'edit'])->name('admin.manageUserPermissions.edit');
+ Route::put('/admin/users/{user}', [ManageUserPermissionsController::class, 'update'])->name('admin.manageUserPermissions.update');
 
  //therapist routes
  Route::get('/therapist/home', [TherapistController::class, 'index'])->name('therapist.home');
