@@ -12,13 +12,13 @@ class HomeController extends Controller
         $user = Auth::user();
         
         if ($user->role_id === 4) {
-            return view('employee.home');
-        } elseif ($user->role_id ==- '3') {
-            return view('therapist.home');
-        } elseif ($user->role_id === '2') {
-            return view('manager.home');
+            return redirect()->route('employee.home');
+        } elseif ($user->role_id === 3) {
+            return redirect()->route('therapist.home');
+        } elseif ($user->role_id === 2) {
+            return redirect()->route('manager.home');
         } else {
-            return view('admin.home');
+            return redirect()->route('admin.home');
         }
     }
 }

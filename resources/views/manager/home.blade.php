@@ -16,7 +16,7 @@
                         Use the buttons below to navigate through the available options.
                     </div>
                     <div class="mt-6 flex space-x-4">
-                        <a href="{{ route('evaluation.form.report') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    <a href="{{ route('evaluation.form.report') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                             View Evaluation Form Report
                         </a>
                         <a href="{{ route('plan.activities') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -31,5 +31,5 @@
         </div>
     </div>
 
-    
+
 </x-app-layout>

@@ -21,33 +21,33 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_style.min.css">
 
         <!--therapist planner calender scripts-->
-    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@5.10.1/main.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@5.10.1/main.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@5.10.1/main.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@5.10.1/main.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@5.10.1/main.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@5.10.1/main.min.js"></script>
     </head>
     <body class="font-sans antialiased">
         <x-banner />
 
         <div class="min-h-screen bg-gray-100">
-        @if (Auth::check())
-            @php
-                $roleid = Auth::user()->role_id;
-            @endphp
+            @if (Auth::check())
+                @php
+                    $roleid = Auth::user()->role_id;
+                @endphp
 
-            @if ($roleid == 1)
-                <!-- Admin Navigation Bar -->
-                @include('adminnavigation-menu')
-            @elseif ($roleid == 2)
-                <!-- Manager Navigation Bar -->
-                @include('managernavigation-menu')
-            @elseif ($roleid == 3)
-                <!-- Therapist Navigation Bar -->
-                @include('therapistnavigation-menu')
-            @else 
-                <!-- Employee Navigation Bar -->
-                @include('employeenavigation-menu')
-                @endif
-        @endif
+                @if ($roleid == 1)
+                    <!-- Admin Navigation Bar -->
+                    @include('adminnavigation-menu')
+                @elseif ($roleid == 2)
+                    <!-- Manager Navigation Bar -->
+                    @include('managernavigation-menu')
+                @elseif ($roleid == 3)
+                    <!-- Therapist Navigation Bar -->
+                    @include('therapistnavigation-menu')
+                @else 
+                    <!-- Employee Navigation Bar -->
+                    @include('employeenavigation-menu')
+                    @endif
+            @endif
            
 
             <!-- Page Heading -->
@@ -69,11 +69,11 @@
 
         @livewireScripts
          <!-- FullCalendar Scripts -->
-    <link rel="stylesheet" href="{{ asset('css/fullcalendar.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/fullcalendar-daygrid.css') }}">
-    <script src="{{ asset('js/fullcalendar.js') }}"></script>
-    <script src="{{ asset('js/fullcalendar-daygrid.js') }}"></script>
-    <script src="{{ asset('js/fullcalendar-interaction.js') }}"></script>
+        <link rel="stylesheet" href="{{ asset('css/fullcalendar.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/fullcalendar-daygrid.css') }}">
+        <script src="{{ asset('js/fullcalendar.js') }}"></script>
+        <script src="{{ asset('js/fullcalendar-daygrid.js') }}"></script>
+        <script src="{{ asset('js/fullcalendar-interaction.js') }}"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -121,40 +121,27 @@
             });
         </script>
         <!--pusher scripts-->
-        <script>
-        //  document.getElementById('message-form').addEventListener('submit', function(e) {
-        //     e.preventDefault();
-        //     const message = document.getElementById('message').value;
-
-        //     fetch('/send-message', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        //         },
-        //         body: JSON.stringify({ message: message })
-        //     }).then(response => response.json()).then(data => {
-        //         if (data.status === 'Message sent!') {
-        //             alert('Message sent successfully!');
-        //             document.getElementById('message').value = '';
-        //         } else {
-        //             alert('Failed to send message.');
-        //         }
-        //     });
-        // }); 
-
-        Pusher.logToConsole = true;
-
-        var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
-            cluster: '{{ env('PUSHER_APP_CLUSTER') }}',
-            encrypted: true
-        });
+        @if(auth()->check())
+      <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+                var pusher = new Pusher('{{ env("PUSHER_APP_KEY") }}', {
+                    cluster: '{{ env("PUSHER_APP_CLUSTER") }}',
+                    encrypted: true
+                });
 
         var channel = pusher.subscribe('private-messages.{{ auth()->user()->id }}');
         channel.bind('App\\Events\\MessageSent', function(data) {
             alert('New message: ' + data.message);
+             // Updating the notification center with the new message
+            let notifications = document.getElementById('notifications');
+            let notificationItem = document.createElement('li');
+            notificationItem.textContent = data.message;
+            notifications.appendChild(notificationItem);
         });
+    });
     </script>
+    @endif
 
     </body>
 </html>

@@ -4,12 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Notifications\MessageNotification;
+use App\Events\MessageSent;
 use Illuminate\Support\Facades\Notification;
 use App\Models\User;
 
 
 class AppointmentRequestController extends Controller
 {
+    public function index()
+    {
+        $user = auth()->user();
+        if ($user) {
+            $notifications = $user->notifications;
+            return view('therapist.appointmentrequests', compact('notifications'));
+        } else {
+            return redirect()->route('login');
+        }
+    }
     public function showNotifications(Request $request)
     {
         $notifications = $request->user()->unreadNotifications;
@@ -43,6 +54,7 @@ class AppointmentRequestController extends Controller
         // Send the notification to all therapists
         foreach ($therapists as $therapist) {
             $therapist->notify(new MessageNotification($reply));
+            event(new MessageSent($reply, $therapist));
         }
 
         // Redirect back with a success message
