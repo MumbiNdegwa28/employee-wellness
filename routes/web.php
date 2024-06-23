@@ -5,7 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\JournalController;
-use App\Http\Controllers\EvaluationFormReportController;
+use App\Http\Controllers\EvaluationReportController;
 use App\Http\Controllers\PlanActivitiesController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\FeedbackController;
@@ -47,11 +47,15 @@ Route::post('/send-message', [RequestAppointmentController::class, 'sendMessage'
 
  // Manager specific routes
  Route::get('/manager/dashboard', [ManagerController::class, 'index'])->name('manager.home');
- Route::get('/evaluation-report', [EvaluationFormController::class, 'showReport'])->name('evaluation.report');
- Route::get('/evaluation-report', [EvaluationFormReportController::class, 'index'])->name('evaluation.report.index');
- Route::get('/plan-activities', [PlanActivitiesController::class, 'index'])->name('plan-activities.index');
- Route::get('/plan-activities', [ActivityController::class, 'index'])->name('activities.index');
- Route::post('/plan-activities', [ActivityController::class, 'store'])->name('activities.store');
+
+ Route::get('/report', [EvaluationFormController::class, 'showReport'])->name('evaluation.form.report');
+ Route::get('/evaluation-report', [EvaluationReportController::class, 'index'])->name('evaluation.report.index');
+ Route::get('/evaluation/{id}', [EvaluationFormController::class, 'show'])->name('evaluation.show');
+
+ Route::get('/plan-activities/summary', [PlanActivitiesController::class, 'index'])->name('plan-activities.index');
+ Route::get('/activities', [ActivityController::class, 'index'])->name('activities.index');
+ Route::post('/activities/store', [ActivityController::class, 'store'])->name('activities.store');
+
  Route::get('/feedback', [FeedbackController::class, 'feedback'])->name('feedback');
  Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.home');
  

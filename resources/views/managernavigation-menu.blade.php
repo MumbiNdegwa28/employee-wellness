@@ -15,14 +15,15 @@
                     <x-nav-link href="{{ route('manager.home') }}" :active="request()->routeIs('manager.home')">
                         {{ __('Manager Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('evaluation.report') }}" :active="request()->routeIs('evaluation.report')">
+                    <x-nav-link href="{{ route('evaluation.form.report') }}" :active="request()->routeIs('evaluation.form.report')">
                         {{ __('Evaluation Form Report') }}
-                    </x-nav-link><x-nav-link href="{{ route('plan-activities.index') }}" :active="request()->routeIs('plan-activities.index')">
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('plan-activities.index') }}" :active="request()->routeIs('plan-activities.index')">
                         {{ __('Plan Activities') }}
-                    </x-nav-link><x-nav-link href="{{ route('feedback') }}" :active="request()->routeIs('feedback')">
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('feedback') }}" :active="request()->routeIs('feedback')">
                         {{ __('Feedback') }}
                     </x-nav-link>
-
                 </div>
             </div>
 
@@ -135,9 +136,8 @@
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                        <path d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
                 </button>
             </div>
@@ -145,12 +145,12 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+    <div :class="{ 'block': open, 'hidden': ! open }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('employee.home') }}" :active="request()->routeIs('employee.home')">
-                {{ __('manager.home') }}
+            <x-responsive-nav-link href="{{ route('manager.home') }}" :active="request()->routeIs('manager.home')">
+                {{ __('Manager Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('evaluation.report') }}" :active="request()->routeIs('evaluation.report')">
+            <x-responsive-nav-link href="{{ route('evaluation.form.report') }}" :active="request()->routeIs('evaluation.form.report')">
                 {{ __('Evaluation Form Report') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('plan-activities.index') }}" :active="request()->routeIs('plan-activities.index')">
@@ -158,22 +158,14 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('feedback') }}" :active="request()->routeIs('feedback')">
                 {{ __('Feedback') }}
-            </x-responsive-nav-link>    
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="flex items-center px-4">
-                @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-                    <div class="shrink-0 me-3">
-                        <img class="h-10 w-10 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
-                    </div>
-                @endif
-
-                <div>
-                    <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                    <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-                </div>
+            <div class="px-4">
+                <div class="font-medium text-base text-gray-800">{{ Auth::user()->fname }}</div>
+                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
             </div>
 
             <div class="mt-3 space-y-1">
@@ -197,39 +189,6 @@
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>
                 </form>
-
-                <!-- Team Management -->
-                @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
-                    <div class="border-t border-gray-200"></div>
-
-                    <div class="block px-4 py-2 text-xs text-gray-400">
-                        {{ __('Manage Team') }}
-                    </div>
-
-                    <!-- Team Settings -->
-                    <x-responsive-nav-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}" :active="request()->routeIs('teams.show')">
-                        {{ __('Team Settings') }}
-                    </x-responsive-nav-link>
-
-                    @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
-                        <x-responsive-nav-link href="{{ route('teams.create') }}" :active="request()->routeIs('teams.create')">
-                            {{ __('Create New Team') }}
-                        </x-responsive-nav-link>
-                    @endcan
-
-                    <!-- Team Switcher -->
-                    @if (Auth::user()->allTeams()->count() > 1)
-                        <div class="border-t border-gray-200"></div>
-
-                        <div class="block px-4 py-2 text-xs text-gray-400">
-                            {{ __('Switch Teams') }}
-                        </div>
-
-                        @foreach (Auth::user()->allTeams() as $team)
-                            <x-switchable-team :team="$team" component="responsive-nav-link" />
-                        @endforeach
-                    @endif
-                @endif
             </div>
         </div>
     </div>

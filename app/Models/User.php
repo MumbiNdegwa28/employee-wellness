@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Fortify\Fortify;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -58,6 +59,9 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @return array<string, string>
      */
+
+
+
     protected function casts(): array
     {
         return [
