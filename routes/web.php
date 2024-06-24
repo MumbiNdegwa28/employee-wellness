@@ -75,4 +75,9 @@ Route::post('/send-message', [RequestAppointmentController::class, 'sendMessage'
  Route::get('/appointmentrequests', [AppointmentRequestController::class, 'showNotifications'])->name('appointmentrequests.showNotifications');
  Route::put('/notifications/{id}', [AppointmentRequestController::class, 'markAsRead'])->name('notifications.markAsRead');
  Route::post('/send-reply', [AppointmentRequestController::class, 'sendReply'])->name('send-reply');
- 
+ //jaba
+ Route::get('/appointmentrequests', [AppointmentRequestController::class, 'index'])->name('appointmentrequests.index');
+ Route::post('/send-message', [AppointmentRequestController::class, 'sendMessage'])->name('send-message');
+ Route::get('/notifications', [AppointmentRequestController::class, 'showNotifications'])->name('notifications.show');
+ Route::post('/notifications/mark-as-read/{id}', [AppointmentRequestController::class, 'markAsRead'])->name('notifications.markAsRead');
+ Route::post('/send-reply/{notificationId}', [AppointmentRequestController::class, 'sendReply'])->name('send-reply');

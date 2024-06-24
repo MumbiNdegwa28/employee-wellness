@@ -21,16 +21,9 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_style.min.css">
 
         <!--therapist planner calender scripts-->
-<<<<<<< HEAD
         <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@5.10.1/main.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@5.10.1/main.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@5.10.1/main.min.js"></script>
-=======
-    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@5.10.1/main.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@5.10.1/main.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@5.10.1/main.min.js"></script>
-
->>>>>>> 713785a60ae0dd7129c44074eaaacbe09b8710ff
     </head>
     <body class="font-sans antialiased">
         <x-banner />
@@ -127,51 +120,24 @@
                 });
             });
         </script>
+
         <!--pusher scripts-->
-<<<<<<< HEAD
-        @if(auth()->check())
+       
       <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+      @if(auth()->check())
       <script>
         document.addEventListener('DOMContentLoaded', function() {
                 var pusher = new Pusher('{{ env("PUSHER_APP_KEY") }}', {
                     cluster: '{{ env("PUSHER_APP_CLUSTER") }}',
                     encrypted: true
                 });
-=======
-        <script>
-        //  document.getElementById('message-form').addEventListener('submit', function(e) {
-        //     e.preventDefault();
-        //     const message = document.getElementById('message').value;
-
-        //     fetch('/send-message', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        //         },
-        //         body: JSON.stringify({ message: message })
-        //     }).then(response => response.json()).then(data => {
-        //         if (data.status === 'Message sent!') {
-        //             alert('Message sent successfully!');
-        //             document.getElementById('message').value = '';
-        //         } else {
-        //             alert('Failed to send message.');
-        //         }
-        //     });
-        // }); 
-
-        Pusher.logToConsole = true;
-
-        // Ensure Pusher is loaded before using it
-       import Pusher from 'pusher-js';
->>>>>>> 713785a60ae0dd7129c44074eaaacbe09b8710ff
 
         // Initialize Pusher with the appropriate credentials
 
         var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
-    cluster: '{{ env('PUSHER_APP_CLUSTER') }}',
-    encrypted: true
-    });
+        cluster: '{{ env('PUSHER_APP_CLUSTER') }}',
+        encrypted: true
+         });
 
 
         var userId = "{{ auth()->user()->id }}";
@@ -186,11 +152,7 @@
         });
     });
     </script>
-<<<<<<< HEAD
     @endif
-=======
-     <script src="https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js"></script>
->>>>>>> 713785a60ae0dd7129c44074eaaacbe09b8710ff
 
     </body>
 </html>
