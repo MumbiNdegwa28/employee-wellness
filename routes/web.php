@@ -84,3 +84,18 @@ Route::get('/messages', [ChatsController::class, 'fetchMessages'])->middleware('
 Route::post('/messages', [ChatsController::class, 'sendMessage'])->middleware('auth');
 
 
+ //therapist routes
+ Route::get('/therapist/home', [TherapistController::class, 'index'])->name('therapist.home');
+ Route::get('/therapist/planner', [PlannerController::class, 'index'])->name('therapist.planner');
+ Route::post('therapist/events', [PlannerController::class, 'store']);
+ Route::get('/therapist/appointmentrequests', [AppointmentRequestController::class, 'index'])->name('therapist.appointmentrequests');
+ Route::post('/notifications/mark-as-read/{id}', [AppointmentRequestController::class, 'markAsRead'])->name('notifications.markAsRead');
+ Route::get('/appointmentrequests', [AppointmentRequestController::class, 'showNotifications'])->name('appointmentrequests.showNotifications');
+ Route::put('/notifications/{id}', [AppointmentRequestController::class, 'markAsRead'])->name('notifications.markAsRead');
+ Route::post('/send-reply', [AppointmentRequestController::class, 'sendReply'])->name('send-reply');
+ //jaba
+ Route::get('/appointmentrequests', [AppointmentRequestController::class, 'index'])->name('appointmentrequests.index');
+ Route::post('/send-message', [AppointmentRequestController::class, 'sendMessage'])->name('send-message');
+ Route::get('/notifications', [AppointmentRequestController::class, 'showNotifications'])->name('notifications.show');
+ Route::post('/notifications/mark-as-read/{id}', [AppointmentRequestController::class, 'markAsRead'])->name('notifications.markAsRead');
+ Route::post('/send-reply/{notificationId}', [AppointmentRequestController::class, 'sendReply'])->name('send-reply');

@@ -18,7 +18,7 @@
                     <x-nav-link href="{{ route('therapist.planner') }}" :active="request()->routeIs('therapist.planner')">
                         {{ __('Planner') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('therapist.chats') }}" :active="request()->routeIs('therapist.chats')">
+                    <x-nav-link href="{{ route('therapist.appointmentrequests') }}" :active="request()->routeIs('therapist.appointmentrequests')">
                         {{ __('Appointment Requests') }}
                     </x-nav-link>
                 </div>
@@ -151,8 +151,8 @@
             <x-responsive-nav-link href="{{ route('therapist.planner') }}" :active="request()->routeIs('therapist.planner')">
                 {{ __('Planner') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('therapist.chats') }}" :active="request()->routeIs('therapist.chats')">
-                {{ __('Chats') }}
+            <x-responsive-nav-link href="{{ route('therapist.appointmentrequests') }}" :active="request()->routeIs('therapist.chats')">
+                {{ __('Appointment Requests') }}
             </x-responsive-nav-link>
         </div>
 
