@@ -71,11 +71,12 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     //Relationship with role model
-     public function role(){
+    public function role()
+    {
         return $this->belongsTo(Role::class);
-     }
-    
-     public function permissions()
+    }
+
+    public function permissions()
     {
         return $this->belongsToMany(Permission::class);
     }
@@ -95,10 +96,13 @@ class User extends Authenticatable implements MustVerifyEmail
     public function hasRole($role)
     {
         return $this->roles->contains('name', $role);
-    } 
+    }
     public function isTherapist()
     {
         return $this->role && $this->role->role_name === 'Therapist';
     }
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
 }
-

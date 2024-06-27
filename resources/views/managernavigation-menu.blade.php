@@ -15,13 +15,13 @@
                     <x-nav-link href="{{ route('manager.home') }}" :active="request()->routeIs('manager.home')">
                         {{ __('Manager Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('evaluation.form.report') }}" :active="request()->routeIs('evaluation.form.report')">
+                    <x-nav-link href="{{ route('manager.evaluation-report') }}" :active="request()->routeIs('manager.evaluation-report')">
                         {{ __('Evaluation Form Report') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('plan-activities.index') }}" :active="request()->routeIs('plan-activities.index')">
+                    <x-nav-link href="{{ route('manager.plan-activities.index') }}" :active="request()->routeIs('manager.plan-activities.index')">
                         {{ __('Plan Activities') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('feedback') }}" :active="request()->routeIs('feedback')">
+                    <x-nav-link href="{{ route('manager.feedback.index') }}" :active="request()->routeIs('manager.feedback.index')">
                         {{ __('Feedback') }}
                     </x-nav-link>
                 </div>
@@ -150,13 +150,13 @@
             <x-responsive-nav-link href="{{ route('manager.home') }}" :active="request()->routeIs('manager.home')">
                 {{ __('Manager Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('evaluation.form.report') }}" :active="request()->routeIs('evaluation.form.report')">
+            <x-responsive-nav-link href="{{ route('manager.evaluation-report') }}" :active="request()->routeIs('manager.evaluation-report')">
                 {{ __('Evaluation Form Report') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('plan-activities.index') }}" :active="request()->routeIs('plan-activities.index')">
+            <x-responsive-nav-link href="{{ route('manager.plan-activities.index') }}" :active="request()->routeIs('manager.plan-activities.index')">
                 {{ __('Plan Activities') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('feedback') }}" :active="request()->routeIs('feedback')">
+            <x-responsive-nav-link href="{{ route('manager.feedback.index') }}" :active="request()->routeIs('manager.feedback.index')">
                 {{ __('Feedback') }}
             </x-responsive-nav-link>
         </div>

@@ -30,13 +30,15 @@ class ManageUserPermissionsController extends Controller
     {
         // Validate the request
         $request->validate([
-            'name' => 'required|string|max:255',
+            'fname' => 'required|string|max:255',
+            'lname' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'permissions' => 'array|nullable',
         ]);
 
          // Update user details
-         $user->name = $request->name;
+         $user->fname = $request->fname;
+         $user->lname = $request->lname;
          $user->email = $request->email;
          $user->save();
 

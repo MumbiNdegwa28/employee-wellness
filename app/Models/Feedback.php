@@ -5,15 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Permission extends Model
+class Feedback extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        'name',
+        'employee_id', 
+        'feedback',
     ];
 
-    public function users()
+    public function employee()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsTo(Employee::class);
     }
 }

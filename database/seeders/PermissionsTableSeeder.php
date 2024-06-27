@@ -16,8 +16,6 @@ class PermissionsTableSeeder extends Seeder
         $permissions = [
             'view_users',
             'edit_users',
-            'delete_users',
-            'create_users',
             // Add other permissions as needed
         ];
 

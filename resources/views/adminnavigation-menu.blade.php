@@ -18,7 +18,7 @@
                     <x-nav-link href="{{ route('admin.users.index') }}" :active="request()->routeIs('admin.users.index')">
                         {{ __('View User Records') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('admin.users.index') }}" :active="request()->routeIs('admin.manageUserPermissions')">
+                    <x-nav-link href="{{ route('admin.manageUserPermissions.index') }}" :active="request()->routeIs('admin.manageUserPermissions.index')">
                         {{ __('Manage User Permissions') }}
                     </x-nav-link>
                 </div>
@@ -151,7 +151,7 @@
             <x-responsive-nav-link href="{{ route('admin.users.index') }}" :active="request()->routeIs('admin.users.index')">
                 {{ __('View User Records') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('admin.users.index') }}" :active="request()->routeIs('admin.manageUserPermissions')">
+            <x-responsive-nav-link href="{{ route('admin.manageUserPermissions.index') }}" :active="request()->routeIs('admin.manageUserPermissions.index')">
                 {{ __('Manage User Permissions') }}
             </x-responsive-nav-link>
         </div>

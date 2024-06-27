@@ -10,7 +10,7 @@ class ActivityController extends Controller
     public function index()
     {
         $activities = Activity::all();
-        return view('plan-activities.index', compact('activities'));
+        return view('manager.plan-activities.index', compact('activities'));
     }
 
     public function store(Request $request)
@@ -24,6 +24,15 @@ class ActivityController extends Controller
 
         Activity::create($request->all());
 
-        return redirect()->route('plan-activities.index');
+        return redirect()->route('activities.index');
     }
+    public function showActivities()
+{
+    // Fetch the activities from the database or any other source
+    $activities = Activity::all(); // Assuming you have an Activity model
+
+    // Pass the activities to the view
+    return view('manager.plan-activities.index', compact('activities'));
+}
+
 }

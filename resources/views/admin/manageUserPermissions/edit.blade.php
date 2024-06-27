@@ -10,7 +10,7 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
                 <h3 class="text-lg font-semibold mb-4">User: {{ $user->name }}</h3>
                 
-                <form action="{{ route('admin.manageUserPermissions.update', ['user' => $user]) }}" method="POST">
+                <form action="{{ route('admin.manageUserPermissions.update', ['user' => $user->id]) }}" method="POST">
                     @csrf
                     @method('PUT')
 
@@ -35,10 +35,19 @@
                     </div>
 
                     <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                        Update Permissions
+                        Update User
+                    </button>
+                </form>
+
+                <form action="{{ route('admin.users.destroy', ['user' => $user->id]) }}" method="POST" class="mt-4">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                        Delete User
                     </button>
                 </form>
             </div>
         </div>
     </div>
 </x-app-layout>
+
