@@ -1,24 +1,25 @@
 <?php
+
 namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Foundation\Events\Dispatchable;
 use App\Models\User;
 
-class MessageSent implements ShouldBroadcast
+class ReplySent implements ShouldBroadcast
 {
-    use InteractsWithSockets, SerializesModels;
+    use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message;
+    public $reply;
     public $user;
 
-    public function __construct($message,  User $user)
+    public function __construct($reply, User $user)
     {
-        $this->message = $message;
+        $this->reply = $reply;
         $this->user = $user;
     }
 
@@ -30,7 +31,7 @@ class MessageSent implements ShouldBroadcast
     public function broadcastWith()
     {
         return [
-            'message' => $this->message,
+            'reply' => $this->reply,
             'user' => [
                 'id' => $this->user->id,
                 'name' => $this->user->name,

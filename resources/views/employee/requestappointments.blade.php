@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Appointment Requests') }}
+            {{ __('Request Appointments') }}
         </h2>
     </x-slot>
 
@@ -9,6 +9,25 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
+                    <div class="mt-8 text-2xl">
+                        Send a New Message
+                    </div>
+                    <div class="mt-6 text-gray-500">
+                        <form action="{{ route('send-message') }}" method="POST">
+                            @csrf
+                            <div>
+                                <textarea id="message" name="message" rows="2" class="block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Type your message here"></textarea>
+                            </div>
+                            <div class="mt-4">
+                                <x-button>
+                                    {{ __('Send Message') }}
+                                </x-button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="p-6 sm:px-20 bg-white border-b border-gray-200 mt-6">
                     <div class="mt-8 text-2xl">
                         Messages
                     </div>

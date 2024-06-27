@@ -100,5 +100,26 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->role && $this->role->role_name === 'Therapist';
     }
+
+    //relationship between user and messages
+    
+    // public function ()
+    // {
+    //     return $this->hasMany(Message::class);
+    // }
+    public function messagesSent()
+    {
+        return $this->hasMany(Message::class, 'sender_id');
+    }
+
+    public function messagesReceived()
+    {
+        return $this->hasMany(Message::class, 'receiver_id');
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
 }
 

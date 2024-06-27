@@ -22,9 +22,9 @@ class EmployeeController extends Controller
     //     return view('employee.resources');
     // }
 
-    public function appointment(){
-        return view('employee.appointments');
-    }
+    // public function appointment(){
+    //     return view('employee.appointments');
+    // }
 
     public function chats(){
         return view('employee.chats');

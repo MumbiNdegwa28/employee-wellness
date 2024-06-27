@@ -6,21 +6,24 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 
 class MessageNotification extends Notification
 {
     use Queueable;
 
-    private $message;
+    public $message;
+    public $sender;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct($message, $sender)
     {
         $this->message = $message;
+        $this->sender = $sender;
     }
 
     /**
@@ -31,7 +34,7 @@ class MessageNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail', 'database'];
+        return ['mail', 'database', 'broadcast'];
     }
 
     /**
@@ -59,7 +62,20 @@ class MessageNotification extends Notification
     {
         return [
             'message' => $this->message,
-            'user' => auth()->user()
+            'sender' => [
+                'id' => $this->sender->id,
+                'name' => $this->sender->name,
+            ],
         ];
+    }
+    public function toBroadcast($notifiable)
+    {
+        return new BroadcastMessage([
+            'message' => $this->message,
+            'sender' => [
+                'id' => $this->sender->id,
+                'name' => $this->sender->name,
+            ],
+        ]);
     }
 }

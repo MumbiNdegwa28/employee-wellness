@@ -37,13 +37,15 @@ Route::get('/employee/dashboard',[EmployeeController::class,'index'])->name('emp
 Route::get('/employee/evaluation_form',[EmployeeController::class,'eval_form'])->name('employee.form');
 // Route::get('/employee/journaling',[EmployeeController::class,'journaling'])->name('employee.journal');
 Route::get('/employee/resources',[EmployeeController::class,'resources'])->name('employee.resources');
-Route::get('/employee/appointments',[EmployeeController::class,'appointment'])->name('employee.appointment');
+// Route::get('/employee/appointments',[EmployeeController::class,'appointment'])->name('employee.appointment');
 Route::get('/employee/chats',[EmployeeController::class,'chats'])->name('employee.chats');
 Route::post('/submit-evaluation', [EvaluationFormController::class, 'submit'])->name('submit-evaluation');
 Route::get('/employee/resources', [ResourceController::class, 'showResources'])->name('employee.resources');
 Route::get('/employee/journals', [JournalController::class, 'show'])->name('journals.show');
 Route::post('/journals', [JournalController::class, 'store'])->name('journals.store');
+Route::get('/employee/request-appointment', [RequestAppointmentController::class, 'index'])->name('request-appointment');
 Route::post('/send-message', [RequestAppointmentController::class, 'sendMessage'])->name('send-message');
+Route::post('/send-reply/{message}',[RequestAppointmentController::class,'sendReply'])->name('send-reply');
 
  // Manager specific routes
  Route::get('/manager/dashboard', [ManagerController::class, 'index'])->name('manager.home');
@@ -74,10 +76,5 @@ Route::post('/send-message', [RequestAppointmentController::class, 'sendMessage'
  Route::post('/notifications/mark-as-read/{id}', [AppointmentRequestController::class, 'markAsRead'])->name('notifications.markAsRead');
  Route::get('/appointmentrequests', [AppointmentRequestController::class, 'showNotifications'])->name('appointmentrequests.showNotifications');
  Route::put('/notifications/{id}', [AppointmentRequestController::class, 'markAsRead'])->name('notifications.markAsRead');
- Route::post('/send-reply', [AppointmentRequestController::class, 'sendReply'])->name('send-reply');
- //jaba
- Route::get('/appointmentrequests', [AppointmentRequestController::class, 'index'])->name('appointmentrequests.index');
- Route::post('/send-message', [AppointmentRequestController::class, 'sendMessage'])->name('send-message');
- Route::get('/notifications', [AppointmentRequestController::class, 'showNotifications'])->name('notifications.show');
- Route::post('/notifications/mark-as-read/{id}', [AppointmentRequestController::class, 'markAsRead'])->name('notifications.markAsRead');
- Route::post('/send-reply/{notificationId}', [AppointmentRequestController::class, 'sendReply'])->name('send-reply');
+ Route::post('/therapist-send-reply/{message}', [AppointmentRequestController::class, 'sendReply'])->name('therapist-send-reply');
+ 
