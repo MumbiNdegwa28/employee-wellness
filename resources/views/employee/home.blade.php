@@ -1,14 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight text-lilac">
             {{ __('Employee Dashboard') }}
         </h2>
+
     </x-slot>
 
-    <div class="py-12">
+    <div class="py-12 min-h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('{{ asset('employeedashboard.jpeg') }}')">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <p>Hello</p>
+                
             </div>
         </div>
     </div>

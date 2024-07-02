@@ -16,6 +16,14 @@
 
         <!-- Styles -->
         @livewireStyles
+
+        <!--glassmorphism-->
+        <style>
+    .backdrop-blur-md {
+        backdrop-filter: blur(10px);
+    }
+</style>
+
     </head>
     <body>
         <div class="font-sans text-gray-900 antialiased">

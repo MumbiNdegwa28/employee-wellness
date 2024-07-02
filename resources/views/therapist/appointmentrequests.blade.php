@@ -17,13 +17,13 @@
                             @foreach ($messages as $message)
                                 <li class="mb-4">
                                     <div>
-                                        <strong>{{ $message->sender->name }}:</strong> {{ $message->content }}
+                                        <strong>{{ $message->sender->fname }}:</strong> {{ $message->content }}
                                     </div>
                                     <div class="ml-4">
                                         <ul>
                                             @foreach ($message->replies as $reply)
                                                 <li>
-                                                    <strong>{{ $reply->user->name }}:</strong> {{ $reply->content }}
+                                                    <strong>{{ $reply->user->fname }}:</strong> {{ $reply->content }}
                                                 </li>
                                             @endforeach
                                         </ul>

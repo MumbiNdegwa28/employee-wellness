@@ -20,7 +20,10 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_style.min.css">
 
-        <!--therapist planner calender scripts-->
+        <!-- Therapist planner calender scripts-->
+        <!-- FullCalendar Scripts -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/core@5.10.1/main.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@5.10.1/main.min.css">
         <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@5.10.1/main.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@5.10.1/main.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@5.10.1/main.min.js"></script>
@@ -46,10 +49,9 @@
                 @else 
                     <!-- Employee Navigation Bar -->
                     @include('employeenavigation-menu')
-                    @endif
+                @endif
             @endif
-           
-
+        
             <!-- Page Heading -->
             @if (isset($header))
                 <header class="bg-white shadow">
@@ -68,43 +70,9 @@
         @stack('modals')
 
         @livewireScripts
-         <!-- FullCalendar Scripts -->
-        <link rel="stylesheet" href="{{ asset('css/fullcalendar.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/fullcalendar-daygrid.css') }}">
-        <script src="{{ asset('js/fullcalendar.js') }}"></script>
-        <script src="{{ asset('js/fullcalendar-daygrid.js') }}"></script>
-        <script src="{{ asset('js/fullcalendar-interaction.js') }}"></script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                plugins: ['dayGrid', 'interaction'],
-                initialView: 'dayGridMonth',
-                editable: true,
-                selectable: true,
-                events: [
-                    {
-                        title: 'Event 1',
-                        start: '2023-06-01',
-                        end: '2023-06-02'
-                    },
-                    {
-                        title: 'Event 2',
-                        start: '2023-06-05',
-                        end: '2023-06-07'
-                    }
-                ],
-                dateClick: function(info) {
-                    alert('Date: ' + info.dateStr);
-                },
-                eventClick: function(info) {
-                    alert('Event: ' + info.event.title);
-                }
-            });
-            calendar.render();
-        });
-    </script>
+        @stack('scripts')
+        <!-- Froala Script -->
         <script src="https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
@@ -121,38 +89,36 @@
             });
         </script>
 
-        <!--pusher scripts-->
-       
-      <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-      @if(auth()->check())
-      <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        <!-- Pusher scripts-->
+        <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+        @if(auth()->check())
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                        var pusher = new Pusher('{{ env("PUSHER_APP_KEY") }}', {
+                            cluster: '{{ env("PUSHER_APP_CLUSTER") }}',
+                            encrypted: true
+                        });
+
+                // Initialize Pusher with the appropriate credentials
+
                 var pusher = new Pusher('{{ env("PUSHER_APP_KEY") }}', {
-                    cluster: '{{ env("PUSHER_APP_CLUSTER") }}',
-                    encrypted: true
+                cluster: '{{ env("PUSHER_APP_CLUSTER") }}',
+                encrypted: true
                 });
 
-        // Initialize Pusher with the appropriate credentials
 
-        var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
-        cluster: '{{ env('PUSHER_APP_CLUSTER') }}',
-        encrypted: true
-         });
-
-
-        var userId = "{{ auth()->user()->id }}";
-        var channel = pusher.subscribe('private-messages.' + userId);
-        channel.bind('App\\Events\\MessageSent', function(data) {
-            alert('New message: ' + data.message);
-             // Updating the notification center with the new message
-            let notifications = document.getElementById('notifications');
-            let notificationItem = document.createElement('li');
-            notificationItem.textContent = data.message;
-            notifications.appendChild(notificationItem);
-        });
-    });
-    </script>
-    @endif
-
+                var userId = "{{ auth()->user()->id }}";
+                var channel = pusher.subscribe('private-messages.' + userId);
+                channel.bind('App\\Events\\MessageSent', function(data) {
+                        alert('New message: ' + data.message);
+                        // Updating the notification center with the new message
+                        let notifications = document.getElementById('notifications');
+                        let notificationItem = document.createElement('li');
+                        notificationItem.textContent = data.message;
+                        notifications.appendChild(notificationItem);
+                    });
+                });
+            </script>
+        @endif
     </body>
 </html>

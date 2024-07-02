@@ -68,7 +68,7 @@ Route::post('/send-reply/{message}',[RequestAppointmentController::class,'sendRe
  Route::get('/admin/users/{user}/edit', [ManageUserPermissionsController::class, 'edit'])->name('admin.manageUserPermissions.edit');
  Route::put('/admin/users/{user}', [ManageUserPermissionsController::class, 'update'])->name('admin.manageUserPermissions.update');
 
- //therapist routes
+ // Therapist routes
  Route::get('/therapist/home', [TherapistController::class, 'index'])->name('therapist.home');
  Route::get('/therapist/planner', [PlannerController::class, 'index'])->name('therapist.planner');
  Route::post('therapist/events', [PlannerController::class, 'store']);
