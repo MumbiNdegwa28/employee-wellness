@@ -22,7 +22,7 @@
                     </x-nav-link><x-nav-link href="{{ route('journals.show') }}" :active="request()->routeIs('journals.show')">
                         {{ __('Journaling') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('employee.appointment') }}" :active="request()->routeIs('employee.appointment')">
+                    <x-nav-link href="{{ route('request-appointment') }}" :active="request()->routeIs('request-appointment')">
                         {{ __('Appointment') }}
                     </x-nav-link><x-nav-link href="{{ route('employee.chats') }}" :active="request()->routeIs('employee.chats')">
                         {{ __('Chats') }}

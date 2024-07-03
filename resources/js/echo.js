@@ -10,19 +10,25 @@ window.Echo = new Echo({
     forceTLS: true,
     encrypted: true,
 });
-const options = {
-    broadcaster: 'pusher',
-    key: 'your-pusher-channels-key'
-}
+// document.addEventListener('DOMContentLoaded', function() {
+//     var userId = "{{ auth()->user()->id }}"; // Ensure this part is correctly passed to JavaScript
 
-var userId = "{{ auth()->user()->id }}";
+//     // Subscribe to the private channel for the user
+//     window.Echo.private('messages.' + userId)
+//         .listen('MessageSent', (e) => {
+//             alert('New message: ' + e.message);
+//             let notifications = document.getElementById('notifications');
+//             let notificationItem = document.createElement('li');
+//             notificationItem.textContent = e.message;
+//             notifications.appendChild(notificationItem);
+//         });
+// });
+const userId = "{{ auth()->user()->id }}";
 
 window.Echo.private('messages.' + userId)
     .listen('MessageSent', (e) => {
         alert('New message: ' + e.message);
+    })
+    .listen('ReplySent', (e) => {
+        alert('New reply: ' + e.reply);
     });
- 
-window.Echo = new Echo({
-    ...options,
-    client: new Pusher(options.key, options)
-});

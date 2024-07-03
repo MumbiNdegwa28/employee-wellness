@@ -20,7 +20,7 @@ use App\Http\Controllers\RequestAppointmentController;
 use App\Http\Controllers\AppointmentRequestController;
 use App\Http\Controllers\ChatsController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ChartController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -41,11 +41,16 @@ Route::get('/employee/evaluation_form', [EmployeeController::class, 'eval_form']
 Route::get('/employee/resources', [EmployeeController::class, 'resources'])->name('employee.resources');
 Route::get('/employee/appointments', [EmployeeController::class, 'appointment'])->name('employee.appointment');
 Route::get('/employee/chats', [EmployeeController::class, 'chats'])->name('employee.chats');
+Route::get('/employee/resources',[EmployeeController::class,'resources'])->name('employee.resources');
+// Route::get('/employee/appointments',[EmployeeController::class,'appointment'])->name('employee.appointment');
+Route::get('/employee/chats',[EmployeeController::class,'chats'])->name('employee.chats');
 Route::post('/submit-evaluation', [EvaluationFormController::class, 'submit'])->name('submit-evaluation');
 Route::get('/employee/resources', [ResourceController::class, 'showResources'])->name('employee.resources');
 Route::get('/employee/journals', [JournalController::class, 'show'])->name('journals.show');
 Route::post('/journals', [JournalController::class, 'store'])->name('journals.store');
+Route::get('/employee/request-appointment', [RequestAppointmentController::class, 'index'])->name('request-appointment');
 Route::post('/send-message', [RequestAppointmentController::class, 'sendMessage'])->name('send-message');
+Route::post('/send-reply/{message}',[RequestAppointmentController::class,'sendReply'])->name('send-reply');
 
 // Manager specific routes
 Route::get('/manager/dashboard', [ManagerController::class, 'index'])->name('manager.home');
@@ -90,7 +95,7 @@ Route::get('/messages', [ChatsController::class, 'fetchMessages'])->middleware('
 Route::post('/messages', [ChatsController::class, 'sendMessage'])->middleware('auth');
 
 
- //therapist routes
+ // Therapist routes
  Route::get('/therapist/home', [TherapistController::class, 'index'])->name('therapist.home');
  Route::get('/therapist/planner', [PlannerController::class, 'index'])->name('therapist.planner');
  Route::post('therapist/events', [PlannerController::class, 'store']);
@@ -106,5 +111,6 @@ Route::post('/messages', [ChatsController::class, 'sendMessage'])->middleware('a
  Route::post('/notifications/mark-as-read/{id}', [AppointmentRequestController::class, 'markAsRead'])->name('notifications.markAsRead');
  Route::post('/send-reply/{notificationId}', [AppointmentRequestController::class, 'sendReply'])->name('send-reply');
 
- //
- Route::get('/api/chart-data', [ChartController::class, 'getData']);
+ 
+ Route::post('/therapist-send-reply/{message}', [AppointmentRequestController::class, 'sendReply'])->name('therapist-send-reply');
+ 

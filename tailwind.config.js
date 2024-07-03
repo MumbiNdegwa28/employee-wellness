@@ -16,7 +16,17 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+            },colors: {
+                lilac: '#C8A2C8',
+                peach: '#FFDAB9',
             },
+            backdropBlur: {
+                'none': 'none',
+                'sm': '4px',
+                'md': '10px',
+                'lg': '20px',
+                'xl': '40px',
+            }
         },
     },
 

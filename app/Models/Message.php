@@ -15,3 +15,21 @@ class Message extends Model
         return $this->belongsTo(User::class);
     }
 }
+
+    protected $fillable = ['content', 'sender_id', 'receiver_id'];
+
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
+
+    public function sender()
+    {
+        return $this->belongsTo(User::class, 'sender_id');
+    }
+
+    public function receiver()
+    {
+        return $this->belongsTo(User::class, 'receiver_id');
+    }
+}
