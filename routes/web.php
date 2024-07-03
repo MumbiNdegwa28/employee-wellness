@@ -19,6 +19,7 @@ use App\Http\Controllers\PlannerController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\RequestAppointmentController;
 use App\Http\Controllers\AppointmentRequestController;
+use App\Models\EvaluationForm;
 
 Route::get('/', function () {
     return view('welcome');
