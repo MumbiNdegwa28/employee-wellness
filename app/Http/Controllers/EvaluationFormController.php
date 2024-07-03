@@ -21,10 +21,10 @@ class EvaluationFormController extends Controller
             'q8' => 'required|integer|between:0,3',
             'q9' => 'required|integer|between:0,3',
         ]);
-
+    
         // Calculate the total score
         $totalScore = array_sum($validatedData);
-
+    
         // Determine the depression severity
         if ($totalScore >= 0 && $totalScore <= 4) {
             $severity = 'Okay';
@@ -37,7 +37,10 @@ class EvaluationFormController extends Controller
         } else {
             $severity = 'Severe Depression';
         }
-
+    
+        // Check if question 9 is anything but 'Not at all' (which is 0)
+        $showSuicidePreventionMessage = $validatedData['q9'] > 0;
+    
         // Store the form submission in the database
         EvaluationForm::create([
             'q1' => $validatedData['q1'],
@@ -52,11 +55,12 @@ class EvaluationFormController extends Controller
             'total_score' => $totalScore,
             'severity' => $severity,
         ]);
-
+    
         // Return the results with a success message
         return back()->with('success', 'Form submitted successfully!')
                      ->with('totalScore', $totalScore)
-                     ->with('severity', $severity);
+                     ->with('severity', $severity)
+                     ->with('showSuicidePreventionMessage', $showSuicidePreventionMessage);
     }
 
     public function showReport()
@@ -70,6 +74,7 @@ class EvaluationFormController extends Controller
     return view('evaluation-show', compact('evaluationForm'));
     }
 
+    
     
 }
     
