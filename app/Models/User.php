@@ -104,7 +104,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function messages()
     {
         return $this->hasMany(Message::class);
-
+    }
     //relationship between user and messages
     
     // public function ()
@@ -125,5 +125,5 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Reply::class);
     }
-}
+
 }

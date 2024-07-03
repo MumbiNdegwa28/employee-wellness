@@ -8,15 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Message extends Model
 {
     use HasFactory;
-    protected $fillable = ['message', 'user_id'];
+    protected $fillable = [
+        'message', 
+        'user_id', 
+        'content', 
+        'sender_id', 
+        'receiver_id'
+    ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-}
-
-    protected $fillable = ['content', 'sender_id', 'receiver_id'];
 
     public function replies()
     {
@@ -33,3 +36,6 @@ class Message extends Model
         return $this->belongsTo(User::class, 'receiver_id');
     }
 }
+
+    
+
