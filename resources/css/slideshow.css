@@ -1,0 +1,21 @@
+/* slideshow.css */
+.slideshow-container {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    min-height: 800px;
+    overflow: hidden;
+}
+
+.slideshow-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.slideshow-image.active {
+    opacity: 1;
+}
