@@ -1,5 +1,3 @@
-<!-- resources/views/admin/manageUserPermissions/index.blade.php -->
-
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -23,7 +21,7 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                         @foreach ($users as $user)
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $user->name }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $user->fname }} {{ $user->lname }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $user->email }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <a href="{{ route('admin.manageUserPermissions.edit', $user->id) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>

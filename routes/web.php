@@ -20,6 +20,7 @@ use App\Http\Controllers\RequestAppointmentController;
 use App\Http\Controllers\AppointmentRequestController;
 use App\Http\Controllers\ChatsController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ChartController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -57,6 +58,7 @@ Route::get('/manager/plan-activities/summary', [PlanActivitiesController::class,
 Route::get('/activities', [ActivityController::class, 'index'])->name('activities.index');
 Route::get('/manager/plan-activities', [ActivityController::class, 'showActivities'])->name('manager.plan-activities.index');
 Route::post('/activities/store', [ActivityController::class, 'store'])->name('activities.store');
+
 Route::get('/manager/feedback', [FeedbackController::class, 'index'])->name('manager.feedback.index');
 Route::get('/manager/feedback/{id}', [FeedbackController::class, 'show'])->name('manager.feedback.show');
 
@@ -64,8 +66,12 @@ Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('adm
 //Route::get('/admin/view-user-records', [ViewUserRecordsController::class, 'show'])->name('admin.viewUserRecords'); //
 Route::get('/admin/users', [ViewUserRecordsController::class, 'index'])->name('admin.users.index');
 Route::get('/admin/users/{user}', [ViewUserRecordsController::class, 'show'])->name('admin.users.show');
+
 Route::get('/admin/manage-user-permissions', [ManageUserPermissionsController::class, 'index'])->name('admin.manageUserPermissions.index');
 Route::get('/admin/manageUserPermissions/{id}/edit', [UserController::class, 'edit'])->name('admin.manageUserPermissions.edit');
+Route::get('/admin/manageuserpermissions/create', [UserController::class, 'create'])->name('admin.manageUserPermissions.create');
+Route::get('/admin/users/{user}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
+Route::post('/admin/users', [UserController::class, 'store'])->name('admin.users.store');
 Route::put('/admin/manageUserPermissions/{user}', [UserController::class, 'updatePermissions'])->name('admin.manageUserPermissions.update');
 Route::delete('/admin/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
 
@@ -99,3 +105,6 @@ Route::post('/messages', [ChatsController::class, 'sendMessage'])->middleware('a
  Route::get('/notifications', [AppointmentRequestController::class, 'showNotifications'])->name('notifications.show');
  Route::post('/notifications/mark-as-read/{id}', [AppointmentRequestController::class, 'markAsRead'])->name('notifications.markAsRead');
  Route::post('/send-reply/{notificationId}', [AppointmentRequestController::class, 'sendReply'])->name('send-reply');
+
+ //
+ Route::get('/api/chart-data', [ChartController::class, 'getData']);

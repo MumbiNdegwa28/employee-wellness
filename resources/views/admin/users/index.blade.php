@@ -5,41 +5,61 @@
         </h2>
     </x-slot>
 
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 18px;
+            text-align: left;
+        }
+        table thead tr {
+            background-color: #f2f2f2;
+        }
+        table th, table td {
+            padding: 12px 15px;
+        }
+        table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+        table tbody tr:nth-of-type(even) {
+            background-color: #f9f9f9;
+        }
+        table tbody tr:last-of-type {
+            border-bottom: 2px solid #009879;
+        }
+        table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+        .view-link {
+            color: #009879;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .view-link:hover {
+            color: #005f5f;
+        }
+    </style>
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
+                <table>
+                    <thead>
                         <tr>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                ID
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Name
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Email
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Actions
-                            </th>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
+                    <tbody>
                         @foreach ($users as $user)
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    {{ $user->id }}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    {{ $user->name }}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    {{ $user->email }}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <a href="{{ route('admin.users.show', $user->id) }}" class="text-indigo-600 hover:text-indigo-900">View</a>
-                                </td>
+                                <td>{{ $user->id }}</td>
+                                <td>{{ $user->fname }} {{ $user->lname }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td><a href="{{ route('admin.users.show', $user->id) }}" class="view-link">View</a></td>
                             </tr>
                         @endforeach
                     </tbody>

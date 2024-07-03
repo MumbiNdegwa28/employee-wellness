@@ -1,9 +1,12 @@
 import './bootstrap';
+import 'flowbite';
 require('./bootstrap');
 
 Vue.component('chat-messages', require('./components/ChatMessages.vue'));
-Vue.component('chat-form', require('./components/ChatForm.vue'));
+Vue.component('chat-form', require('./ChatForm.vue'));
 
+
+app.mount('#app');
 const app = new Vue({
     el: '#app',
 

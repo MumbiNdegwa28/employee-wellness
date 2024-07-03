@@ -21,6 +21,9 @@
         "@fullcalendar/core": "^6.1.14",
         "@fullcalendar/daygrid": "^6.1.14",
         "@fullcalendar/interaction": "^6.1.14",
+        "@vitejs/plugin-vue": "^5.0.5",
+        "apexcharts": "^3.49.2",
+        "flowbite": "^2.4.1",
         "froala-editor": "^4.2.0"
     }
 }
