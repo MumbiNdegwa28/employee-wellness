@@ -9,16 +9,29 @@ class PlannerController extends Controller
 {
     public function index()
     {
-        // Example of passing events data to the view
-        $events = [
-            ['title' => 'Event 1', 'start' => '2023-07-01'],
-            ['title' => 'Event 2', 'start' => '2023-07-02']
-        ];
-        // dd($events);
-        return view('therapist.planner',compact('events'));
+        // Fetch all planner events
+        $events = Planner::all()->map(function ($event) {
+            return [
+                'title' => $event->title,
+                'start' => $event->start_date->format('Y-m-d H:i:s'),
+                'end' => $event->end_date ? $event->end_date->format('Y-m-d H:i:s') : null,
+                'description' => $event->description,
+            ];
+        });
+        
+        return view('therapist.planner',['events' => $events]);
     }
     public function store(Request $request)
     {
-        return Planner::create($request->all());
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'start_date' => 'required|date',
+            'end_date' => 'nullable|date|after_or_equal:start_date',
+            'description' => 'nullable|string',
+        ]);
+
+        Planner::create($request->all());
+
+        return redirect()->route('therapist.planner')->with('success', 'Appointment scheduled successfully.');
     }
 }

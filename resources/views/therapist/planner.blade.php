@@ -16,32 +16,33 @@
                         Use this section to manage your daily, weekly, and monthly schedules.
                     </div>
                 </div>
+
                 <div id="calendar" class="mt-6"></div>
             </div>
         </div>
     </div>
 
     @push('scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-            var events = <?php echo json_encode($events)?>;
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                plugins: ['dayGrid', 'interaction'],
-                initialView: 'dayGridMonth',
-                editable: true,
-                selectable: true,
-                events: events,
-                dateClick: function(info) {
-                    alert('Date: ' + info.dateStr);
-                },
-                eventClick: function(info) {
-                    alert('Event: ' + info.event.title);
-                }
+        <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var calendarEl = document.getElementById('calendar');
+                var events = <?php echo json_encode($events)?>;
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    plugins: ['dayGrid', 'interaction'],
+                    initialView: 'dayGridMonth',
+                    editable: true,
+                    selectable: true,
+                    events: events,
+                    dateClick: function(info) {
+                        alert('Date: ' + info.dateStr);
+                    },
+                    eventClick: function(info) {
+                        alert('Event: ' + info.event.title);
+                    }
+                });
+                calendar.render();
             });
-            calendar.render();
-        });
-    </script>
+        </script>
     @endpush
 </x-app-layout>
-
