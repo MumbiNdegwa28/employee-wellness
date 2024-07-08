@@ -14,4 +14,12 @@ class ResourceController extends Controller
 
         return view('employee.resources', compact('blogs', 'videos'));
     }
+    public function searchResources(Request $request)
+    {
+        $query = $request->input('query');
+        $blogs = Blog::where('title', 'LIKE', "%{$query}%")->get();
+        $videos = Video::where('title', 'LIKE', "%{$query}%")->get();
+
+        return view('employee.resources', compact('blogs', 'videos'));
+    }
 }

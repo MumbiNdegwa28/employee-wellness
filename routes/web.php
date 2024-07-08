@@ -39,12 +39,11 @@ Route::middleware([
 Route::get('/employee/dashboard', [EmployeeController::class, 'index'])->name('employee.home');
 //Evaluation Form Routes
 Route::get('/employee/evaluation_form', [EmployeeController::class, 'eval_form'])->name('employee.form');
-// Route::get('/employee/journaling',[EmployeeController::class,'journaling'])->name('employee.journal');
 Route::get('/employee/resources', [EmployeeController::class, 'resources'])->name('employee.resources');
 Route::get('/employee/appointments', [EmployeeController::class, 'appointment'])->name('employee.appointment');
 Route::get('/employee/chats', [EmployeeController::class, 'chats'])->name('employee.chats');
 Route::get('/employee/resources',[EmployeeController::class,'resources'])->name('employee.resources');
-// Route::get('/employee/appointments',[EmployeeController::class,'appointment'])->name('employee.appointment');
+Route::get('/resources/search', [ResourceController::class, 'searchResources'])->name('resources.search');
 Route::get('/employee/chats',[EmployeeController::class,'chats'])->name('employee.chats');
 Route::post('/submit-evaluation', [EvaluationFormController::class, 'submit'])->name('submit-evaluation');
 Route::get('/employee/resources', [ResourceController::class, 'showResources'])->name('employee.resources');
