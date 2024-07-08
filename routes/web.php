@@ -20,6 +20,7 @@ use App\Http\Controllers\RequestAppointmentController;
 use App\Http\Controllers\AppointmentRequestController;
 use App\Http\Controllers\ChatsController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FullCalenderController;
 
 use App\Models\EvaluationForm;
 
@@ -100,12 +101,15 @@ Route::delete('/admin/users/{user}', [UserController::class, 'destroy'])->name('
 // Therapist routes
     Route::get('/therapist/home', [TherapistController::class, 'index'])->name('therapist.home');
     Route::get('/therapist/planner', [PlannerController::class, 'index'])->name('therapist.planner');
-    Route::post('therapist/events', [PlannerController::class, 'store']);
+    Route::post('therapist/planner', [PlannerController::class, 'store']);
     Route::get('/therapist/appointmentrequests', [AppointmentRequestController::class, 'index'])->name('therapist.appointmentrequests');
     Route::post('/notifications/mark-as-read/{id}', [AppointmentRequestController::class, 'markAsRead'])->name('notifications.markAsRead');
     Route::get('/appointmentrequests', [AppointmentRequestController::class, 'showNotifications'])->name('appointmentrequests.showNotifications');
     Route::put('/notifications/{id}', [AppointmentRequestController::class, 'markAsRead'])->name('notifications.markAsRead');
     Route::post('/therapist-send-reply/{message}', [AppointmentRequestController::class, 'sendReply'])->name('therapist-send-reply');
+    //fullcalender
+    Route::get('therapist/fullcalender', [FullCalenderController::class, 'index'])->name('therapist.fullcalender');
+    Route::post('therapist/fullcalenderAjax', [FullCalenderController::class, 'ajax'])->name('therapist.fullcalender.ajax');
 
     // Route::post('/send-reply', [AppointmentRequestController::class, 'sendReply'])->name('send-reply');
 
