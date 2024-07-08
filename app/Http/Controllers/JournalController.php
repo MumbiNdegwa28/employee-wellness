@@ -9,7 +9,9 @@ class JournalController extends Controller
 {
     public function show()
     {
-        $journals = Journal::where('user_id', auth()->id())->get();
+        $journals = Journal::where('user_id', auth()->id())
+                      ->orderBy('created_at', 'desc')
+                      ->get();
         return view('employee.journaling', compact('journals'));
     }
 

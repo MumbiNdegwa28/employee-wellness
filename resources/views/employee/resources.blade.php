@@ -9,9 +9,9 @@
              <!-- Search Form -->
              <form method="GET" action="{{ route('resources.search') }}" class="mb-8">
                 <input type="text" name="query" placeholder="Search for blogs or videos" class="w-full border-gray-300 rounded-md shadow-sm" value="{{ request()->input('query') }}">
-                <x-button type="submit" class="mt-2">Search</x-button>
+                <x-button type="submit" class="mt-2, ">Search</x-button>
             </form>
-            
+
             <!-- Blog Section -->
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg mb-8">
                 <div class="p-6 bg-white border-b border-gray-200">

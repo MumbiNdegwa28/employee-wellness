@@ -19,7 +19,7 @@
                         
                         @if(session('showSuicidePreventionMessage'))
                             <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6">
-                                <p><strong> are some suicide emergency numbers and free counseling centres in Kenya</strong></p>
+                                <p><strong>Here are some suicide emergency numbers and free counseling centres in Kenya</strong></p>
                                 <p><strong>Niskize’s suicide prevention helpline:</strong> 0900 620 800</p>
                                 <p><strong>Emergency Medicine Kenya Foundation (EMKF) suicide prevention hotline:</strong> 0800 723 253</p>
                                 <p><strong>Oasis Africa:</strong> 254 725 366 614 and +254 (0) 110 862 23</p>
@@ -58,7 +58,7 @@
                                         <td class="p-2">{{ $index + 1 }}. {{ $question }}</td>
                                         @for($i = 0; $i < 4; $i++)
                                         <td class="p-2 text-center">
-                                            <input type="radio" name="q{{ $index + 1 }}" value="{{ $i }}" class="form-radio text-blue-600" required>
+                                            <input type="radio" name="q{{ $index + 1 }}" value="{{ $i }}" class="form-radio text-peach-600" required>
                                         </td>
                                         @endfor
                                     </tr>
@@ -66,7 +66,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        <x-button type="submit" class="btn btn-primary mb-4">Submit</x-button>
+                        <x-button type="submit" class="mt-4 bg-peach-500 hover:bg-peach-700 text-white font-bold py-2 px-4 rounded">
+                            Submit
+                        </x-button>
                     @endif
                 </div>
             </div>
