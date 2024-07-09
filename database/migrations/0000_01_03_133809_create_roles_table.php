@@ -16,13 +16,23 @@ return new class extends Migration
             $table->string('role_name')->unique();
             $table->timestamps();
         });
-    }
 
+        Schema::create('role_user', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('role_id')->constrained()->onDelete('cascade');
+            $table->timestamps();
+        });
+    }
+    
+
+    
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
         Schema::dropIfExists('roles');
+        Schema::dropIfExists('role_user');
     }
 };

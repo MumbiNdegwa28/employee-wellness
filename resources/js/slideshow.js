@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (slideIndex > totalSlides) { slideIndex = 1; }
         slides[slideIndex - 1].classList.add("active");
 
-        setTimeout(showSlides, 8000); // Change image every 3 seconds
+        setTimeout(showSlides, 90000); // Change image every 3 seconds
     }
 
     showSlides();

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Role;
 use Illuminate\Http\Request;
+
 
 class AdminController extends Controller
 {
@@ -24,9 +27,23 @@ class AdminController extends Controller
     public function viewUserRecords()
     {
         // Fetch user records logic here
-        return view('admin.view-user-records'); 
+        return view('admin.view-user-records');
     }
 
+    public function edit(User $user)
+    {
+        $roles = Role::all(); // Assuming you have a Role model to fetch roles from the database
+        return view('admin.manageUserPermissions.edit', compact('user', 'roles'));
+    }
+
+    public function updateUser(Request $request, User $user)
+    {
+        $user->update($request->only('name', 'email'));
+
+        $user->syncRoles($request->roles);
+
+        return redirect()->route('admin.users.index')->with('success', 'User updated successfully.');
+    }
     /**
      * Display the manage user permissions page.
      *
@@ -35,6 +52,6 @@ class AdminController extends Controller
     public function manageUserPermissions()
     {
         // Fetch user permissions logic here
-        return view('admin.manage-user-permissions'); 
+        return view('admin.manage-user-permissions');
     }
 }

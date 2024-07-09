@@ -74,6 +74,14 @@ class EvaluationFormController extends Controller
     return view('evaluation-show', compact('evaluationForm'));
     }
 
+    public function evaluationReport()
+    {
+        $evaluationForms = EvaluationForm::all();
+
+        return view('manager.evaluation-report', [
+            'evaluationForms' => $evaluationForms
+        ]);
+    }
     
     
 }

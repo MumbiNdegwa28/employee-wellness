@@ -86,6 +86,16 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Role::class);
     }
 
+    /**
+     * Check if the user has a specific role.
+     *
+     * @param string $role
+     * @return bool
+     */
+    public function hasRole(string $role): bool
+    {
+        return $this->role && $this->role->role_name === $role;
+    }
     // Method to check if user has a specific permission
     public function hasPermission($permission)
     {
@@ -93,10 +103,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     // Method to check if user has a specific role
-    public function hasRole($role)
-    {
-        return $this->roles->contains('name', $role);
-    }
     public function isTherapist()
     {
         return $this->role && $this->role->role_name === 'Therapist';
@@ -106,7 +112,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Message::class);
     }
     //relationship between user and messages
-    
+
     // public function ()
     // {
     //     return $this->hasMany(Message::class);
@@ -125,5 +131,13 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Reply::class);
     }
+    public function feedbackMessages()
+{
+    return $this->hasMany(FeedbackMessage::class);
+}
 
+public function feedbacks()
+{
+    return $this->hasMany(Feedback::class, 'employee_id');
+}
 }
