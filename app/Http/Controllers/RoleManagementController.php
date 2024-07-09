@@ -4,37 +4,36 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Role;
-use Illuminate\Routing\Controller as BaseController; // Add this impor
-class RoleManagementController extends BaseController
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+class RoleManagementController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-        $this->middleware('role:manager');
-    }
-
     public function index()
     {
         $users = User::all();
         $roles = Role::all();
         return view('admin.role-management.index', compact('users', 'roles'));
     }
-    public function assignRole(Request $request)
+    public function setupRolesAndPermissions()
     {
-        $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'role_id' => 'required|exists:roles,id',
-        ]);
+        // Create roles
+        $managerRole = Role::create(['name' => 'manager']);
+        $employeeRole = Role::create(['name' => 'employee']);
 
-        $user = User::find($request->user_id);
-        $role = Role::find($request->role_id);
+        // Create permissions
+        $editArticlesPermission = Permission::create(['name' => 'edit articles']);
+        $deleteArticlesPermission = Permission::create(['name' => 'delete articles']);
 
-        if ($user && $role) {
-            $user->roles()->syncWithoutDetaching([$role->id]);
-            return redirect()->back()->with('message', 'Role assigned successfully.');
+        // Assign permissions to roles
+        $managerRole->givePermissionTo($editArticlesPermission);
+        $managerRole->givePermissionTo($deleteArticlesPermission);
+
+        // Assign roles to a user
+        $user = User::find(1); // Change this to the appropriate user ID
+        if ($user) {
+            $user->assignRole($managerRole);
         }
 
-        return redirect()->back()->with('error', 'User or role not found.');
-    }
+        return 'Roles and permissions setup completed';
+}
 }

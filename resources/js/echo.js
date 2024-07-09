@@ -32,3 +32,28 @@ window.Echo.private('messages.' + userId)
     .listen('ReplySent', (e) => {
         alert('New reply: ' + e.reply);
     });
+    Echo.private(`feedback.${receiver_id}`)
+    .listen('FeedbackMessageSent', (e) => {
+        console.log(e.message);
+        // Append the received message to the chat window
+        $('#chat-window').append(`
+            <div class="message">
+                <p><strong>${e.message.sender.name}:</strong> ${e.message.content}</p>
+            </div>
+        `);
+    });   
+    // Function to send message
+function sendMessage() {
+    const content = $('#message-content').val();
+
+    axios.post('/send-message', {
+        receiver_id: receiver_id,
+        content: content
+    }).then(response => {
+        $('#message-content').val(''); // Clear the input
+    }).catch(error => {
+        console.error(error);
+    });
+} 
+// Event listener for send button
+$('#send-button').click(sendMessage);

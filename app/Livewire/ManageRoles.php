@@ -21,6 +21,11 @@ class ManageRoles extends Component
 
     public function assignRole()
     {
+        $this->validate([
+            'selectedUser' => 'required|exists:users,id',
+            'selectedRole' => 'required|exists:roles,id',
+        ]);
+
         $user = User::find($this->selectedUser);
         $role = Role::find($this->selectedRole);
 
