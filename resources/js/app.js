@@ -3,9 +3,10 @@ import './bootstrap';
 import 'flowbite';
 require('./bootstrap');
 window.Pusher = require('pusher-js');
+//require('./bootstrap');
 
-Vue.component('chat-messages', require('./components/ChatMessages.vue'));
-Vue.component('chat-form', require('./ChatForm.vue'));
+//Vue.component('chat-messages', require('./components/ChatMessages.vue'));
+//Vue.component('chat-form', require('./ChatForm.vue'));
 
 
 app.mount('#app');

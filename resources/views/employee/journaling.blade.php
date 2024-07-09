@@ -4,33 +4,41 @@
             {{ __('Journaling') }}
         </h2>
     </x-slot>
-<div class="container">
-   
-    
-        <!-- Button to toggle the form -->
-        <x-button class="btn btn-primary m-4" id="toggleFormButton">Create New Entry</x-button>
 
-        <!-- Journal Entry Form -->
-        <div id="journalForm" style="display: none;">
-            <form action="{{ route('journals.store') }}" method="POST">
-                @csrf
-                <div class="form-group mt-2">
-                    <x-label class="p-6" for="content" value="{{__('Content')}}" />
-                    <textarea id="journal-content" name="content"></textarea>
-                </div>
-                <x-button type="submit" class="btn btn-primary m-2 p-2">Save Entry</x-button>
-            </form>
-        </div>
+    <div class="container mx-auto p-6 bg-white shadow-md rounded-lg">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- List of Journal Entries -->
+            <div class="md:col-span-1 list-group space-y-4">
+                @foreach($journals as $journal)
+                    <div class="list-group-item bg-gray-100 p-4 rounded-lg shadow-md">
+                        <div class="prose">{!! $journal->content !!}</div>
+                        <small class="block text-gray-500 mt-2">Created at: {{ $journal->created_at }}</small>
+                    </div>
+                @endforeach
+            </div>
 
-        <!-- List of Journal Entries -->
-        <div class="list-group mt-4 p-6">
-            @foreach($journals as $journal)
-                <div class="list-group-item">
-                    {!! $journal->content !!}
-                    <small class="d-block text-muted">Created at: {{ $journal->created_at }}</small>
+            <!-- Journal Entry Form -->
+            <div class="md:col-span-2">
+                <x-button class="bg-peach-500 hover:bg-peach-700 text-white font-bold py-2 px-4 rounded mb-4 w-full" id="toggleFormButton">Create New Entry</x-button>
+
+                <div id="journalForm" class="bg-gray-100 p-4 rounded-lg shadow-md hidden">
+                    <form action="{{ route('journals.store') }}" method="POST">
+                        @csrf
+                        <div class="form-group mb-4">
+                            <x-label for="content" value="{{ __('Content') }}" class="block text-gray-700 text-sm font-bold mb-2" />
+                            <textarea id="journal-content" name="content" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" rows="5"></textarea>
+                        </div>
+                        <x-button type="submit" class="bg-peach-500 hover:bg-peach-700 text-white font-bold py-2 px-4 rounded">Save Entry</x-button>
+                    </form>
                 </div>
-            @endforeach
+            </div>
         </div>
     </div>
 
+    <script>
+        document.getElementById('toggleFormButton').addEventListener('click', function() {
+            var form = document.getElementById('journalForm');
+            form.classList.toggle('hidden');
+        });
+    </script>
 </x-app-layout>

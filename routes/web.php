@@ -26,6 +26,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Livewire\ManageRoles;
 use App\Http\Controllers\RoleManagementController;
 
+use App\Http\Controllers\FullCalenderController;
 
 
 Route::get('/', function () {
@@ -73,12 +74,11 @@ Route::get('/admin', [DashboardController::class, 'admin'])->name('admin.dashboa
 Route::get('/employee/dashboard', [EmployeeController::class, 'index'])->name('employee.home');
 //Evaluation Form Routes
 Route::get('/employee/evaluation_form', [EmployeeController::class, 'eval_form'])->name('employee.form');
-// Route::get('/employee/journaling',[EmployeeController::class,'journaling'])->name('employee.journal');
 Route::get('/employee/resources', [EmployeeController::class, 'resources'])->name('employee.resources');
 Route::get('/employee/appointments', [EmployeeController::class, 'appointment'])->name('employee.appointment');
 Route::get('/employee/chats', [EmployeeController::class, 'chats'])->name('employee.chats');
 Route::get('/employee/resources',[EmployeeController::class,'resources'])->name('employee.resources');
-// Route::get('/employee/appointments',[EmployeeController::class,'appointment'])->name('employee.appointment');
+Route::get('/resources/search', [ResourceController::class, 'searchResources'])->name('resources.search');
 Route::get('/employee/chats',[EmployeeController::class,'chats'])->name('employee.chats');
 Route::post('/submit-evaluation', [EvaluationFormController::class, 'submit'])->name('submit-evaluation');
 Route::get('/employee/resources', [ResourceController::class, 'showResources'])->name('employee.resources');
@@ -137,12 +137,15 @@ Route::put('/admin/users/{user}', [AdminController::class, 'updateUser'])->name(
 // Therapist routes
     Route::get('/therapist/home', [TherapistController::class, 'index'])->name('therapist.home');
     Route::get('/therapist/planner', [PlannerController::class, 'index'])->name('therapist.planner');
-    Route::post('therapist/events', [PlannerController::class, 'store']);
+    Route::post('therapist/planner', [PlannerController::class, 'store']);
     Route::get('/therapist/appointmentrequests', [AppointmentRequestController::class, 'index'])->name('therapist.appointmentrequests');
     Route::post('/notifications/mark-as-read/{id}', [AppointmentRequestController::class, 'markAsRead'])->name('notifications.markAsRead');
     Route::get('/appointmentrequests', [AppointmentRequestController::class, 'showNotifications'])->name('appointmentrequests.showNotifications');
     Route::put('/notifications/{id}', [AppointmentRequestController::class, 'markAsRead'])->name('notifications.markAsRead');
     Route::post('/therapist-send-reply/{message}', [AppointmentRequestController::class, 'sendReply'])->name('therapist-send-reply');
+    //fullcalender
+    Route::get('therapist/fullcalender', [FullCalenderController::class, 'index'])->name('therapist.fullcalender');
+    Route::post('therapist/fullcalenderAjax', [FullCalenderController::class, 'ajax'])->name('therapist.fullcalender.ajax');
 
     // Route::post('/send-reply', [AppointmentRequestController::class, 'sendReply'])->name('send-reply');
 

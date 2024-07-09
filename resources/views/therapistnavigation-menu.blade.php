@@ -15,11 +15,14 @@
                     <x-nav-link href="{{ route('therapist.home') }}" :active="request()->routeIs('therapist.home')">
                         {{ __('Therapist Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('therapist.appointmentrequests') }}" :active="request()->routeIs('therapist.appointmentrequests')">
+                        {{ __('Appointment Requests') }}
+                    </x-nav-link>
                     <x-nav-link href="{{ route('therapist.planner') }}" :active="request()->routeIs('therapist.planner')">
                         {{ __('Planner') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('therapist.appointmentrequests') }}" :active="request()->routeIs('therapist.appointmentrequests')">
-                        {{ __('Appointment Requests') }}
+                    <x-nav-link href="{{ route('therapist.fullcalender') }}" :active="request()->routeIs('therapist.fullcalender')">
+                         {{ __('FullCalender') }}
                     </x-nav-link>
                 </div>
             </div>
