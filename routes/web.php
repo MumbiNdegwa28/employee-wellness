@@ -107,8 +107,8 @@ Route::delete('/admin/users/{user}', [UserController::class, 'destroy'])->name('
     Route::put('/notifications/{id}', [AppointmentRequestController::class, 'markAsRead'])->name('notifications.markAsRead');
     Route::post('/therapist-send-reply/{message}', [AppointmentRequestController::class, 'sendReply'])->name('therapist-send-reply');
     //fullcalender
-    Route::get('therapist/fullcalender', [FullCalenderController::class, 'index'])->name('therapist.fullcalender');
-    Route::post('therapist/fullcalenderAjax', [FullCalenderController::class, 'ajax'])->name('therapist.fullcalender.ajax');
+    Route::get('therapist/fullcalendar', [FullCalenderController::class, 'index'])->name('therapist.fullcalendar');
+    Route::post('therapist/fullcalendarAjax', [FullCalenderController::class, 'ajax'])->name('therapist.fullcalendar.ajax');
 
     // Route::post('/send-reply', [AppointmentRequestController::class, 'sendReply'])->name('send-reply');
 
