@@ -11,11 +11,20 @@ class RoleMiddleware
 {
     public function handle($request, Closure $next, $role)
     {
-        if (!Auth::check() || !Auth::user()->hasRole($role)) {
+        if (!Auth::check()) {
+            return redirect('/login');
+        }
+
+        if (!$this->userHasRole(Auth::user(), $role)) {
             abort(403, 'Unauthorized');
         }
 
         return $next($request);
+    }
+
+    private function userHasRole($user, $role)
+    {
+        return $user->roles()->where('name', $role)->exists();
     }
 }
 
