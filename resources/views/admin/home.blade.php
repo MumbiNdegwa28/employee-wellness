@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('/images/image.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
 </head>
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
     <x-app-layout>
@@ -15,8 +23,8 @@
         </x-slot>
 
         <main>
-            <div class="py-12 bg-cover bg-center bg-no-repeat bg-daily-quotes min-h-[500px]" style="background-image: url('/images/image.jpg');">
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex justify-center items-center h-full">
+            <div class="py-12 min-h-screen bg-cover bg-center bg-no-repeat" style="background-image: url('/images/image.jpg');">
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex justify-center items-center">
                     <div class="text-center text-white bg-black bg-opacity-70 p-6 rounded-lg max-w-md w-full">
                         <p class="text-2xl font-bold mb-4">Some Daily Needed Motivation!</p>
                         <p class="text-lg font-semibold quote-fade" id="quote"></p>
@@ -26,11 +34,8 @@
 
             <div class="py-12">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
-                        <p class="text-xl font-semibold">Hello</p>
-                        <div class="mt-4 text-gray-600">
-                            <p class="text-lg quote-fade" id="quote"></p>
-                        </div>
+                    <div class="mt-4 text-gray-600">
+                        <p class="text-lg quote-fade" id="quote"></p>
                     </div>
                 </div>
             </div>

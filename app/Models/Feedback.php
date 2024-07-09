@@ -9,6 +9,10 @@ class Feedback extends Model
 {
     use HasFactory;
 
+    public function messages()
+    {
+        return $this->hasMany(FeedbackMessage::class);
+    }
     protected $fillable = [
         'employee_id', 
         'feedback',
