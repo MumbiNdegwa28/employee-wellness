@@ -18,10 +18,10 @@
             </div>
 
             <!-- Journal Entry Form -->
-            <div class="md:col-span-2">
-                <x-button class="bg-peach-500 hover:bg-peach-700 text-white font-bold py-2 px-4 rounded mb-4 w-full" id="toggleFormButton">Create New Entry</x-button>
+            <div class="md:col-span-2" >
+                <h2>Create New Entry</h2>
 
-                <div id="journalForm" class="bg-gray-100 p-4 rounded-lg shadow-md hidden">
+                <div id="journalForm" class="bg-gray-100 p-4 rounded-lg shadow-md ">
                     <form action="{{ route('journals.store') }}" method="POST">
                         @csrf
                         <div class="form-group mb-4">
