@@ -7,54 +7,117 @@
 
     <div class="py-12 bg-gray-100 min-h-screen">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-2xl rounded-xl p-6 sm:px-10 bg-gradient-to-r from-blue-200 to-green-200 border-b border-blue-300">
-                <div class="mt-8 text-2xl font-bold text-center text-blue-900">
-                    Evaluation Form Report
+            <div class="grid grid-cols-2 gap-6">
+                <!-- Area Chart -->
+                <div class="bg-white overflow-hidden shadow-2xl rounded-xl p-6 sm:px-10 bg-gradient-to-r from-blue-200 to-green-200 border-b border-blue-300">
+                    <div class="mt-8 text-2xl font-bold text-center text-blue-900">
+                        Evaluation Form Report
+                    </div>
+
+                    <div id="area-chart"></div>
                 </div>
-                
-                <div class="mt-6">
-                    <canvas id="chartContainer" style="height: 300px; width: 100%;"></canvas>
+
+                <!-- Column Chart -->
+                <div class="bg-white overflow-hidden shadow-2xl rounded-xl p-6 sm:px-10 bg-gradient-to-r from-purple-200 to-pink-200 border-b border-purple-300">
+                    <div class="mt-8 text-2xl font-bold text-center text-purple-900">
+                        Gender-Based Depression Levels
+                    </div>
+
+                    <div id="column-chart"></div>
                 </div>
             </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    @push('scripts')
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var evaluationForms = @json($evaluationForms); // Convert PHP variable to JavaScript object
+        document.addEventListener('DOMContentLoaded', function () {
+            const evaluationData =<?php echo json_encode($data)?>;
+           
 
-            // Extract data for chart
-            var labels = evaluationForms.map(function(form) {
-                return 'Form ' + form.id; // Example label
-            });
+            const dates = evaluationData.map(entry => entry.date);
+            const minimal = evaluationData.map(entry => entry.minimal);
+            const mild = evaluationData.map(entry => entry.mild);
+            const moderate = evaluationData.map(entry => entry.moderate);
+            const moderatelySevere = evaluationData.map(entry => entry.moderately_severe);
+            const severe = evaluationData.map(entry => entry.severe);
 
-            var data = evaluationForms.map(function(form) {
-                return form.total_score; // Example data point
-            });
-
-            // Chart.js code
-            var ctx = document.getElementById('chartContainer').getContext('2d');
-            var myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Total Score',
-                        data: data,
-                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
+            const getEvaluationChartOptions = (dates, minimal, mild, moderate, moderatelySevere, severe) => {
+                return {
+                    series: [
+                        { name: 'Minimal depression', data: minimal, color: '#3498db' },
+                        { name: 'Mild depression', data: mild, color: '#e74c3c' },
+                        { name: 'Moderate depression', data: moderate, color: '#f39c12' },
+                        { name: 'Moderately severe depression', data: moderatelySevere, color: '#8e44ad' },
+                        { name: 'Severe depression', data: severe, color: '#2ecc71' },
+                    ],
+                    chart: {
+                        height: "100%",
+                        maxWidth: "100%",
+                        type: "area",
+                        fontFamily: "Inter, sans-serif",
+                        dropShadow: {
+                            enabled: false,
+                        },
+                        toolbar: {
+                            show: false,
+                        },
+                    },
+                    tooltip: {
+                        enabled: true,
+                        x: {
+                            show: false,
+                        },
+                    },
+                    fill: {
+                        type: "gradient",
+                        gradient: {
+                            opacityFrom: 0.55,
+                            opacityTo: 0,
+                            shade: "#1C64F2",
+                            gradientToColors: ["#1C64F2"],
+                        },
+                    },
+                    dataLabels: {
+                        enabled: false,
+                    },
+                    stroke: {
+                        width: 6,
+                    },
+                    grid: {
+                        show: false,
+                        strokeDashArray: 4,
+                        padding: {
+                            left: 2,
+                            right: 2,
+                            top: 0
+                        },
+                    },
+                    xaxis: {
+                        categories: dates,
+                        labels: {
+                            show: true,
+                        },
+                        axisBorder: {
+                            show: false,
+                        },
+                        axisTicks: {
+                            show: false,
+                        },
+                    },
+                    yaxis: {
+                        show: true,
+                    },
                 }
-            });
+            }
+            
+            if (document.getElementById("area-chart") && typeof ApexCharts !== 'undefined') {
+                const areaChart = new ApexCharts(document.getElementById("area-chart"), getEvaluationChartOptions(dates, minimal, mild, moderate, moderatelySevere, severe));
+                areaChart.render();
+            }
+
+           
         });
     </script>
+    @endpush
 </x-app-layout>

@@ -5,72 +5,72 @@
         </x-slot>
 
         <x-validation-errors class="mb-4" />
-        <style>    
-           body {
-    background: url('images/image2.jpg') no-repeat center center fixed;
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 170vh;
-    margin: 0;
-}
+        <style>
+            body {
+                background: url('images/image2.jpg') no-repeat center center fixed;
+                background-size: cover;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 170vh;
+                margin: 0;
+            }
 
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 90%;
-    max-width: 600px;
-    margin: 50px;
-}
+            .container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 90%;
+                max-width: 600px;
+                margin: 50px;
+            }
 
-.glass-form {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 5px;
-    padding: 50px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
+            .glass-form {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 5px;
+                padding: 50px;
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.3);
+            }
 
-.glass-form .form-group {
-    margin-bottom: 15px;
-}
+            .glass-form .form-group {
+                margin-bottom: 15px;
+            }
 
-.glass-form label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
+            .glass-form label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: bold;
+            }
 
-.glass-form input,
-.glass-form select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 5px;
-    background: rgba(255, 255, 255, 0.5);
-    color: #000;
-    font-size: 14px;
-}
+            .glass-form input,
+            .glass-form select {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                border-radius: 5px;
+                background: rgba(255, 255, 255, 0.5);
+                color: #000;
+                font-size: 14px;
+            }
 
-.glass-form button {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background: rgba(255, 255, 255, 0.7);
-    color: #000;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
+            .glass-form button {
+                width: 100%;
+                padding: 10px;
+                border: none;
+                border-radius: 5px;
+                background: rgba(255, 255, 255, 0.7);
+                color: #000;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background 0.3s ease;
+            }
 
-.glass-form button:hover {
-    background: rgba(255, 255, 255, 0.9);
-} 
+            .glass-form button:hover {
+                background: rgba(255, 255, 255, 0.9);
+            }
         </style>
 
         <form method="POST" action="{{ route('register') }}" class="glass-form">
@@ -114,20 +114,20 @@
             </div>
 
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
-                <div class="form-group">
-                    <x-label for="terms">
-                        <div class="flex items-center">
-                            <x-checkbox name="terms" id="terms" required />
+            <div class="form-group">
+                <x-label for="terms">
+                    <div class="flex items-center">
+                        <x-checkbox name="terms" id="terms" required />
 
-                            <div class="ms-2">
-                                {!! __('I agree to the :terms_of_service and :privacy_policy', [
-                                        'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">'.__('Terms of Service').'</a>',
-                                        'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">'.__('Privacy Policy').'</a>',
-                                ]) !!}
-                            </div>
+                        <div class="ms-2">
+                            {!! __('I agree to the :terms_of_service and :privacy_policy', [
+                            'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">'.__('Terms of Service').'</a>',
+                            'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">'.__('Privacy Policy').'</a>',
+                            ]) !!}
                         </div>
-                    </x-label>
-                </div>
+                    </div>
+                </x-label>
+            </div>
             @endif
 
             <div class="form-group flex items-center justify-end mt-4">

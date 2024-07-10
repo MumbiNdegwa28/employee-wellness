@@ -76,7 +76,6 @@ class FullCalenderController extends Controller
 
       return response()->json($data);
     }
-
     return view('employee.therapistcalender');
   }
 }

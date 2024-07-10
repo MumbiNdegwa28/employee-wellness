@@ -32,14 +32,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 
-    <!--sticky div-->
-    <style>
-        thead {
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-    </style>
+    <!-- Flowbite CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
+    
 </head>
 
 <body class="font-sans antialiased">
@@ -85,6 +80,9 @@
 
     @livewireScripts
 
+    <!-- Flowbite CDNS -->
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     @stack('scripts')
     <!-- FullCalendar Scripts -->
 

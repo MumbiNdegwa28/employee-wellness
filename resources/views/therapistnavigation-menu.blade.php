@@ -22,7 +22,7 @@
                     //    {{ __('Planner') }}
                     </x-nav-link> -->
                     <x-nav-link href="{{ route('therapist.fullcalendar') }}" :active="request()->routeIs('therapist.fullcalendar')">
-                         {{ __('Full Calendar') }}
+                         {{ __('Calendar') }}
                     </x-nav-link>
                 </div>
             </div>

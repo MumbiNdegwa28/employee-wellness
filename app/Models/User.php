@@ -10,7 +10,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Fortify\Fortify;
-use Spatie\Permission\Traits\HasRoles;
+//use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens;
@@ -18,7 +18,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
-    use  HasRoles;
+    // use  HasRoles;
     /**
      * The attributes that are mass assignable.
      *
@@ -31,6 +31,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'gender',
         'email',
         'password',
+        'role_id'
     ];
 
     /**
@@ -67,6 +68,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'role_id' => 'integer'
         ];
     }
 
@@ -76,10 +78,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(Role::class);
     }
 
-    public function permissions()
-    {
-        return $this->belongsToMany(Permission::class);
-    }
+    // public function permissions()
+    // {
+    //     return $this->belongsToMany(Permission::class);
+    // }
 
     public function roles()
     {
@@ -111,7 +113,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Message::class);
     }
-    //relationship between user and messages
+    //relationship between User and messages
 
     // public function ()
     // {
@@ -132,12 +134,17 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Reply::class);
     }
     public function feedbackMessages()
-{
-    return $this->hasMany(FeedbackMessage::class);
-}
+    {
+        return $this->hasMany(FeedbackMessage::class);
+    }
 
-public function feedbacks()
-{
-    return $this->hasMany(Feedback::class, 'employee_id');
-}
+    public function feedbacks()
+    {
+        return $this->hasMany(Feedback::class, 'employee_id');
+    }
+
+    // public function evaluationForms()
+    // {
+    //     return $this->hasMany(EvaluationForm::class);
+    // }
 }

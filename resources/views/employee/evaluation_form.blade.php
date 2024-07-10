@@ -5,6 +5,21 @@
         </h2>
     </x-slot>
 
+    <style>
+    .sticky-header {
+        position: sticky;
+        top: 0;
+        background: white; /* Background color to avoid overlap issues */
+        z-index: 1; /* Ensure it is above other content */
+    }
+
+    .table-container {
+        max-height: 600px; /* Adjust the height as needed */
+        overflow-y: auto; /* Enable vertical scrolling */
+    }
+</style>
+
+
     <form method="POST" action="{{ route('submit-evaluation') }}">
         @csrf <!-- Add CSRF protection for POST requests -->
         <div class="py-12">
@@ -32,9 +47,9 @@
                             <h2 class="text-2xl font-bold mb-4">Patient Health Questionnaire-9 (PHQ-9)</h2>
                             <p class="mb-4">This is a multipurpose instrument for screening, diagnosing, monitoring, and measuring the severity of depression.</p>
                             <p class="mb-4"><strong>Over the last 2 weeks</strong>, how often have you been bothered by the following problems?</p>
-                            <div class="overflow-x-auto">
-                                <table class="min-w-full divide-y divide-gray-200">
-                                    <thead class="bg-gray-50 sticky top-0">
+                            <div class="table-container">
+                                <table class="min-w-full divide-y divide-gray-200" id="evaluation-table">
+                                    <thead class="bg-gray-50 sticky-header">
                                         <tr>
                                             <th class="w-1/2 p-2"></th>
                                             <th class="w-1/8 p-2 text-center">Not at all</th>
@@ -76,4 +91,29 @@
             </div>
         </div>
     </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const table = document.getElementById('evaluation-table');
+            const thead = table.querySelector('thead');
+            const ths = thead.querySelectorAll('th');
+
+            function adjustTableHeaderWidth() {
+                const tableWidth = table.offsetWidth;
+                thead.style.width = `${tableWidth}px`;
+
+                const headerCells = thead.querySelectorAll('th');
+                const bodyCells = table.querySelectorAll('tbody tr:first-child td');
+                
+                if (bodyCells.length) {
+                    headerCells.forEach((headerCell, index) => {
+                        headerCell.style.width = `${bodyCells[index].offsetWidth}px`;
+                    });
+                }
+            }
+
+            adjustTableHeaderWidth();
+            window.addEventListener('resize', adjustTableHeaderWidth);
+        });
+    </script>
 </x-app-layout>
