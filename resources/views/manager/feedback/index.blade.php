@@ -10,9 +10,6 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
-                        <tr>
-                    </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         @foreach ($feedbacks as $feedback)
                             <tr>
@@ -42,14 +39,29 @@
                     </div>
                     <div class="mt-6 text-gray-500">
                         <ul id="messages">
-                            <!-- Messages will be dynamically appended here -->
+                            @foreach ($messages as $message)
+                                <li class="mb-4">
+                                    <div>
+                                        <strong>{{ $message->user->name }}:</strong> {{ $message->message }}
+                                    </div>
+                                    <div class="ml-4">
+                                        <ul>
+                                            @foreach ($message->replies as $reply)
+                                                <li>
+                                                    <strong>{{ $reply->user->name }}:</strong> {{ $reply->message }}
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                     <div class="mt-4">
                         <textarea id="newMessage" rows="2" class="block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Type your message here"></textarea>
                     </div>
                     <div class="mt-4">
-                        <x-button onclick="sendMessage()">
+                        <x-button id="sendMessageButton">
                             {{ __('Send Message') }}
                         </x-button>
                     </div>
@@ -60,57 +72,83 @@
 
     <script src="{{ mix('js/app.js') }}"></script>
     <script>
-        const userId = {{ auth()->id() }};
-        @if($feedbacks->isNotEmpty())
-            const feedbackId = {{ $feedbacks->first()->id }};
-        @else
-            const feedbackId = null;
-        @endif
-
         document.addEventListener('DOMContentLoaded', function() {
+            const userId = {{ auth()->id() }};
+            @if($feedbacks->isNotEmpty())
+                const feedbackId = {{ $feedbacks->first()->id }};
+            @else
+                const feedbackId = null;
+            @endif
+
             if (feedbackId) {
-                window.Echo.private('feedback.' + feedbackId)
+                Echo.private('feedback.' + feedbackId)
                     .listen('FeedbackMessageSent', (e) => {
-                        appendMessage(e.message);
+                        appendMessage(e.message, e.user);
+                    })
+                    .listen('FeedbackReplySent', (e) => {
+                        appendReply(e.reply, e.user);
                     });
 
                 fetchMessages();
             }
-        });
 
-        function fetchMessages() {
-            if (feedbackId) {
-                axios.get(`/feedback/${feedbackId}/messages`).then(response => {
-                    const messages = response.data;
-                    messages.forEach(message => {
-                        appendMessage(message);
-                    });
-                });
-            }
-        }
+            document.getElementById('sendMessageButton').addEventListener('click', sendMessage);
 
-        function appendMessage(message) {
-            const messagesDiv = document.getElementById('messages');
-            const messageDiv = document.createElement('div');
-            messageDiv.classList.add(message.user.id === userId ? 'my-message' : 'other-message');
-            messageDiv.innerText = message.message;
-            messagesDiv.appendChild(messageDiv);
-        }
-
-        function sendMessage() {
-            if (feedbackId) {
-                const message = document.getElementById('newMessage').value;
-                console.log('Sending message:', message); // Debug log
-                axios.post(`/feedback/${feedbackId}/messages`, { message: message })
+            function fetchMessages() {
+                axios.get(`/feedback/${feedbackId}/messages`)
                     .then(response => {
-                        console.log('Message sent:', response.data); // Debug log
+                        const messages = response.data;
+                        messages.forEach(message => {
+                            appendMessage(message, message.user);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching messages:', error);
+                    });
+            }
+
+            function appendMessage(message, user) {
+                const messagesDiv = document.getElementById('messages');
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add(user.id === userId ? 'my-message' : 'other-message');
+                messageDiv.innerText = `${user.name}: ${message.message}`;
+                messagesDiv.appendChild(messageDiv);
+
+                // Append replies if any
+                if (message.replies) {
+                    message.replies.forEach(reply => {
+                        appendReply(reply, reply.user);
+                    });
+                }
+
+                // Scroll to bottom
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }
+
+            function appendReply(reply, user) {
+                const messagesDiv = document.getElementById('messages');
+                const replyDiv = document.createElement('div');
+                replyDiv.classList.add(user.id === userId ? 'my-reply' : 'other-reply');
+                replyDiv.innerText = `${user.name}: ${reply.message}`;
+                messagesDiv.appendChild(replyDiv);
+
+                // Scroll to bottom
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }
+
+            function sendMessage() {
+                const message = document.getElementById('newMessage').value.trim();
+                if (message === '') return;
+
+                axios.post(`/feedback/${feedbackId}/messages`, { message })
+                    .then(response => {
                         document.getElementById('newMessage').value = '';
-                        appendMessage(response.data.message);
+                        appendMessage(response.data.message, response.data.user);
                     })
                     .catch(error => {
                         console.error('Error sending message:', error);
                     });
             }
-        }
+        });
     </script>
 </x-app-layout>

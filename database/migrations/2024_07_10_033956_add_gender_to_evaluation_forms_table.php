@@ -11,15 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('planner', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->text('description')->nullable();
-            $table->timestamps();
-            $table->dateTime('start_date');
-            $table->dateTime('end_date')->nullable();
-
-
+        Schema::table('evaluation_forms', function (Blueprint $table) {
+            $table->string('gender')->after('severity');
         });
     }
 
@@ -28,6 +21,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('planner');
+        Schema::table('evaluation_forms', function (Blueprint $table) {
+            $table->dropColumn('gender'); 
+        });
     }
+    //run the migration
 };

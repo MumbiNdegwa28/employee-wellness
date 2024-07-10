@@ -63,6 +63,18 @@ class UserController extends Controller
         $user->save();
         return redirect()->route('admin.manageUserPermissions.index')->with('success', 'Permissions updated successfully');
     }
+    public function suspendUser(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+        ]);
+
+        $user = User::find($request->user_id);
+        $user->status = 'suspended';  // Assuming you have a status column in your users table
+        $user->save();
+
+        return redirect()->back()->with('message', 'User suspended successfully.');
+    }
     public function destroy(User $user)
     {
         $user->delete();

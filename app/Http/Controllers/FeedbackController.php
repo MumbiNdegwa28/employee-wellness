@@ -11,18 +11,31 @@ class FeedbackController extends Controller
 {
     public function index()
     {
-        $feedbacks = Feedback::with('employee')->get(); // Assuming you have a relationship set up with Employee
+        $feedbacks = Feedback::with('employee', 'messages.user', 'messages.replies.user')->get(); // Assuming you have a relationship set up with Employee
+        $messages = $this->fetchMessages($feedbacks->first()->id ?? null);
+
         // Return the view with the feedback data
-        return view('manager.feedback.index', compact('feedbacks'));
+        return view('manager.feedback.index', compact('feedbacks', 'messages'));
     }
-    // Method to show a specific feedback
-    public function show($id)
+    public function sendMessage(Request $request, $feedbackId)
+{
+    $request->validate([
+        'message' => 'required|string',
+    ]);
+
+    $message = FeedbackMessage::create([
+        'feedback_id' => $feedbackId,
+        'user_id' => auth()->id(),
+        'message' => $request->message,
+    ]);
+
+}
+private function fetchMessages($feedbackId)
     {
-        // Find feedback by ID
-        $feedback = Feedback::findOrFail($id);
-        $feedback = Feedback::with('employee')->findOrFail($id);
-        // Return the view with the specific feedback
-        return view('manager.feedback.show', compact('feedback'));
+        if ($feedbackId) {
+            return Feedback::find($feedbackId)->messages()->with('user', 'replies.user')->get();
+        }
+        return collect();
     }
     public function storeMessage(Request $request, $feedbackId)
     {
@@ -32,8 +45,6 @@ class FeedbackController extends Controller
             'message' => $request->message,
         ]);
 
-        broadcast(new FeedbackMessageSent($message))->toOthers();
-
-        return response()->json(['status' => 'Message Sent!']);
+        return response()->json(['message' => $message->load('user')]);
     }
 }

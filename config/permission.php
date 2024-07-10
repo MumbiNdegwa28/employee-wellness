@@ -13,6 +13,7 @@ return [
          * `Spatie\Permission\Contracts\Permission` contract.
          */
 
+         'role' => App\Models\Role::class,
         'permission' => Spatie\Permission\Models\Permission::class,
 
         /*
@@ -24,7 +25,6 @@ return [
          * `Spatie\Permission\Contracts\Role` contract.
          */
 
-        'role' => Spatie\Permission\Models\Role::class,
 
     ],
 
@@ -75,8 +75,8 @@ return [
         /*
          * Change this if you want to name the related pivots other than defaults
          */
-        'role_pivot_key' => null, //default 'role_id',
-        'permission_pivot_key' => null, //default 'permission_id',
+        'role_pivot_key' => 'role_id', //default 'role_id',
+        'permission_pivot_key' => 'permission_id', //default 'permission_id',
 
         /*
          * Change this if you want to name the related model primary key other than
@@ -94,6 +94,9 @@ return [
          */
 
         'team_foreign_key' => 'team_id',
+
+        // Add this line to configure role name column
+        'role_name' => 'role_name',
     ],
 
     /*

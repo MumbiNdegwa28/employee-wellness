@@ -5,10 +5,10 @@
         </h2>
     </x-slot>
 
-    <div class="py-12 bg-gray-100 min-h-screen">
+    <div class="py-12 bg-white min-h-screen">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-2xl rounded-xl p-6 sm:px-10 bg-gradient-to-r from-blue-200 to-green-200 border-b border-blue-300">
-                <div class="mt-8 text-2xl font-bold text-center text-blue-900">
+            <div class="bg-white overflow-hidden shadow-xl rounded-2xl p-6 sm:px-10 border-b border-gray-300">
+                <div class="text-2xl font-bold text-center text-gray-800 mb-6">
                     Evaluation Form Report
                 </div>
                 
@@ -25,11 +25,18 @@
             var evaluationForms = @json($evaluationForms); // Convert PHP variable to JavaScript object
 
             // Extract data for chart
+            var maleForms = evaluationForms.filter(form => form.gender === 'Male');
+            var femaleForms = evaluationForms.filter(form => form.gender === 'Female');
+
             var labels = evaluationForms.map(function(form) {
                 return 'Form ' + form.id; // Example label
             });
 
-            var data = evaluationForms.map(function(form) {
+            var maleData = maleForms.map(function(form) {
+                return form.total_score; // Example data point
+            });
+
+            var femaleData = femaleForms.map(function(form) {
                 return form.total_score; // Example data point
             });
 
@@ -39,13 +46,22 @@
                 type: 'bar',
                 data: {
                     labels: labels,
-                    datasets: [{
-                        label: 'Total Score',
-                        data: data,
-                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    }]
+                    datasets: [
+                        {
+                            label: 'Male Total Score',
+                            data: maleData,
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Female Total Score',
+                            data: femaleData,
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        }
+                    ]
                 },
                 options: {
                     scales: {

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('DOB');
             $table->string('email')->unique();
             $table->string('gender');
-            $table->foreignIdFor(Role::class)->default(4)->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignIdFor('role_id')->default(4)->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

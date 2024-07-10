@@ -13,6 +13,10 @@ class Feedback extends Model
     {
         return $this->hasMany(FeedbackMessage::class);
     }
+    public function replies()
+    {
+        return $this->hasMany(FeedbackReply::class);
+    }
     protected $fillable = [
         'employee_id', 
         'feedback',

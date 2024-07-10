@@ -10,7 +10,7 @@ class ViewUserRecordsController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::select('id', 'fname', 'lname', 'email', 'status')->get();        
         return view('admin.users.index', compact('users'));
     }
 

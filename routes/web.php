@@ -25,6 +25,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\MessageController;
 use App\Http\Livewire\ManageRoles;
 use App\Http\Controllers\RoleManagementController;
+use App\Http\Controllers\FeedbackReplyController;
 
 use App\Http\Controllers\FullCalenderController;
 
@@ -104,6 +105,7 @@ Route::post('/activities/store', [ActivityController::class, 'store'])->name('ac
 Route::get('/manager/feedback', [FeedbackController::class, 'index'])->name('manager.feedback.index');
 Route::get('/manager/feedback/{id}', [FeedbackController::class, 'show'])->name('manager.feedback.show');
 Route::post('/send-message', [MessageController::class, 'sendMessage'])->name('send-message');
+Route::post('/feedback-replies', [FeedbackReplyController::class, 'store'])->name('feedback-replies');
 
 Route::post('/feedback/{feedback}/messages', [FeedbackController::class, 'storeMessage']);
 Route::get('/feedback/{feedback}/messages', [MessageController::class, 'index'])->name('messages.index');
@@ -114,12 +116,13 @@ Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('adm
 //Route::get('/admin/view-user-records', [ViewUserRecordsController::class, 'show'])->name('admin.viewUserRecords'); //
 Route::get('/admin/users', [ViewUserRecordsController::class, 'index'])->name('admin.users.index');
 Route::get('/admin/users/{user}', [ViewUserRecordsController::class, 'show'])->name('admin.users.show');
+Route::get('/admin/users/logins', [AdminController::class, 'logins'])->name('admin.users.logins');
 //
     
 Route::get('/admin/role-management', [RoleManagementController::class, 'index'])->name('admin.role-management.index');
 Route::post('/role-management/assign', [RoleManagementController::class, 'assignRole'])->name('role-management.assign');
 Route::get('/setup-roles-permissions', [RoleManagementController::class, 'setupRolesAndPermissions']);
-
+Route::post('/user/suspend', [UserController::class, 'suspendUser'])->name('user.suspend');
 
 Route::get('/admin/users/{user}/edit', [AdminController::class, 'editUser'])->name('admin.users.edit');
 Route::put('/admin/users/{user}', [AdminController::class, 'updateUser'])->name('admin.users.update');
