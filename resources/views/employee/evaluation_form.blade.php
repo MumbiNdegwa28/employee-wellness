@@ -74,6 +74,40 @@
                                     <option value="Female">Female</option>
                                     <!-- Add other options if needed -->
                                 </select>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50 sticky top-0">
+                                        <tr>
+                                            <th class="w-1/2 p-2"></th>
+                                            <th class="w-1/8 p-2 text-center">Not at all</th>
+                                            <th class="w-1/8 p-2 text-center">Several days</th>
+                                            <th class="w-1/8 p-2 text-center">More than half the days</th>
+                                            <th class="w-1/8 p-2 text-center">Nearly every day</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach([
+                                            'Little interest or pleasure in doing things',
+                                            'Feeling down, depressed, or hopeless',
+                                            'Trouble falling asleep, staying asleep, or sleeping too much',
+                                            'Feeling tired or having little energy',
+                                            'Poor appetite or overeating',
+                                            'Feeling bad about yourself — or that you are a failure or have let yourself or your family down',
+                                            'Trouble concentrating on things, such as reading the newspaper or watching television',
+                                            'Moving or speaking so slowly that other people could have noticed. Or the opposite — being so fidgety or restless that you have been moving around a lot more than usual',
+                                            'Thoughts that you would be better off dead, or thoughts of hurting yourself in some way'
+                                        ] as $index => $question)
+                                        <tr>
+                                            <td class="p-2">{{ $index + 1 }}. {{ $question }}</td>
+                                            @for($i = 0; $i < 4; $i++)
+                                            <td class="p-2 text-center">
+                                                <input type="radio" name="q{{ $index + 1 }}" value="{{ $i }}" class="form-radio text-peach-600" required>
+                                            </td>
+                                            @endfor
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                         <x-button type="submit" class="mt-4 bg-peach-500 hover:bg-peach-700 text-white font-bold py-2 px-4 rounded">

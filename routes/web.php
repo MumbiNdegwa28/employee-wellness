@@ -85,6 +85,8 @@ Route::post('/submit-evaluation', [EvaluationFormController::class, 'submit'])->
 Route::get('/employee/resources', [ResourceController::class, 'showResources'])->name('employee.resources');
 Route::get('/employee/journals', [JournalController::class, 'show'])->name('journals.show');
 Route::post('/journals', [JournalController::class, 'store'])->name('journals.store');
+Route::get('/employee/fullcalendar', [FullCalenderController::class, 'display'])->name('employee.fullcalendar');
+// Route::post('/employee/fullcalendarAjax', [FullCalenderController::class, 'ajax'])->name('employee.fullcalendar.ajax');
 Route::get('/employee/request-appointment', [RequestAppointmentController::class, 'index'])->name('request-appointment');
 Route::post('/send-message', [RequestAppointmentController::class, 'sendMessage'])->name('send-message');
 Route::post('/send-reply/{message}',[RequestAppointmentController::class,'sendReply'])->name('send-reply');
