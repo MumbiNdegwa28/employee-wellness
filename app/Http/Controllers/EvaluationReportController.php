@@ -25,20 +25,18 @@ class EvaluationReportController extends Controller
             ];
         })->values();
 
-        // $genderData = User::with('evaluationForms')
-        //     ->get()
-        //     ->groupBy('gender')
-        //     ->map(function ($group) {
-        //         return [
-        //             'minimal' => $group->pluck('evaluationForms')->flatten()->where('severity', 'Minimal depression')->count(),
-        //             'mild' => $group->pluck('evaluationForms')->flatten()->where('severity', 'Mild depression')->count(),
-        //             'moderate' => $group->pluck('evaluationForms')->flatten()->where('severity', 'Moderate depression')->count(),
-        //             'moderately_severe' => $group->pluck('evaluationForms')->flatten()->where('severity', 'Moderately severe depression')->count(),
-        //             'severe' => $group->pluck('evaluationForms')->flatten()->where('severity', 'Severe depression')->count(),
-        //         ];
-        //     });
+        $genderData = $evaluationData->groupBy('gender')->map(function ($group) {
+            return [
+                'minimal' => $group->where('severity', 'Minimal depression')->count(),
+                'mild' => $group->where('severity', 'Mild depression')->count(),
+                'moderate' => $group->where('severity', 'Moderate depression')->count(),
+                'moderately_severe' => $group->where('severity', 'Moderately severe depression')->count(),
+                'severe' => $group->where('severity', 'Severe depression')->count(),
+            ];
+        });
 
+        // dd($genderData);
 
-        return view('manager.evaluation-report', compact('data'));
+        return view('manager.evaluation-report', compact('data', 'genderData'));
     }
 }

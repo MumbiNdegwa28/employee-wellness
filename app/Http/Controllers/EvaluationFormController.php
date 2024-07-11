@@ -20,6 +20,7 @@ class EvaluationFormController extends Controller
             'q7' => 'required|integer|between:0,3',
             'q8' => 'required|integer|between:0,3',
             'q9' => 'required|integer|between:0,3',
+            'gender' => 'required|string',
         ]);
     
         // Calculate the total score
@@ -54,6 +55,7 @@ class EvaluationFormController extends Controller
             'q9' => $validatedData['q9'],
             'total_score' => $totalScore,
             'severity' => $severity,
+            'gender' => $validatedData['gender'],
         ]);
     
         // Return the results with a success message
