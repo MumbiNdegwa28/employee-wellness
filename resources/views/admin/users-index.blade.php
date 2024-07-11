@@ -41,6 +41,17 @@
                                         <form action="{{ route('admin.user.edit', $user) }}" method="GET" class="inline">
                                             <x-button type="submit" class="btn btn-sm btn-warning">{{__('Edit')}}</x-button>
                                         </form>
+                                        @if ($user->suspended)
+                                        <form action="{{ route('admin.user.unsuspend', $user->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            <x-button type="submit" class="btn btn-success" onclick="return confirm('Are you sure you want to unsuspend this user?')">Unsuspend</x-button>
+                                        </form>
+                                        @else
+                                        <form action="{{ route('admin.user.suspend', $user->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            <x-danger-button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to suspend this user?')">{{ __('Suspend') }}</x-danger-button>
+                                        </form>
+                                        @endif
                                         <form action="{{ route('admin.user.destroy', $user) }}" method="POST" class="inline">
                                             @csrf
                                             @method('DELETE')

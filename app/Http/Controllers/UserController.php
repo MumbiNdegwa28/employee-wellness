@@ -80,26 +80,29 @@ class UserController extends Controller
 
     use PasswordValidationRules;
 
-    public function index(){
+    public function index()
+    {
         //fetch all non-tenant users
-        $adminRole = Role::where('role_name','Admin')->first();
-        $users = User::where('role_id','!=',$adminRole->id)->with('role')->paginate(5);
-        
-        return view('admin.users-index',compact('users'));
+        $adminRole = Role::where('role_name', 'Admin')->first();
+        $users = User::where('role_id', '!=', $adminRole->id)->with('role')->paginate(5);
+
+        return view('admin.users-index', compact('users'));
     }
 
-    public function create(){
+    public function create()
+    {
         $roles = Role::all();
-        return view('admin.users-create',compact('roles'));
+        return view('admin.users-create', compact('roles'));
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $request->validate([
             'fname' => ['required', 'string', 'max:255'],
             'lname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
-            'role_id'=>['required','exists:roles,id']
+            'role_id' => ['required', 'exists:roles,id']
         ]);
 
         // // Sanitize phone number
@@ -118,8 +121,8 @@ class UserController extends Controller
         $user = User::create([
             'fname' => $request->fname,
             'lname' => $request->lname,
-            'dob'=> $request->dob,
-            'gender'=> $request->gender,
+            'dob' => $request->dob,
+            'gender' => $request->gender,
             'email' => $request->email,
             'role_id' => $request->role_id,
             'password' => Hash::make($request->password),
@@ -130,22 +133,24 @@ class UserController extends Controller
         $roleName = $role ? $role->role_name : 'Undefined Role';
 
         //Send email to new user
-        Mail::to($user->email)->send(new UserWelcome($user, $password,$roleName));
+        Mail::to($user->email)->send(new UserWelcome($user, $password, $roleName));
 
-        return redirect()->route('admin.user.index')->with('success','User added successfully');
+        return redirect()->route('admin.user.index')->with('success', 'User added successfully');
     }
 
-    public function edit(User $user){
+    public function edit(User $user)
+    {
         $roles = Role::all();
-        return view('admin.users-edit',compact('user','roles'));
+        return view('admin.users-edit', compact('user', 'roles'));
     }
 
-    public function update(Request $request, User $user){
+    public function update(Request $request, User $user)
+    {
         $request->validate([
             'fname' => 'required|string|max:255',
             'lname' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'role_id'=>['required','exists:roles,id']
+            'role_id' => ['required', 'exists:roles,id']
         ]);
 
         // // Sanitize phone number
@@ -158,18 +163,35 @@ class UserController extends Controller
 
         //Update the user
         $user->update([
-            'fname' =>$request->fname,
-            'lname' =>$request->lname,
-            'email'=>$request->email,
+            'fname' => $request->fname,
+            'lname' => $request->lname,
+            'email' => $request->email,
             'role_id' => $request->role_id
         ]);
 
-        return redirect()->route('admin.user.index')->with('success','User updated successfully');
-
+        return redirect()->route('admin.user.index')->with('success', 'User updated successfully');
     }
 
-    public function destroy(User $user){
+    public function destroy(User $user)
+    {
         $user->delete();
-        return redirect()->route('admin.user.index')->with('success','User deleted successfully');
+        return redirect()->route('admin.user.index')->with('success', 'User deleted successfully');
+    }
+
+    
+    public function suspend(User $user)
+    {
+        $user->suspended = true;
+        $user->save();
+
+        return redirect()->route('admin.user.index')->with('success', 'User suspended successfully');
+    }
+
+    public function unsuspend(User $user)
+    {
+        $user->suspended = false;
+        $user->save();
+
+        return redirect()->route('admin.user.index')->with('success', 'User unsuspended successfully');
     }
 }

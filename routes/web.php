@@ -27,7 +27,7 @@ use App\Http\Livewire\ManageRoles;
 use App\Http\Controllers\RoleManagementController;
 
 use App\Http\Controllers\FullCalenderController;
-
+use App\Http\Middleware\CheckSuspended;
 
 Route::get('/', function () {
     return view('welcome');
@@ -37,6 +37,7 @@ Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
+    'check.suspended'
 ])->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 });
@@ -87,7 +88,7 @@ Route::post('/journals', [JournalController::class, 'store'])->name('journals.st
 Route::get('/employee/fullcalendar', [FullCalenderController::class, 'display'])->name('employee.fullcalendar');
 // Route::post('/employee/fullcalendarAjax', [FullCalenderController::class, 'ajax'])->name('employee.fullcalendar.ajax');
 Route::get('/employee/request-appointment', [RequestAppointmentController::class, 'index'])->name('request-appointment');
-Route::post('/send-message', [RequestAppointmentController::class, 'sendMessage'])->name('send-message');
+Route::get('/send-message', [RequestAppointmentController::class, 'sendMessage'])->name('send-message');
 Route::post('/send-reply/{message}', [RequestAppointmentController::class, 'sendReply'])->name('send-reply');
 
 // Manager specific routes
@@ -104,13 +105,13 @@ Route::get('/activities', [ActivityController::class, 'index'])->name('activitie
 Route::get('/manager/plan-activities', [ActivityController::class, 'showActivities'])->name('manager.plan-activities.index');
 Route::post('/activities/store', [ActivityController::class, 'store'])->name('activities.store');
 //feedback
-Route::get('/manager/feedback', [FeedbackController::class, 'index'])->name('manager.feedback.index');
-Route::get('/manager/feedback/{id}', [FeedbackController::class, 'show'])->name('manager.feedback.show');
-Route::post('/send-message', [MessageController::class, 'sendMessage'])->name('send-message');
+//Route::get('/manager/feedback', [FeedbackController::class, 'index'])->name('manager.feedback.index');
+//Route::get('/manager/feedback/{id}', [FeedbackController::class, 'show'])->name('manager.feedback.show');
+//Route::post('/send-message', [MessageController::class, 'sendMessage'])->name('send-message');
 
-Route::post('/feedback/{feedback}/messages', [FeedbackController::class, 'storeMessage']);
-Route::get('/feedback/{feedback}/messages', [MessageController::class, 'index'])->name('messages.index');
-Route::post('/feedback/{feedback}/messages', [MessageController::class, 'store'])->name('messages.store');
+//Route::post('/feedback/{feedback}/messages', [FeedbackController::class, 'storeMessage']);
+//Route::get('/feedback/{feedback}/messages', [MessageController::class, 'index'])->name('messages.index');
+//Route::post('/feedback/{feedback}/messages', [MessageController::class, 'store'])->name('messages.store');
 
 // Admin Routes
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.home');
@@ -124,8 +125,8 @@ Route::post('/admin/roles', [AdminController::class, 'store'])->name('admin.role
 Route::get('/admin/roles/{role}/edit', [AdminController::class, 'editRole'])->name('admin.roles.edit');
 Route::put('/admin/roles/{role}', [AdminController::class, 'update'])->name('admin.roles.update');
 Route::delete('/admin/roles/{role}', [AdminController::class, 'destroy'])->name('admin.roles.destroy');
-// Landlord user routes
-Route::resource('users', UserController::class)->names([
+// Manage user routes
+Route::resource('/users', UserController::class)->names([
     'index' => 'admin.user.index',
     'create' => 'admin.user.create',
     'store' => 'admin.user.store',
@@ -133,6 +134,8 @@ Route::resource('users', UserController::class)->names([
     'update' => 'admin.user.update',
     'destroy' => 'admin.user.destroy',
 ]);
+Route::post('/admin/users/{user}/suspend', [UserController::class, 'suspend'])->name('admin.user.suspend');
+Route::post('/admin/users/{user}/unsuspend', [UserController::class, 'unsuspend'])->name('admin.user.unsuspend');
 // End of Mumbi admin routes
 
 

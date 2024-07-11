@@ -31,7 +31,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'gender',
         'email',
         'password',
-        'role_id'
+        'role_id',
+        'suspended',
     ];
 
     /**
@@ -68,7 +69,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'role_id' => 'integer'
+            'role_id' => 'integer',
+            'suspended' => 'boolean', 
         ];
     }
 
@@ -147,4 +149,10 @@ class User extends Authenticatable implements MustVerifyEmail
     // {
     //     return $this->hasMany(EvaluationForm::class);
     // }
+
+    //check if user is suspended
+    public function isSuspended()
+    {
+        return $this->suspended;
+    }
 }
