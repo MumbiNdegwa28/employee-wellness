@@ -3,48 +3,93 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Feedback;
-use App\Models\FeedbackMessage;
 use App\Events\FeedbackMessageSent;
+use App\Events\FeedbackReplySent;
+use App\Models\Feedback;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class FeedbackController extends Controller
 {
-    public function index()
+    public function index($receiverId)
     {
-        $feedbacks = Feedback::with('employee', 'messages.user', 'messages.replies.user')->get(); // Assuming you have a relationship set up with Employee
-        $messages = $this->fetchMessages($feedbacks->first()->id ?? null);
-
+        $feedbacks = Feedback::where('receiver_id', $receiverId)
+        ->with('sender', 'replies')
+        ->get(); 
+        // Adjust this to fetch the relevant feedbacks
         // Return the view with the feedback data
-        return view('manager.feedback.index', compact('feedbacks', 'messages'));
+        return view('manager.feedback.index', compact('receiver', 'messages', 'feedbacks'));
     }
-    public function sendMessage(Request $request, $feedbackId)
-{
-    $request->validate([
-        'message' => 'required|string',
-    ]);
-
-    $message = FeedbackMessage::create([
-        'feedback_id' => $feedbackId,
-        'user_id' => auth()->id(),
-        'message' => $request->message,
-    ]);
-
-}
-private function fetchMessages($feedbackId)
+    public function show($id)
     {
-        if ($feedbackId) {
-            return Feedback::find($feedbackId)->messages()->with('user', 'replies.user')->get();
-        }
-        return collect();
+        $feedback = Feedback::with('replies.sender')->findOrFail($id);
+        return view('manager.feedback.show', compact('feedback'));
     }
-    public function storeMessage(Request $request, $feedbackId)
+    public function sendMessage(Request $request)
     {
-        $message = FeedbackMessage::create([
-            'user_id' => auth()->id(),
-            'feedback_id' => $feedbackId,
-            'message' => $request->message,
+        $request->validate([
+            'message' => 'required|string|max:1000',
+            'receiver_id' => 'required|exists:users,id',
         ]);
 
-        return response()->json(['message' => $message->load('user')]);
+        $message = new Feedback();
+        $message->message = $request->message;
+        $message->sender_id = Auth::id();
+        $message->receiver_id = $request->receiver_id;
+        $message->save();
+
+        return response()->json(['success' => true]);
     }
+
+    public function store(Request $request)
+    {
+        // Validate request data
+        $validatedData = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'feedback_id' => 'required|exists:feedbacks,id',
+            'message' => 'required|string',
+            // Add any additional validation rules specific to message creation
+        ]);
+
+        // Create Feedback instance
+        $feedback = Feedback::create($validatedData);
+
+        // Optionally load related user
+        $feedback->load('user');
+
+        // Broadcast event
+        event(new FeedbackMessageSent($feedback, $feedback->user));
+
+        return response()->json(['success' => true, 'feedback' => $feedback]);
+    }
+
+    public function storeReply(Request $request)
+    {
+        // Validate request data
+        $validatedData = $request->validate([
+            'feedback_id' => 'required|exists:feedbacks,id',
+            'user_id' => 'required|exists:users,id',
+            'message' => 'required|string',
+        ]);
+
+        // Create FeedbackReply instance
+        $reply = FeedbackReply::create([
+            'feedback_id' => $validatedData['feedback_id'],
+            'user_id' => $validatedData['user_id'],
+            'message' => $validatedData['message'],
+        ]);
+
+        // Optionally load related user
+        $reply->load('user');
+
+        // Get the original feedback instance
+        $feedback = $reply->feedback;
+
+        // Broadcast event
+        event(new FeedbackReplySent($reply, $reply->user));
+
+        return response()->json(['success' => true, 'reply' => $reply, 'feedback' => $feedback]);
+    }
+
 }

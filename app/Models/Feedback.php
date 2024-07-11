@@ -7,23 +7,34 @@ use Illuminate\Database\Eloquent\Model;
 
 class Feedback extends Model
 {
+    protected $table = "feedback";
+
     use HasFactory;
 
-    public function messages()
+    protected $fillable = ['message', 'sender_id', 'receiver_id', 'feedback_id'];
+
+    public function sender()
     {
-        return $this->hasMany(FeedbackMessage::class);
+        return $this->belongsTo(User::class, 'sender_id');
+    }
+
+    public function receiver()
+    {
+        return $this->belongsTo(User::class, 'receiver_id');
     }
     public function replies()
     {
-        return $this->hasMany(FeedbackReply::class);
+        return $this->hasMany(Feedback::class, 'feedback_id');
     }
-    protected $fillable = [
-        'employee_id', 
-        'feedback',
-    ];
 
-    public function employee()
+    public function scopeBetween($query, $userId1, $userId2)
     {
-        return $this->belongsTo(Employee::class);
+        return $query->where(function ($query) use ($userId1, $userId2) {
+            $query->where('sender_id', $userId1)
+                  ->where('receiver_id', $userId2);
+        })->orWhere(function ($query) use ($userId1, $userId2) {
+            $query->where('sender_id', $userId2)
+                  ->where('receiver_id', $userId1);
+        });
     }
 }

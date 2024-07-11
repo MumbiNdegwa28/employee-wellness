@@ -21,5 +21,6 @@ class EvaluationForm extends Model
         'q9',
         'total_score',
         'severity',
+        'gender',
     ];
 }

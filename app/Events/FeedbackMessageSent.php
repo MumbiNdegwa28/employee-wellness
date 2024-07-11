@@ -9,7 +9,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\FeedbackMessage;
+use App\Models\Feedback;
 use App\Models\User;
 
 class FeedbackMessageSent implements ShouldBroadcast
@@ -21,7 +21,7 @@ class FeedbackMessageSent implements ShouldBroadcast
      */
     public $message;
     public $user;
-    public function __construct(FeedbackMessage $message, User $user)
+    public function __construct(Feedback $message, User $user)
     {
         $this->message = $message;
         $this->user = $user;

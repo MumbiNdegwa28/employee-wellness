@@ -13,31 +13,35 @@
                 </div>
                 <div class="mt-6 text-gray-500">
                     <table class="table-auto w-full">
-                        <tr>
-                            <th class="px-4 py-2">Question</th>
-                            <th class="px-4 py-2">Answer</th>
-                        </tr>
-                        <tr>
-                            <td class="border px-4 py-2">Q1</td>
-                            <td class="border px-4 py-2">{{ $evaluationForm->q1 }}</td>
-                        </tr>
-                        <tr>
-                            <td class="border px-4 py-2">Q2</td>
-                            <td class="border px-4 py-2">{{ $evaluationForm->q2 }}</td>
-                        </tr>
-                        <!-- Repeat for other questions -->
-                        <tr>
-                            <td class="border px-4 py-2">Total Score</td>
-                            <td class="border px-4 py-2">{{ $evaluationForm->total_score }}</td>
-                        </tr>
-                        <tr>
-                            <td class="border px-4 py-2">Severity</td>
-                            <td class="border px-4 py-2">{{ $evaluationForm->severity }}</td>
-                        </tr>
-                        <tr>
-                            <td class="border px-4 py-2">Gender</td>
-                            <td class="border px-4 py-2">{{ $evaluationForm->gender }}</td>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th class="px-4 py-2 text-left">Question</th>
+                                <th class="px-4 py-2 text-left">Answer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border px-4 py-2">Q1</td>
+                                <td class="border px-4 py-2">{{ $evaluationForm->q1 }}</td>
+                            </tr>
+                            <tr>
+                                <td class="border px-4 py-2">Q2</td>
+                                <td class="border px-4 py-2">{{ $evaluationForm->q2 }}</td>
+                            </tr>
+                            <!-- Repeat for other questions -->
+                            <tr>
+                                <td class="border px-4 py-2">Total Score</td>
+                                <td class="border px-4 py-2">{{ $evaluationForm->total_score }}</td>
+                            </tr>
+                            <tr>
+                                <td class="border px-4 py-2">Severity</td>
+                                <td class="border px-4 py-2">{{ $evaluationForm->severity }}</td>
+                            </tr>
+                            <tr>
+                                <td class="border px-4 py-2">Gender</td>
+                                <td class="border px-4 py-2">{{ $evaluationForm->gender }}</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>

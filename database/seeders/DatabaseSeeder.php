@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             'lname' => 'Ndegwa',
             'email' => 'mumbi.ndegwa20@gmail.com',
             'gender' => 'Female',
-            'role_id' => 1,
+            'role_id' => 2,
             'DOB' => Carbon::createFromFormat('m/d/Y', '01/09/2004')->format('Y-m-d'),
             'password' => Hash::make('12345678')
         ]);
@@ -44,6 +44,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'elvis.makara@strathmore.edu',
             'gender' => 'Male',
             'role_id' => 4,
+            'manager_id' => 1,
             'DOB' => Carbon::createFromFormat('m/d/Y', '09/21/2004')->format('Y-m-d'),
             'password' => Hash::make('12345678')
         ]);
