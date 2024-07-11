@@ -9,37 +9,42 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
+                    @if(session('success'))
+                        <div class="alert alert-success bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
+                            {{session('success')}}
+                        </div>
+                    @endif
                     <div class="mt-8 text-2xl">
                         Messages
                     </div>
                     <div class="mt-6 text-gray-500">
                         <ul id="messages">
                             @foreach ($messages as $message)
-                                <li class="mb-4">
+                            <li class="mb-4">
+                                <div>
+                                    <strong>{{ $message->sender->fname }}:</strong> {{ $message->content }}
+                                </div>
+                                <div class="ml-4">
+                                    <ul>
+                                        @foreach ($message->replies as $reply)
+                                        <li>
+                                            <strong>{{ $reply->user->fname }}:</strong> {{ $reply->content }}
+                                        </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                <form action="{{ route('therapist-send-reply', $message->id) }}" method="POST" class="mt-4">
+                                    @csrf
                                     <div>
-                                        <strong>{{ $message->sender->fname }}:</strong> {{ $message->content }}
+                                        <textarea id="reply" name="reply" rows="2" class="block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Type your reply here"></textarea>
                                     </div>
-                                    <div class="ml-4">
-                                        <ul>
-                                            @foreach ($message->replies as $reply)
-                                                <li>
-                                                    <strong>{{ $reply->user->fname }}:</strong> {{ $reply->content }}
-                                                </li>
-                                            @endforeach
-                                        </ul>
+                                    <div class="mt-4">
+                                        <x-button>
+                                            {{ __('Send Reply') }}
+                                        </x-button>
                                     </div>
-                                    <form action="{{ route('therapist-send-reply', $message->id) }}" method="POST" class="mt-4">
-                                        @csrf
-                                        <div>
-                                            <textarea id="reply" name="reply" rows="2" class="block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Type your reply here"></textarea>
-                                        </div>
-                                        <div class="mt-4">
-                                            <x-button>
-                                                {{ __('Send Reply') }}
-                                            </x-button>
-                                        </div>
-                                    </form>
-                                </li>
+                                </form>
+                            </li>
                             @endforeach
                         </ul>
                     </div>

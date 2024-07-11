@@ -88,7 +88,7 @@ Route::post('/journals', [JournalController::class, 'store'])->name('journals.st
 Route::get('/employee/fullcalendar', [FullCalenderController::class, 'display'])->name('employee.fullcalendar');
 // Route::post('/employee/fullcalendarAjax', [FullCalenderController::class, 'ajax'])->name('employee.fullcalendar.ajax');
 Route::get('/employee/request-appointment', [RequestAppointmentController::class, 'index'])->name('request-appointment');
-Route::get('/send-message', [RequestAppointmentController::class, 'sendMessage'])->name('send-message');
+Route::post('/send-message', [RequestAppointmentController::class, 'sendMessage'])->name('send-message');
 Route::post('/send-reply/{message}', [RequestAppointmentController::class, 'sendReply'])->name('send-reply');
 
 // Manager specific routes
@@ -147,20 +147,6 @@ Route::get('/setup-roles-permissions', [RoleManagementController::class, 'setupR
 Route::get('/admin/users/{user}/edit', [AdminController::class, 'editUser'])->name('admin.users.edit');
 Route::put('/admin/users/{user}', [AdminController::class, 'updateUser'])->name('admin.users.update');
 
-//therapist routes
-// Route::get('/therapist/home', [TherapistController::class, 'index'])->name('therapist.home');
-// Route::get('/therapist/planner', [PlannerController::class, 'index'])->name('therapist.planner');
-// Route::get('/therapist/appointmentrequests', [AppointmentRequestController::class, 'index'])->name('therapist.chats');
-// Route::post('therapist/events', [PlannerController::class, 'store']);
-// Route::get('/appointmentrequests', [AppointmentRequestController::class, 'showNotifications'])->name('appointmentrequests.index');
-// Route::put('/notifications/{id}', [AppointmentRequestController::class, 'markAsRead'])->name('notifications.markAsRead');
-// Route::post('/send-reply', [AppointmentRequestController::class, 'sendReply'])->name('send-reply');
-
-// Chat routes
-Route::get('/chat', [ChatsController::class, 'index'])->middleware('auth')->name('chat');
-Route::get('/messages', [ChatsController::class, 'fetchMessages'])->middleware('auth');
-Route::post('/messages', [ChatsController::class, 'sendMessage'])->middleware('auth');
-
 
 // Therapist routes
 Route::get('/therapist/home', [TherapistController::class, 'index'])->name('therapist.home');
@@ -176,10 +162,3 @@ Route::get('therapist/fullcalendar', [FullCalenderController::class, 'index'])->
 Route::post('therapist/fullcalendarAjax', [FullCalenderController::class, 'ajax'])->name('therapist.fullcalendar.ajax');
 
     // Route::post('/send-reply', [AppointmentRequestController::class, 'sendReply'])->name('send-reply');
-
-// jaba
-//  Route::get('/appointmentrequests', [AppointmentRequestController::class, 'index'])->name('appointmentrequests.index');
-//  Route::post('/send-message', [AppointmentRequestController::class, 'sendMessage'])->name('send-message');
-//  Route::get('/notifications', [AppointmentRequestController::class, 'showNotifications'])->name('notifications.show');
-//  Route::post('/notifications/mark-as-read/{id}', [AppointmentRequestController::class, 'markAsRead'])->name('notifications.markAsRead');
-//  Route::post('/send-reply/{notificationId}', [AppointmentRequestController::class, 'sendReply'])->name('send-reply');

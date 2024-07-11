@@ -56,7 +56,7 @@ class RequestAppointmentController extends Controller
         }
 
         // Redirect back with a success message
-        return redirect()->back()->with('status', 'Message sent!');
+        return redirect()->back()->with('success', 'Message sent!');
     }
 
     public function sendReply(Request $request, $messageId)
