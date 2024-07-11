@@ -26,6 +26,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Livewire\ManageRoles;
 use App\Http\Controllers\RoleManagementController;
 use App\Http\Controllers\FullCalenderController;
+use App\Models\EvaluationForm;
 
 Route::get('/', function () {
     return view('welcome');
@@ -39,32 +40,11 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 });
-
-//not sure
-Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/admin', function () {
-        // Only accessible by admins
-    });
+//update latest evaluation forms data
+Route::get('/api/evaluation-forms', function () {
+    $evaluationForms = EvaluationForm::all();
+    return response()->json($evaluationForms);
 });
-
-Route::middleware(['auth', 'role:manager'])->group(function () {
-    Route::get('/manager', function () {
-        // Only accessible by managers
-    });
-});
-
-Route::middleware(['auth', 'role:employee'])->group(function () {
-    Route::get('/employee', function () {
-        // Only accessible by employee
-    });
-});
-
-Route::middleware(['auth', 'role:therapist'])->group(function () {
-    Route::get('/therapist', function () {
-        // Only accessible by therapists
-    });
-});
-
 
 //
 Route::get('/admin', [DashboardController::class, 'admin'])->name('admin.dashboard');
@@ -101,13 +81,11 @@ Route::get('/activities', [ActivityController::class, 'index'])->name('activitie
 Route::get('/manager/plan-activities', [ActivityController::class, 'showActivities'])->name('manager.plan-activities.index');
 Route::post('/activities/store', [ActivityController::class, 'store'])->name('activities.store');
 //feedback
-//Route::get('/manager/feedback', [FeedbackController::class, 'index'])->name('manager.feedback.index');
-//Route::get('/manager/feedback/{id}', [FeedbackController::class, 'show'])->name('manager.feedback.show');
-//Route::post('/send-message', [MessageController::class, 'sendMessage'])->name('send-message');
-
-//Route::post('/feedback/{feedback}/messages', [FeedbackController::class, 'storeMessage']);
-//Route::get('/feedback/{feedback}/messages', [MessageController::class, 'index'])->name('messages.index');
-//Route::post('/feedback/{feedback}/messages', [MessageController::class, 'store'])->name('messages.store');
+Route::get('/feedback', [FeedbackController::class, 'index'])->name('manager.feedback.index');
+Route::get('/feedback/show/{id}', [FeedbackController::class, 'show'])->name('manager.feedback.show');
+Route::post('/feedback/{feedback}/messages', [FeedbackController::class, 'storeMessage'])->name('feedback.store-message');
+Route::post('/feedback/{feedback}/replies', [FeedbackController::class, 'storeReply'])->name('feedback.store-reply');
+Route::get('/feedback/{feedback}/messages', [FeedbackController::class, 'indexMessages'])->name('messages.index');
 
 // Admin Routes
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.home');
@@ -138,7 +116,7 @@ Route::post('/admin/users/{user}/unsuspend', [UserController::class, 'unsuspend'
 Route::get('/admin/role-management', [RoleManagementController::class, 'index'])->name('admin.role-management.index');
 Route::post('/role-management/assign', [RoleManagementController::class, 'assignRole'])->name('role-management.assign');
 Route::get('/setup-roles-permissions', [RoleManagementController::class, 'setupRolesAndPermissions']);
-
+Route::post('/user/suspend', [UserController::class, 'suspendUser'])->name('user.suspend');
 
 Route::get('/admin/users/{user}/edit', [AdminController::class, 'editUser'])->name('admin.users.edit');
 Route::put('/admin/users/{user}', [AdminController::class, 'updateUser'])->name('admin.users.update');

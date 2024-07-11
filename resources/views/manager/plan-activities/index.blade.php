@@ -8,7 +8,7 @@
     <div class="py-12 bg-gray-100 min-h-screen">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-2xl rounded-xl">
-                <div class="p-6 sm:px-10 bg-gradient-to-r from-blue-200 to-green-200 border-b border-blue-300">
+                <div class="p-6 sm:px-10 bg-white border-b border-blue-300">
                     <div class="mt-8 text-2xl font-bold text-center text-blue-900">
                         Plan Activities
                     </div>
@@ -50,7 +50,7 @@
                         <!-- List of planned activities -->
                         <ul class="space-y-4">
                             @foreach ($activities as $activity)
-                                <li class="p-4 bg-gradient-to-r from-orange-100 to-pink-100 rounded-md shadow-sm hover:bg-gradient-to-r from-orange-200 to-pink-200 transition">
+                                <li class="p-4 bg-white rounded-md shadow-sm hover:bg-gray-100 transition">
                                     <div class="text-lg font-semibold text-blue-900">{{ $activity->event_name }}</div>
                                     <div class="text-sm">Venue: {{ $activity->venue }}</div>
                                     <div class="text-sm">Date: {{ $activity->date }}</div>

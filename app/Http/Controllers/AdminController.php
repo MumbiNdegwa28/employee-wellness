@@ -44,6 +44,13 @@ class AdminController extends Controller
 
         return redirect()->route('admin.users.index')->with('success', 'User updated successfully.');
     }
+    public function logins()
+    {
+        $users = User::all();
+        $loginCount = User::whereNotNull('last_login_at')->count();
+
+        return view('admin.users.logins', compact('users', 'loginCount'));
+    }
     /**
      * Display the manage user permissions page.
      *

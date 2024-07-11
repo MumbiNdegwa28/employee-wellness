@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Feedback;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -27,6 +27,9 @@ class EmployeeController extends Controller
     // }
 
     public function chats(){
-        return view('employee.chats');
+        $feedbacks = [];
+        $messages = [];
+        // Return the view with the feedback data
+        return view('employee.chats', compact('feedbacks', 'messages'));
     }
 }

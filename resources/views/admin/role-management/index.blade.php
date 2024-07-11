@@ -11,14 +11,14 @@
                 <h3 class="text-lg font-semibold mb-4">{{ __('Assign Roles to Users') }}</h3>
                 
                 <!-- Form for Assigning Roles -->
-                <form method="POST" action="{{ route('role-management.assign') }}">
+                <form method="POST" action="{{ url('/role-management/assign') }}">
                     @csrf
                     <div class="mb-4">
                         <label for="user" class="block text-sm font-medium text-gray-700">Select User:</label>
                         <select name="user_id" id="user" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                             <option value="">-- Select User --</option>
                             @foreach ($users as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                <option value="{{ $user->id }}">{{ $user->fname }} {{ $user->lname }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -28,7 +28,7 @@
                         <select name="role_id" id="role" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                             <option value="">-- Select Role --</option>
                             @foreach ($roles as $role)
-                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                <option value="{{ $role->id }}">{{ $role->role_name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -36,6 +36,28 @@
                     <div class="flex items-center justify-end mt-4">
                         <x-button>
                             {{ __('Assign Role') }}
+                        </x-button>
+                    </div>
+                </form>
+
+                <h3 class="text-lg font-semibold mt-8 mb-4">{{ __('Suspend User') }}</h3>
+
+                <!-- Form for Suspending Users -->
+                <form method="POST" action="{{ route('user.suspend') }}">
+                    @csrf
+                    <div class="mb-4">
+                        <label for="suspend_user" class="block text-sm font-medium text-gray-700">Select User:</label>
+                        <select name="user_id" id="suspend_user" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                            <option value="">-- Select User --</option>
+                            @foreach ($users as $user)
+                                <option value="{{ $user->id }}">{{ $user->fname }} {{ $user->lname }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="flex items-center justify-end mt-4">
+                        <x-button class="bg-red-500 hover:bg-red-700">
+                            {{ __('Suspend User') }}
                         </x-button>
                     </div>
                 </form>

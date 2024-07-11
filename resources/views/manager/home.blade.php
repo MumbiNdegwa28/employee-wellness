@@ -6,8 +6,16 @@
     <title>Manager Dashboard</title>
     @vite('resources/css/app.css')
     @vite('resources/css/slideshow.css')
+    <style>
+        body {
+            background-image: url('/images/slide1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
 </head>
-<body class="font-sans antialiased">
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
     <x-app-layout>
         <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -15,118 +23,46 @@
             </h2>
         </x-slot>
 
-        <div class="slideshow-container">
-            <!-- Add your slideshow images here -->
-            <img src="{{ asset('images/slide1.jpg') }}" class="slideshow-image active" alt="Slide 1">
-            <img src="{{ asset('images/slide2.jpg') }}" class="slideshow-image" alt="Slide 2">
-            <img src="{{ asset('images/slide3.jpg') }}" class="slideshow-image" alt="Slide 3">
-            <img src="{{ asset('images/slide4.jpg') }}" class="slideshow-image" alt="Slide 4">
-            <img src="{{ asset('images/slide5.jpg') }}" class="slideshow-image" alt="Slide 5">
-        </div>
-
-        <div class="py-12 relative">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
-                        <!-- Link to the Chat page -->
-                        <a href="{{ route('chat') }}" class="btn btn-primary">Open Chat</a>
+        <main>
+            <div class="py-12 min-h-screen bg-cover bg-center bg-no-repeat" style="background-image: url('/images/slide1.jpg');">
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex justify-center items-center">
+                    <div class="text-center text-white bg-black bg-opacity-70 p-6 rounded-lg max-w-md w-full">
+                        <p class="text-2xl font-bold mb-4">Motivation on Repeat!</p>
+                        <p class="text-lg font-semibold quote-fade" id="quote"></p>
                     </div>
                 </div>
             </div>
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
-                        <div id="pie-chart" class="mt-8 text-2xl"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <script>
-            const getChartOptions = () => {
-                return {
-                    series: [52.8, 26.8, 20.4],
-                    colors: ["#1C64F2", "#16BDCA", "#9061F9"],
-                    chart: {
-                        height: 420,
-                        width: "100%",
-                        type: "pie",
-                    },
-                    stroke: {
-                        colors: ["white"],
-                        lineCap: "",
-                    },
-                    plotOptions: {
-                        pie: {
-                            labels: {
-                                show: true,
-                            },
-                            size: "100%",
-                            dataLabels: {
-                                offset: -25
-                            }
-                        },
-                    },
-                    labels: ["Direct", "Organic search", "Referrals"],
-                    dataLabels: {
-                        enabled: true,
-                        style: {
-                            fontFamily: "Inter, sans-serif",
-                        },
-                    },
-                    legend: {
-                        position: "bottom",
-                        fontFamily: "Inter, sans-serif",
-                    },
-                    yaxis: {
-                        labels: {
-                            formatter: function (value) {
-                                return value + "%"
-                            },
-                        },
-                    },
-                    xaxis: {
-                        labels: {
-                            formatter: function (value) {
-                                return value + "%"
-                            },
-                        },
-                        axisTicks: {
-                            show: false,
-                        },
-                        axisBorder: {
-                            show: false,
-                        },
-                    },
-                }
-            }
-
-            if (document.getElementById("pie-chart") && typeof ApexCharts !== 'undefined') {
-                const chart = new ApexCharts(document.getElementById("pie-chart"), getChartOptions());
-                chart.render();
-            }
-
-             // Slideshow functionality
-             document.addEventListener("DOMContentLoaded", function () {
-                let slideIndex = 0;
-                showSlides();
-
-                function showSlides() {
-                    let slides = document.getElementsByClassName("slideshow-image");
-                    for (let i = 0; i < slides.length; i++) {
-                        slides[i].style.opacity = "0";
-                    }
-                    slideIndex++;
-                    if (slideIndex > slides.length) {
-                        slideIndex = 1;
-                    }
-                    slides[slideIndex - 1].style.opacity = "1";
-                    setTimeout(showSlides, 2000); // Change image every 2 seconds
-                }
-            });
-        </script>
-
-        @vite('resources/js/slideshow.js')
+        </main>
     </x-app-layout>
+
+    <script>
+        const quotes = [
+        "Success is not final, failure is not fatal: It is the courage to continue that counts. – Winston Churchill",
+            "It does not matter how slowly you go as long as you do not stop. – Confucius",
+            "Your limitation—it's only your imagination. – Unknown",
+            "Push yourself, because no one else is going to do it for you. – Unknown",
+            "Sometimes later becomes never. Do it now. – Unknown",
+            "Great things never come from comfort zones. – Unknown",
+            "Dream it. Wish it. Do it. – Unknown",
+            "Success doesn’t just find you. You have to go out and get it. – Unknown",
+            "The harder you work for something, the greater you’ll feel when you achieve it. – Unknown",
+            "Don’t stop when you’re tired. Stop when you’re done. – Unknown"
+        ];
+
+        let quoteIndex = 0;
+        const quoteElement = document.getElementById('quote');
+
+        function showNextQuote() {
+            quoteElement.classList.add('opacity-0');
+            setTimeout(() => {
+                quoteElement.innerText = quotes[quoteIndex];
+                quoteElement.classList.remove('opacity-0');
+                quoteIndex = (quoteIndex + 1) % quotes.length;
+            }, 500);
+        }
+
+        setInterval(showNextQuote, 8000);
+        document.addEventListener('DOMContentLoaded', showNextQuote);
+    </script>
 </body>
 </html>

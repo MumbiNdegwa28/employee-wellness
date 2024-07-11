@@ -47,6 +47,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'two_factor_secret',
     ];
 
+    // If you're using a different primary key
+    protected $primaryKey = 'id';
+
+    // If your table is named differently
+    protected $table = 'users';
     /**
      * The accessors to append to the model's array form.
      *
@@ -74,21 +79,17 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
+
     //Relationship with role model
-    public function role()
+    public function roles()
     {
-        return $this->belongsTo(Role::class);
+        return $this->belongsToMany(Role::class, 'role_user');
     }
 
     // public function permissions()
     // {
     //     return $this->belongsToMany(Permission::class);
     // }
-
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class);
-    }
 
     /**
      * Check if the user has a specific role.
@@ -98,7 +99,16 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function hasRole(string $role): bool
     {
-        return $this->role && $this->role->role_name === $role;
+        return $this->roles->contains('role_name', $role);
+    }
+
+    public function assignRole($roleId)
+    {
+        $this->roles()->attach($roleId);
+    }
+    public function getIsSuspendedAttribute()
+    {
+        return $this->suspended; // Assuming 'is_suspended' is the column name
     }
     // Method to check if user has a specific permission
     // public function hasPermission($permission)
@@ -111,6 +121,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->role && $this->role->role_name === 'Therapist';
     }
+
+    public function manager()
+    {
+        return $this->belongsTo(User::class, 'manager_id');
+    }
+
     public function messages()
     {
         return $this->hasMany(Message::class);

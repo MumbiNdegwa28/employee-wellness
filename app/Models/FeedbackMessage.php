@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class FeedbackMessage extends Model
 {
     use HasFactory;
+    protected $table = "feedback_messages";
 
     protected $fillable = [
         'user_id', 
@@ -23,5 +24,9 @@ class FeedbackMessage extends Model
     public function feedback()
     {
         return $this->belongsTo(Feedback::class);
+    }
+    public function replies()
+    {
+        return $this->hasMany(FeedbackReply::class);
     }
 }

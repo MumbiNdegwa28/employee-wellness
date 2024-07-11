@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('q9');
             $table->integer('total_score');
             $table->string('severity');
+            $table->string('gender');
             $table->timestamps();
         });
     }

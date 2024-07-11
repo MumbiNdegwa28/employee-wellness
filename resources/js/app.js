@@ -10,15 +10,19 @@ window.Pusher = require('pusher-js');
 
 
 app.mount('#app');
-const app = new Vue({
-    el: '#app',
-
-    data: {
-        messages: []
+const app = createApp({
+    data() {
+        return {
+            messages: [],
+            feedbackReplies: []
+        };
     },
 
     created() {
         this.fetchMessages();
+        this.listenForMessages();
+        this.listenForFeedbackMessages();
+        this.listenForFeedbackReplies();
         Echo.private('chat')
             .listen('MessageSent', (e) => {
                 this.messages.push({
@@ -42,7 +46,35 @@ const app = new Vue({
             axios.post('/messages', message).then(response => {
                 console.log(response.data);
             });
-        }
+        },
+        listenForMessages() {
+            Echo.private('chat')
+                .listen('MessageSent', (e) => {
+                    this.messages.push({
+                        message: e.message.message,
+                        user: e.user
+                    });
+                });
+        },
+        listenForFeedbackMessages() {
+            Echo.private('feedback')
+                .listen('FeedbackMessageSent', (e) => {
+                    this.messages.push({
+                        message: e.message.message,
+                        user: e.message.user
+                    });
+                });
+        },
+        listenForFeedbackReplies() {
+            Echo.private('feedback')
+                .listen('FeedbackReplySent', (e) => {
+                    this.feedbackReplies.push({
+                        reply: e.reply.message,
+                        user: e.reply.user
+                    });
+                });
+        } 
+
     }
 });
 window.Echo = new Echo({

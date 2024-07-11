@@ -41,7 +41,7 @@
         }
     </style>
 
-    <div class="py-12">
+<div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <table>
@@ -50,6 +50,7 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Suspended</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -59,6 +60,7 @@
                                 <td>{{ $user->id }}</td>
                                 <td>{{ $user->fname }} {{ $user->lname }}</td>
                                 <td>{{ $user->email }}</td>
+                                <td>{{ $user->is_suspended ? 'Yes' : 'No' }}</td>
                                 <td><a href="{{ route('admin.users.show', $user->id) }}" class="view-link">View</a></td>
                             </tr>
                         @endforeach

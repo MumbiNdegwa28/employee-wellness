@@ -19,10 +19,10 @@ class UserRoleSeeder extends Seeder
         $manager = User::where('email', 'manager@example.com')->first();
         $therapist = User::where('email', 'therapist@example.com')->first();
 
-        $adminRole = Role::where('name', 'Admin')->first();
-        $employeeRole = Role::where('name', 'Employee')->first();
-        $managerRole = Role::where('name', 'Manager')->first();
-        $therapistRole = Role::where('name', 'Therapist')->first();
+        $adminRole = Role::where('role_name', 'Admin')->first();
+        $employeeRole = Role::where('role_name', 'Employee')->first();
+        $managerRole = Role::where('role_name', 'Manager')->first();
+        $therapistRole = Role::where('role_name', 'Therapist')->first();
 
         
     }
