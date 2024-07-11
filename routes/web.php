@@ -25,9 +25,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\MessageController;
 use App\Http\Livewire\ManageRoles;
 use App\Http\Controllers\RoleManagementController;
-
 use App\Http\Controllers\FullCalenderController;
-use App\Http\Middleware\CheckSuspended;
 
 Route::get('/', function () {
     return view('welcome');
@@ -93,13 +91,11 @@ Route::post('/send-reply/{message}', [RequestAppointmentController::class, 'send
 
 // Manager specific routes
 Route::get('/manager/dashboard', [ManagerController::class, 'index'])->name('manager.home');
-
 //Route::get('/report', [EvaluationFormController::class, 'showReport'])->name('manager.evaluation-report');
-Route::get('/manager/evaluation-report',[EvaluationReportController::class,'index'])->name('manager.evaluation-report');
+Route::get('/manager/evaluation-report', [EvaluationReportController::class, 'index'])->name('manager.evaluation-report');
 Route::get('/evaluation-report', [EvaluationReportController::class, 'index'])->name('evaluation.report.index');
 Route::get('/evaluation/{id}', [EvaluationFormController::class, 'show'])->name('evaluation.show');
 Route::get('/evaluation-report', [EvaluationFormController::class, 'evaluationReport'])->name('evaluation.report');
-
 Route::get('/manager/plan-activities/summary', [PlanActivitiesController::class, 'index'])->name('manager.plan-activities.summary');
 Route::get('/activities', [ActivityController::class, 'index'])->name('activities.index');
 Route::get('/manager/plan-activities', [ActivityController::class, 'showActivities'])->name('manager.plan-activities.index');

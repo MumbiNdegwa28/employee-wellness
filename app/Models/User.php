@@ -10,7 +10,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Fortify\Fortify;
-//use Spatie\Permission\Traits\HasRoles;
+
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens;
@@ -101,10 +101,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->role && $this->role->role_name === $role;
     }
     // Method to check if user has a specific permission
-    public function hasPermission($permission)
-    {
-        return $this->permissions->contains('name', $permission);
-    }
+    // public function hasPermission($permission)
+    // {
+    //     return $this->permissions->contains('name', $permission);
+    // }
 
     // Method to check if user has a specific role
     public function isTherapist()

@@ -19,7 +19,7 @@
 
             <!-- Journal Entry Form -->
             <div class="md:col-span-2" >
-                <h2>Create New Entry</h2>
+                <h2 class="mb-2 text-l">{{__('Create New Entry')}}</h2>
 
                 <div id="journalForm" class="bg-gray-100 p-4 rounded-lg shadow-md ">
                     <form action="{{ route('journals.store') }}" method="POST">

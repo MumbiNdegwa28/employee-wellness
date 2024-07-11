@@ -9,7 +9,7 @@
              <!-- Search Form -->
              <form method="GET" action="{{ route('resources.search') }}" class="mb-8">
                 <input type="text" name="query" placeholder="Search for blogs or videos" class="w-full border-gray-300 rounded-md shadow-sm" value="{{ request()->input('query') }}">
-                <x-button type="submit" class="mt-2, ">Search</x-button>
+                <x-button type="submit" class="mt-2">Search</x-button>
             </form>
 
             <!-- Blog Section -->
@@ -46,8 +46,7 @@
                                 <div class="p-4 bg-gray-100 rounded-lg">
                                     <h4 class="text-xl font-semibold">{{ $video->title }}</h4>
                                     <div class="mt-2">
-                                        <iframe width="560" height="315" src="{{ $video->url }}" frameborder="0" allowfullscreen></iframe>
-                                    </div>
+                                        <iframe width="560" height="315" src="{{ $video->url }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>                                    </div>
                                     <p class="mt-2 text-gray-600">{{ $video->description }}</p>
                                 </div>
                             @endforeach
