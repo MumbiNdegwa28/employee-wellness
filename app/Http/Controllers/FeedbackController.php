@@ -7,19 +7,17 @@ use App\Events\FeedbackMessageSent;
 use App\Events\FeedbackReplySent;
 use App\Models\Feedback;
 use App\Models\User;
+use App\Models\FeedbackMessage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class FeedbackController extends Controller
 {
-    public function index($receiverId)
+    public function index()
     {
-        $feedbacks = Feedback::where('receiver_id', $receiverId)
-        ->with('sender', 'replies')
-        ->get(); 
-        // Adjust this to fetch the relevant feedbacks
-        // Return the view with the feedback data
-        return view('manager.feedback.index', compact('receiver', 'messages', 'feedbacks'));
+        // Example: Fetch feedbacks with their messages and sender details
+    $feedbacks = Feedback::with('messages', 'sender')->get();
+        return view('manager.feedback.index', compact('feedbacks'));
     }
     public function show($id)
     {

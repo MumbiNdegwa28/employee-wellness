@@ -37,14 +37,24 @@
                         Feedback Messages
                     </div>
                     <div class="mt-6 text-gray-500">
-                        <div id="chat-box" class="overflow-auto h-64">
-                            @foreach ($feedback->replies as $message)
-                                <div>
-                                    <strong>{{ $message->sender_id == auth()->id() ? 'Me' : $message->sender->name }}:</strong>
-                                    {{ $message->message }}
-                                </div>
+                        <ul id="messages">
+                            @foreach ($feedback->messages as $message)
+                                <li class="mb-4">
+                                    <div>
+                                        <strong>{{ $message->user->name }}:</strong> {{ $message->message }}
+                                    </div>
+                                    <div class="ml-4">
+                                        <ul>
+                                            @foreach ($message->replies as $reply)
+                                                <li>
+                                                    <strong>{{ $reply->user->name }}:</strong> {{ $reply->message }}
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </li>
                             @endforeach
-                        </div>
+                        </ul>
                     </div>
                     <div class="mt-4">
                         <textarea id="newMessage" rows="2" class="block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Type your message here"></textarea>
@@ -59,33 +69,89 @@
         </div>
     </div>
 
+    <script src="{{ mix('js/app.js') }}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="//js.pusher.com/3.1/pusher.min.js"></script>
     <script>
-        document.getElementById('sendMessageButton').addEventListener('click', function() {
-            const message = document.getElementById('newMessage').value;
-            if (message.trim() === '') {
-                return;
+        document.addEventListener('DOMContentLoaded', function() {
+            const userId = {{ auth()->id() }};
+            const feedbackId = null; // Set your feedback ID here
+
+            if (feedbackId) {
+                var pusher = new Pusher('API_KEY_HERE', {
+                    encrypted: true
+                });
+
+                var channel = pusher.subscribe('feedback.' + feedbackId);
+
+                channel.bind('App\\Events\\FeedbackMessageSent', function(data) {
+                    appendMessage(data.message, data.user);
+                });
+
+                channel.bind('App\\Events\\FeedbackReplySent', function(data) {
+                    appendReply(data.reply, data.user);
+                });
+
+                fetchMessages();
             }
 
-            fetch('{{ route("feedback.store-message", $feedback->id) }}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify({
-                    message: message,
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.message) {
-                    const chatBox = document.getElementById('chat-box');
-                    const newMessage = document.createElement('div');
-                    newMessage.innerHTML = `<strong>Me:</strong> ${message}`;
-                    chatBox.appendChild(newMessage);
-                    document.getElementById('newMessage').value = '';
+            document.getElementById('sendMessageButton').addEventListener('click', sendMessage);
+
+            function fetchMessages() {
+                axios.get(`/feedback/${feedbackId}/messages`)
+                    .then(response => {
+                        const messages = response.data;
+                        messages.forEach(message => {
+                            appendMessage(message, message.user);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching messages:', error);
+                    });
+            }
+
+            function appendMessage(message, user) {
+                const messagesDiv = document.getElementById('messages');
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add(user.id === userId ? 'my-message' : 'other-message');
+                messageDiv.innerText = `${user.name}: ${message.message}`;
+                messagesDiv.appendChild(messageDiv);
+
+                // Append replies if any
+                if (message.replies) {
+                    message.replies.forEach(reply => {
+                        appendReply(reply, reply.user);
+                    });
                 }
-            });
+
+                // Scroll to bottom
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }
+
+            function appendReply(reply, user) {
+                const messagesDiv = document.getElementById('messages');
+                const replyDiv = document.createElement('div');
+                replyDiv.classList.add(user.id === userId ? 'my-reply' : 'other-reply');
+                replyDiv.innerText = `${user.name}: ${reply.message}`;
+                messagesDiv.appendChild(replyDiv);
+
+                // Scroll to bottom
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }
+
+            function sendMessage() {
+                const message = document.getElementById('newMessage').value.trim();
+                if (message === '') return;
+
+                axios.post(`/feedback/${feedbackId}/messages`, { message })
+                    .then(response => {
+                        document.getElementById('newMessage').value = '';
+                        appendMessage(response.data.message, response.data.user);
+                    })
+                    .catch(error => {
+                        console.error('Error sending message:', error);
+                    });
+            }
         });
     </script>
 </x-app-layout>

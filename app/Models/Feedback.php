@@ -22,9 +22,10 @@ class Feedback extends Model
     {
         return $this->belongsTo(User::class, 'receiver_id');
     }
-    public function replies()
+   
+    public function messages()
     {
-        return $this->hasMany(Feedback::class, 'feedback_id');
+        return $this->hasMany(FeedbackMessage::class);
     }
 
     public function scopeBetween($query, $userId1, $userId2)

@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Role;
-use Spatie\Permission\Models\Permission;
-class RoleManagementController extends Controller
+use App\Models\Role;class RoleManagementController extends Controller
 {
     public function index()
     {

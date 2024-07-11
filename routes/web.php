@@ -82,7 +82,7 @@ Route::get('/activities', [ActivityController::class, 'index'])->name('activitie
 Route::get('/manager/plan-activities', [ActivityController::class, 'showActivities'])->name('manager.plan-activities.index');
 Route::post('/activities/store', [ActivityController::class, 'store'])->name('activities.store');
 //feedback
-Route::get('/feedback/{receiverId}', [FeedbackController::class, 'index'])->name('manager.feedback.index');
+Route::get('/feedback', [FeedbackController::class, 'index'])->name('manager.feedback.index');
 Route::get('/feedback/show/{id}', [FeedbackController::class, 'show'])->name('manager.feedback.show');
 Route::post('/feedback/{feedback}/messages', [FeedbackController::class, 'storeMessage'])->name('feedback.store-message');
 Route::post('/feedback/{feedback}/replies', [FeedbackController::class, 'storeReply'])->name('feedback.store-reply');
