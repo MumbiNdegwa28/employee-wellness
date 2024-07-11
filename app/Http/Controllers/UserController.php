@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 // use App\Http\Controllers\Controller;
 // use App\Models\Permission;
 // use Illuminate\Http\Request;
-// use App\Models\User;
 use App\Models\User;
 use App\Models\Role;
 use App\Mail\UserWelcome;
@@ -82,10 +81,10 @@ class UserController extends Controller
 
     public function index()
     {
-        //fetch all non-tenant users
+        //fetch all non-admin users
         $adminRole = Role::where('role_name', 'Admin')->first();
         $users = User::where('role_id', '!=', $adminRole->id)->with('role')->paginate(5);
-
+        // dd($users);
         return view('admin.users-index', compact('users'));
     }
 
@@ -105,14 +104,7 @@ class UserController extends Controller
             'role_id' => ['required', 'exists:roles,id']
         ]);
 
-        // // Sanitize phone number
-        // $phoneNumber = preg_replace('/\D/', '', $request->phone_number); // Remove all non-numeric characters
-        // if (substr($phoneNumber, 0, 1) === '0') {
-        //     $phoneNumber = '254' . substr($phoneNumber, 1);
-        // } elseif (substr($phoneNumber, 0, 3) !== '254') {
-        //     $phoneNumber = '254' . $phoneNumber;
-        // }
-
+       
 
         //Store the password
         $password = $request->password;
@@ -153,14 +145,7 @@ class UserController extends Controller
             'role_id' => ['required', 'exists:roles,id']
         ]);
 
-        // // Sanitize phone number
-        // $phoneNumber = preg_replace('/\D/', '', $request->phone_number); // Remove all non-numeric characters
-        // if (substr($phoneNumber, 0, 1) === '0') {
-        //     $phoneNumber = '254' . substr($phoneNumber, 1);
-        // }
-
-        // 'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
-
+        
         //Update the user
         $user->update([
             'fname' => $request->fname,

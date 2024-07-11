@@ -47,7 +47,6 @@
                     </div>
                     @endif
                     @else
-<<<<<<< HEAD
                     <div class="container_1">
                         <h2 class="text-2xl font-bold mb-4">Patient Health Questionnaire-9 (PHQ-9)</h2>
                         <p class="mb-4">This is a multipurpose instrument for screening, diagnosing, monitoring, and measuring the severity of depression.</p>
@@ -55,14 +54,6 @@
                         <div class="table-container">
                             <table class="min-w-full divide-y divide-gray-200" id="evaluation-table">
                                 <thead class="bg-gray-50 sticky-header">
-=======
-                        <div class="container_1">
-                            <h2 class="text-2xl font-bold mb-4">Patient Health Questionnaire-9 (PHQ-9)</h2>
-                            <p class="mb-4">This is a multipurpose instrument for screening, diagnosing, monitoring, and measuring the severity of depression.</p>
-                            <p class="mb-4"><strong>Over the last 2 weeks</strong>, how often have you been bothered by the following problems?</p>
-                            <table class="w-full table-auto">
-                                <thead>
->>>>>>> c244dbbd36c9e1815cc734cdc7c20fa04f17f681
                                     <tr>
                                         <th class="w-1/2 p-2"></th>
                                         <th class="w-1/8 p-2 text-center">Not at all</th>

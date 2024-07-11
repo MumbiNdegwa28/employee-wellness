@@ -47,7 +47,7 @@ Route::get('/api/evaluation-forms', function () {
 });
 
 //
-Route::get('/admin', [DashboardController::class, 'admin'])->name('admin.dashboard');
+//Route::get('/admin', [DashboardController::class, 'admin'])->name('admin.dashboard');
 
 // Employee Routes
 Route::get('/employee/dashboard', [EmployeeController::class, 'index'])->name('employee.home');
@@ -81,17 +81,19 @@ Route::get('/activities', [ActivityController::class, 'index'])->name('activitie
 Route::get('/manager/plan-activities', [ActivityController::class, 'showActivities'])->name('manager.plan-activities.index');
 Route::post('/activities/store', [ActivityController::class, 'store'])->name('activities.store');
 //feedback
-Route::get('/feedback', [FeedbackController::class, 'index'])->name('manager.feedback.index');
-Route::get('/feedback/show/{id}', [FeedbackController::class, 'show'])->name('manager.feedback.show');
-Route::post('/feedback/{feedback}/messages', [FeedbackController::class, 'storeMessage'])->name('feedback.store-message');
-Route::post('/feedback/{feedback}/replies', [FeedbackController::class, 'storeReply'])->name('feedback.store-reply');
-Route::get('/feedback/{feedback}/messages', [FeedbackController::class, 'indexMessages'])->name('messages.index');
+// Route::get('/feedback', [FeedbackController::class, 'index'])->name('manager.feedback.index');
+// Route::get('/feedback/show/{id}', [FeedbackController::class, 'show'])->name('manager.feedback.show');
+// Route::post('/feedback/{feedback}/messages', [FeedbackController::class, 'storeMessage'])->name('feedback.store-message');
+// Route::post('/feedback/{feedback}/replies', [FeedbackController::class, 'storeReply'])->name('feedback.store-reply');
+// Route::get('/feedback/{feedback}/messages', [FeedbackController::class, 'indexMessages'])->name('messages.index');
 
 // Admin Routes
+
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.home');
-//Route::get('/admin/view-user-records', [ViewUserRecordsController::class, 'show'])->name('admin.viewUserRecords'); //
-Route::get('/admin/users', [ViewUserRecordsController::class, 'index'])->name('admin.users.index');
-Route::get('/admin/users/{user}', [ViewUserRecordsController::class, 'show'])->name('admin.users.show');
+// Route::get('/admin/view-user-records', [ViewUserRecordsController::class, 'show'])->name('admin.viewUserRecords'); //
+
+ Route::get('/admin/users', [ViewUserRecordsController::class, 'index'])->name('admin.users.index');
+// Route::get('/admin/users/{user}', [ViewUserRecordsController::class, 'show'])->name('admin.users.show');
 // Mumbi admin routes
 Route::get('/admin/roles', [AdminController::class, 'index'])->name('admin.roles.index');
 Route::get('/admin/roles/create', [AdminController::class, 'create'])->name('admin.roles.create');
