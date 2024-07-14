@@ -14,16 +14,20 @@ class MessageNotification extends Notification
 
     public $message;
     public $sender;
+    //sheila
+    public $feedback;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($message, $sender)
+    public function __construct($message, $sender, $feedback)
     {
         $this->message = $message;
         $this->sender = $sender;
+        //sheila
+        $this->feedback = $feedback;
     }
 
     /**
@@ -49,6 +53,10 @@ class MessageNotification extends Notification
                     ->line('You have received a new message.')
                     ->line($this->message)
                     ->action('View Message', url('/'))
+                    //sheila
+                    ->line('Feedback ID: ' . $this->feedback->id)
+                    ->line('Feedback Title: ' . $this->feedback->title)
+                    ->line('Feedback Description: ' . $this->feedback->description)
                     ->line('Thank you for using our application!');
     }
 
@@ -66,6 +74,12 @@ class MessageNotification extends Notification
                 'id' => $this->sender->id,
                 'name' => $this->sender->name,
             ],
+            //sheila
+            'feedback' => [
+                'id' => $this->feedback->id,
+                'title' => $this->feedback->title,
+                'description' => $this->feedback->description,
+            ],
         ];
     }
     public function toBroadcast($notifiable)
@@ -75,6 +89,12 @@ class MessageNotification extends Notification
             'sender' => [
                 'id' => $this->sender->id,
                 'name' => $this->sender->name,
+            ],
+            //sheila
+            'feedback' => [
+                'id' => $this->feedback->id,
+                'title' => $this->feedback->title,
+                'description' => $this->feedback->description,
             ],
         ]);
     }

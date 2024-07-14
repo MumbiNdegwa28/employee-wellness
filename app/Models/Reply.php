@@ -20,4 +20,11 @@ class Reply extends Model
     {
         return $this->belongsTo(User::class);
     }
+    //sheila
+    public function feedback()
+    {
+        return $this->belongsTo(Feedback::class);
+    }
+
+
 }

@@ -27,6 +27,9 @@ use App\Http\Livewire\ManageRoles;
 use App\Http\Controllers\RoleManagementController;
 use App\Http\Controllers\FeedbackReplyController;
 use App\Http\Controllers\FullCalenderController;
+use App\Http\Controllers\FeedbackChatsController;
+use App\Http\Controllers\PusherAuthController;
+
 use App\Models\EvaluationForm;
 
 Route::get('/', function () {
@@ -81,14 +84,21 @@ Route::get('/manager/plan-activities/summary', [PlanActivitiesController::class,
 Route::get('/activities', [ActivityController::class, 'index'])->name('activities.index');
 Route::get('/manager/plan-activities', [ActivityController::class, 'showActivities'])->name('manager.plan-activities.index');
 Route::post('/activities/store', [ActivityController::class, 'store'])->name('activities.store');
-//feedback
+//feedback sheila
 Route::get('/feedback', [FeedbackController::class, 'index'])->name('manager.feedback.index');
-Route::get('/feedback/show/{id}', [FeedbackController::class, 'show'])->name('manager.feedback.show');
-Route::post('/feedback/{feedback}/messages', [FeedbackController::class, 'storeMessage'])->name('feedback.store-message');
-Route::post('/feedback/{feedback}/replies', [FeedbackController::class, 'storeReply'])->name('feedback.store-reply');
-Route::get('/feedback/{feedback}/messages', [FeedbackController::class, 'indexMessages'])->name('messages.index');
+Route::post('/feedback/messages', [FeedbackController::class, 'sendMessage'])->name('feedback.sendMessage');
+Route::post('/feedback/messages/reply', [FeedbackController::class, 'sendReply'])->name('feedback.sendReply');
 
-// Admin Routes
+//employee chats
+Route::get('/chats', [FeedbackChatsController::class, 'index'])->name('employee.chats.index');
+Route::post('/chats/send-message', [FeedbackChatsController::class, 'sendMessage'])->name('chat.sendMessage');
+// Debugging route
+//Route::get('/chats/send-message', function () {
+  //  return 'This route only supports POST requests.';
+//});
+Route::post('/chat/send-reply/{feedback}', [FeedbackChatsController::class, 'sendReply'])->name('chat.sendReply');
+Route::post('/pusher/auth', [PusherAuthController::class, 'authenticate']);
+    // Admin Routes
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.home');
 //Route::get('/admin/view-user-records', [ViewUserRecordsController::class, 'show'])->name('admin.viewUserRecords'); //
 Route::get('/admin/users', [ViewUserRecordsController::class, 'index'])->name('admin.users.index');

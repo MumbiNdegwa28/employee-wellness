@@ -14,7 +14,11 @@ class Message extends Model
         // 'user_id', 
         'content', 
         'sender_id', 
-        'receiver_id'
+        'receiver_id',
+        //sheila
+        'feedback_id',
+        'user_id',
+
     ];
 
     public function user()
@@ -36,6 +40,13 @@ class Message extends Model
     {
         return $this->belongsTo(User::class, 'receiver_id');
     }
+
+    //sheila
+    public function feedback()
+    {
+        return $this->belongsTo(Feedback::class, 'feedback_id', 'feedback_id');
+    }
+
 }
 
     
