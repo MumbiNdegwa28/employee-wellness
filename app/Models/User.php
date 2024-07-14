@@ -11,7 +11,6 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Fortify\Fortify;
 
-
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens;
@@ -19,7 +18,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
-
+    // use  HasRoles;
     /**
      * The attributes that are mass assignable.
      *
@@ -32,6 +31,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'gender',
         'email',
         'password',
+        'role_id',
+        'suspended',
     ];
 
     /**
@@ -73,20 +74,22 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'role_id' => 'integer',
+            'suspended' => 'boolean', 
         ];
     }
 
 
     //Relationship with role model
-    public function roles()
+    public function role()
     {
-        return $this->belongsToMany(Role::class, 'role_user');
+        return $this->belongsTo(Role::class);
     }
 
-    public function permissions()
-    {
-        return $this->belongsToMany(Permission::class);
-    }
+    // public function permissions()
+    // {
+    //     return $this->belongsToMany(Permission::class);
+    // }
 
     /**
      * Check if the user has a specific role.
@@ -108,10 +111,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->suspended; // Assuming 'is_suspended' is the column name
     }
     // Method to check if user has a specific permission
-    public function hasPermission($permission)
-    {
-        return $this->permissions->contains('name', $permission);
-    }
+    // public function hasPermission($permission)
+    // {
+    //     return $this->permissions->contains('name', $permission);
+    // }
 
     // Method to check if user has a specific role
     public function isTherapist()
@@ -128,7 +131,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Message::class);
     }
-    //relationship between user and messages
+    //relationship between User and messages
 
     // public function ()
     // {
@@ -161,6 +164,17 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Chat::class, 'sender_id');
     }
+
+    // public function evaluationForms()
+    // {
+    //     return $this->hasMany(EvaluationForm::class);
+    // }
+
+    //check if user is suspended sheila not sure cause of merge error
+    //public function isSuspended()
+    //{
+      //  return $this->suspended;
+    //}
 
     public function receivedChats()
     {

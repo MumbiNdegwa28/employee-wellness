@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Feedback;
 use App\Models\Chat; // Use Chat model
 use App\Models\User; // Assuming Employee is a User
+use App\Events\FeedbackMessageSent;
+use App\Events\FeedbackReplySent;
 use Illuminate\Support\Facades\Auth;
 
 class FeedbackController extends Controller

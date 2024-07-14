@@ -9,6 +9,11 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
+                    @if(session('success'))
+                        <div class="alert alert-success bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
+                            {{session('success')}}
+                        </div>
+                    @endif
                     <div class="mt-8 text-2xl">
                         Send a New Message
                     </div>

@@ -18,9 +18,15 @@
                     <x-nav-link href="{{ route('admin.users.index') }}" :active="request()->routeIs('admin.users.index')">
                         {{ __('View User Records') }}
                     </x-nav-link>
-                    <x-responsive-nav-link href="{{ route('admin.role-management.index') }}" :active="request()->routeIs('admin.role-management.index')">
+                    <!-- <x-nav-link href="{{ route('admin.role-management.index') }}" :active="request()->routeIs('admin.role-management.index')">
                         {{ __('Manage User Permissions') }}
-                    </x-responsive-nav-link>
+                    </x-nav-link> -->
+                    <x-nav-link href="{{ route('admin.roles.index') }}" :active="request()->routeIs('admin.roles.index')">
+                        {{ __('Manage Roles') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('admin.user.index') }}" :active="request()->routeIs('admin.user.index')">
+                        {{ __('Manage Users') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -150,8 +156,14 @@
             <x-responsive-nav-link href="{{ route('admin.users.index') }}" :active="request()->routeIs('admin.users.index')">
                 {{ __('View User Records') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('admin.role-management.index') }}" :active="request()->routeIs('admin.role-management.index')">
-                {{ __('Manage User Permissions') }}
+            <!-- <x-responsive-nav-link href="{{ route('admin.role-management.index') }}" :active="request()->routeIs('admin.role-management.index')">
+                {{ __('Manage User Permissions') }} -->
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('admin.roles.index') }}" :active="request()->routeIs('admin.roles.index')">
+                {{ __('Manage Roles') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('admin.user.index') }}" :active="request()->routeIs('admin.user.index')">
+                {{ __('Manage Users') }}
             </x-responsive-nav-link>
         </div>
 

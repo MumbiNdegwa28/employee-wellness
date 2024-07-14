@@ -43,10 +43,10 @@
             --------------------------------------------
             --------------------------------------------*/
             var calendar = $('#calendar').fullCalendar({
-                editable: true,
+                editable: false,
                 events: SITEURL + "/employee/fullcalendar",
                 displayEventTime: false,
-                editable: true,
+                editable: false,
                 eventRender: function(event, element, view) {
                     if (event.allDay === 'true') {
                         event.allDay = true;

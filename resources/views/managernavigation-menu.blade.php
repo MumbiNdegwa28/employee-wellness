@@ -21,9 +21,7 @@
                     <x-nav-link href="{{ route('manager.plan-activities.index') }}" :active="request()->routeIs('manager.plan-activities.index')">
                         {{ __('Plan Activities') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('manager.feedback.index') }}" :active="request()->routeIs('manager.feedback.index')">
-                        {{ __('Feedback') }}
-                    </x-nav-link>
+                    
                 </div>
             </div>
 
@@ -156,9 +154,7 @@
             <x-responsive-nav-link href="{{ route('manager.plan-activities.index') }}" :active="request()->routeIs('manager.plan-activities.index')">
                 {{ __('Plan Activities') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('manager.feedback.index') }}" :active="request()->routeIs('manager.feedback.index')">
-                {{ __('Feedback') }}
-            </x-responsive-nav-link>
+            
         </div>
 
         <!-- Responsive Settings Options -->
