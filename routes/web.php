@@ -110,7 +110,7 @@ Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('adm
 // Route::get('/admin/view-user-records', [ViewUserRecordsController::class, 'show'])->name('admin.viewUserRecords'); //
 
  Route::get('/admin/users', [ViewUserRecordsController::class, 'index'])->name('admin.users.index');
-// Route::get('/admin/users/{user}', [ViewUserRecordsController::class, 'show'])->name('admin.users.show');
+Route::get('/admin/users/{user}', [ViewUserRecordsController::class, 'show'])->name('admin.users.show');
 // Mumbi admin routes
 Route::get('/admin/roles', [AdminController::class, 'index'])->name('admin.roles.index');
 Route::get('/admin/roles/create', [AdminController::class, 'create'])->name('admin.roles.create');

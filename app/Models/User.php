@@ -171,10 +171,10 @@ class User extends Authenticatable implements MustVerifyEmail
     // }
 
     //check if user is suspended sheila not sure cause of merge error
-    //public function isSuspended()
-    //{
-      //  return $this->suspended;
-    //}
+    public function isSuspended()
+    {
+        return $this->suspended;
+    }
 
     public function receivedChats()
     {
