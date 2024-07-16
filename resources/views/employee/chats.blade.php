@@ -4,7 +4,6 @@
             {{ __('Chat') }}
         </h2>
     </x-slot>
-
     @if (session('status'))
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-4">
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
@@ -12,7 +11,6 @@
             </div>
         </div>
     @endif
-
     <div class="py-6"> <!-- Reduced padding from py-12 to py-6 -->
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
@@ -20,45 +18,15 @@
                     <div class="mt-8 text-2xl">
                         Chat Messages
                     </div>
-                    <div class="mt-4 text-gray-500"> <!-- Reduced margin from mt-6 to mt-4 -->
+                    <div class="mt-6 text-gray-500">
                         <ul id="messages">
-                            @php
-                                // Sample data array to simulate chat messages
-                                $sampleChats = [
-                                    (object)[
-                                        'id' => 1,
-                                        'sender' => (object)['name' => 'Mumbi'],
-                                        'message' => 'Hello there, how was the team building?'
-                                    ],
-                                    (object)[
-                                        'id' => 2,
-                                        'sender' => (object)['name' => 'Mumbi'],
-                                        'message' => 'Hey there. You alright?'
-                                    ],
-                                    (object)[
-                                        'id' => 3,
-                                        'sender' => (object)['name' => 'Mumbi'],
-                                        'message' => 'Hello. I would like to get some feedback on the men\'s workshop.'
-                                    ],
-                                    (object)[
-                                        'id' => 4,
-                                        'sender' => (object)['name' => 'Mumbi'],
-                                        'message' => 'If there is anything you would like us to change please tell us.'
-                                    ]
-                                ];
-                            @endphp
-
-                            @if(count($sampleChats) > 0)
-                                @foreach ($sampleChats as $chat)
+                                @foreach ($chats as $chat)
                                     <li class="mb-4">
                                         <div>
-                                            <strong>{{ $chat->sender->name }}:</strong> {{ $chat->message }}
+                                            <strong>{{ $chat->sender->fname }}:</strong> {{ $chat->message }}
                                         </div>
                                     </li>
                                 @endforeach
-                            @else
-                                <li>No chat messages found.</li>
-                            @endif
                         </ul>
                     </div>
                 </div>

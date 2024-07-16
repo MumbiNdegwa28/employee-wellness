@@ -20,7 +20,7 @@
                                     <div class="text-lg font-semibold text-blue-900">{{ $activity->event_name }}</div>
                                     <div class="text-sm">Venue: {{ $activity->venue }}</div>
                                     <div class="text-sm">Date: {{ $activity->date }}</div>
-                                    <div class="text-sm">Time: {{ \Carbon\Carbon::parse($activity->time)->format('h:i A') }}</div>
+                                    <div class="text-sm">Time: {{ \Carbon\Carbon::parse($activity->time)->format('h:i A') }}</div>                         <!-- formats time in AM or PM -->
                                 </li>
                             @endforeach
                         </ul>

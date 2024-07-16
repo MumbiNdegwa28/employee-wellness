@@ -88,8 +88,8 @@ Route::post('/feedback/messages', [FeedbackController::class, 'sendMessage'])->n
 Route::post('/feedback/messages/reply', [FeedbackController::class, 'sendReply'])->name('feedback.sendReply');
 
 //employee chats
-Route::get('/chats', [FeedbackChatsController::class, 'index'])->name('employee.chats.index');
-Route::post('/chats/send-message', [FeedbackChatsController::class, 'sendMessage'])->name('chat.sendMessage');
+Route::get('/employee/chats', [FeedbackChatsController::class, 'index'])->name('employee.chats');
+//Route::post('/chats/send-message', [FeedbackChatsController::class, 'sendMessage'])->name('chat.sendMessage');
 Route::post('/chats/{chat}/reply', [FeedbackChatsController::class, 'sendReply'])->name('chat.sendReply');
 Route::post('/pusher/auth', [PusherAuthController::class, 'authenticate']);
     // Admin Routes
