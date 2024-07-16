@@ -90,11 +90,7 @@ Route::post('/feedback/messages/reply', [FeedbackController::class, 'sendReply']
 //employee chats
 Route::get('/chats', [FeedbackChatsController::class, 'index'])->name('employee.chats.index');
 Route::post('/chats/send-message', [FeedbackChatsController::class, 'sendMessage'])->name('chat.sendMessage');
-// Debugging route
-//Route::get('/chats/send-message', function () {
-  //  return 'This route only supports POST requests.';
-//});
-Route::post('/chat/send-reply/{feedback}', [FeedbackChatsController::class, 'sendReply'])->name('chat.sendReply');
+Route::post('/chats/{chat}/reply', [FeedbackChatsController::class, 'sendReply'])->name('chat.sendReply');
 Route::post('/pusher/auth', [PusherAuthController::class, 'authenticate']);
     // Admin Routes
 //feedback

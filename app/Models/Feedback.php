@@ -23,9 +23,13 @@ class Feedback extends Model
   // Define the sender relationship
   public function sender()
   {
-      return $this->belongsTo(User::class, 'sender_id');
+    return $this->belongsTo(User::class, 'sender_id');
   }
 
+  //public function employee()
+    //{
+      //  return $this->belongsTo(User::class, 'employee_id');
+    //}
   public function receiver()
   {
       return $this->belongsTo(User::class, 'receiver_id');

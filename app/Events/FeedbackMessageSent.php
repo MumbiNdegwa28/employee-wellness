@@ -9,7 +9,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Feedback;
+//use App\Models\Feedback;
 use App\Models\User;
 use App\Models\Chat;
 
@@ -21,13 +21,13 @@ class FeedbackMessageSent implements ShouldBroadcast
      * Create a new event instance.
      */
     public $chat;
-    public $feedback;
+    //public $feedback;
     public $user;
     public function __construct(Chat $chat, $user, $feedback)
     {
         $this->chat = $chat;
         $this->user = $user;
-        $this->feedback = $feedback;
+        //$this->feedback = $feedback;
     }
     /**
      * Get the channels the event should broadcast on.
@@ -44,8 +44,9 @@ class FeedbackMessageSent implements ShouldBroadcast
     {
         return [
             'message' => $this->chat->message,
-            'user' => $this->user,
-            'feedback' => $this->feedback,
+            'sender_id' => $this->chat->sender_id,
+            //'user' => $this->user,
+            //'feedback' => $this->feedback,
         ];
     }
 }

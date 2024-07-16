@@ -11,22 +11,22 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Feedback;
 use App\Models\User;
-use App\Models\Chat;
+//use App\Models\Chat;
 
 class FeedbackReplySent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $chat;
+    //public $chat;
     public $user;
     public $feedback;
     /**
      * Create a new event instance.
      */
-    public function __construct(Chat $chat, $user, $feedback)
+    public function __construct(Feedback $feedback)
     {
-        $this->chat = $chat;
-        $this->user = $user;
+        //$this->chat = $chat;
+        //$this->user = $user;
         $this->feedback = $feedback;
     }
 
@@ -39,16 +39,17 @@ class FeedbackReplySent implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('feedback.' .$this->chat->receiver_id),
+            new PrivateChannel('feedback.' .$this->feedback->receiver_id),
         ];
     }
     public function broadcastWith(): array
     {
         return [
             'reply' => [
-                'message' => $this->chat->message,
-                'user' => $this->user,
-                'feedback' => $this->feedback,
+                'message' => $this->feedback->message,
+                'sender_id' => $this->feedback->sender_id,
+                //'user' => $this->user,
+                //'feedback' => $this->feedback,
             ],
         ];
     }

@@ -6,26 +6,26 @@ use Illuminate\Http\Request;
 use App\Models\Chat;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use App\Models\Feedback;
-
 
 class FeedbackChatsController extends Controller
 {
     public function index()
     {
-        // Fetch all chats
-        $chats = Feedback::all();
-
-       $feedbacks = Feedback::all();
-       $manager = User::where('role', 'manager')->first(); // Adjust this query as needed
-      // $manager = Auth::user(); 
-
-
-        return view('employee.chats', [
-            'feedbacks' => $feedbacks,
-            'manager' => $manager,
-            'chats' => $chats
-        ]);
+        $authUserId = Auth::id();
+        Log::info('Authenticated User ID: ', ['id' => $authUserId]);
+    
+        // Fetch all chats where the current user is the receiver
+        $chats = Chat::where('receiver_id', $authUserId)->with('sender')->get();
+    
+        Log::info('Retrieved Chats: ', ['chats' => $chats]);
+    
+        // Retrieve the current authenticated user (manager)
+        $manager = Auth::user();
+    
+        // Ensure chats and manager are being passed correctly
+        return view('employee.chats', ['chats' => $chats, 'manager' => $manager]);
     }
 
     public function showNotifications(Request $request)
@@ -34,53 +34,36 @@ class FeedbackChatsController extends Controller
 
         return view('employee.chats', compact('notifications'));
     }
-    //public function fetchMessages()
-    //{
-      //  $chats = Chat::with('sender', 'receiver')->get();
-    //}
 
-    public function sendMessage(Request $request)
-    {
-        // Validate the message
-        $request->validate([
-            'message' => 'required|string|max:255',
-            'receiver_id' => 'required|exists:users,id',
-        ]);
-
-        $manager = Auth::user(); 
-
-        // Create the message
-        $feedback = new Feedback();
-        $feedback->message = $request->input('message');
-        $feedback->sender_id = Auth::id(); // Set the sender_id (employee)
-        $feedback->receiver_id = $manager->id; // Set the receiver_id (manager)
-        $feedback->save(); // Save the feedback message to the feedback table
-
-        
-        // Redirect back with a success message
-        return redirect()->back()->with('status', 'Message sent!');
-    }
-
-    public function sendReply(Request $request, $feedbackId)
+    public function sendReply(Request $request, $chatId)
     {
         // Validate the reply
         $request->validate([
             'reply' => 'required|string|max:255',
         ]);
 
-        $feedback = Feedback::findOrFail($feedbackId);
-        // Create the reply
-        $reply = new Chat();
-        $reply->message = $request->input('reply');
-        $reply->sender_id = Auth::id(); // Set the sender_id
-        $reply->receiver_id =  $this->getReceiverId(); // Set the receiver_id
-        $reply->save();
+        // Check if chatId is provided
+        if ($chatId != 0) {
+            // Fetch the chat
+            $chat = Chat::findOrFail($chatId);
+
+            // Create the reply in the feedback table
+            $feedback = new Feedback();
+            $feedback->message = $request->input('reply');
+            $feedback->sender_id = Auth::id(); // Set the sender_id (employee)
+            $feedback->receiver_id = $chat->sender_id; // Set the receiver_id (manager)
+            $feedback->save();
+        } else {
+            // Handle the case where no chat ID is provided
+            // You can set default values or handle it as needed
+            $feedback = new Feedback();
+            $feedback->message = $request->input('reply');
+            $feedback->sender_id = Auth::id(); // Set the sender_id (employee)
+            $feedback->receiver_id = 1; // Set a default receiver_id (e.g., admin or manager)
+            $feedback->save();
+        }
 
         // Redirect back with a success message
         return redirect()->back()->with('status', 'Reply sent!');
-    }
-     public function getReceiverId()
-    {
-         return 1; // Replace with the actual logic to get the receiver_id
     }
 }
