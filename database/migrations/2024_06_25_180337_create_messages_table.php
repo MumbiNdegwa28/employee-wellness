@@ -18,13 +18,13 @@ return new class extends Migration
             $table->foreignId('sender_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('receiver_id')->constrained('users')->onDelete('cascade');
             //sheila
-            $table->unsignedBigInteger('feedback_id');
-            $table->unsignedBigInteger('user_id');
+            //$table->unsignedBigInteger('feedback_id');
+            //$table->unsignedBigInteger('user_id');
             $table->timestamps();
 
             //sheila
-            $table->foreign('feedback_id')->references('id')->on('feedbacks')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            //$table->foreign('feedback_id')->references('id')->on('feedbacks')->onDelete('cascade');
+            //$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
