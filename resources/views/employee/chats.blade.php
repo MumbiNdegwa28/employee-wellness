@@ -5,14 +5,22 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    @if (session('status'))
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-4">
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                <span class="block sm:inline">{{ session('status') }}</span>
+            </div>
+        </div>
+    @endif
+
+    <div class="py-6"> <!-- Reduced padding from py-12 to py-6 -->
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <div class="p-6 sm:px-20 bg-white border-b border-gray-200 mt-6">
+                <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
                     <div class="mt-8 text-2xl">
                         Chat Messages
                     </div>
-                    <div class="mt-6 text-gray-500">
+                    <div class="mt-4 text-gray-500"> <!-- Reduced margin from mt-6 to mt-4 -->
                         <ul id="messages">
                             @php
                                 // Sample data array to simulate chat messages
@@ -20,17 +28,17 @@
                                     (object)[
                                         'id' => 1,
                                         'sender' => (object)['name' => 'Mumbi'],
-                                        'message' => 'Hello, there.'
+                                        'message' => 'Hello there, how was the team building?'
                                     ],
                                     (object)[
                                         'id' => 2,
                                         'sender' => (object)['name' => 'Mumbi'],
-                                        'message' => 'How was the weekend getaway?'
+                                        'message' => 'Hey there. You alright?'
                                     ],
                                     (object)[
                                         'id' => 3,
                                         'sender' => (object)['name' => 'Mumbi'],
-                                        'message' => 'Do you have any other ideas for the next activity?'
+                                        'message' => 'Hello. I would like to get some feedback on the men\'s workshop.'
                                     ],
                                     (object)[
                                         'id' => 4,
@@ -58,19 +66,14 @@
         </div>
     </div>
 
-    <div class="py-12">
+    <div class="py-6"> 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <div class="p-6 sm:px-20 bg-white border-b border-gray-200 mt-6">
+                <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
                     <div class="mt-8 text-2xl">
                         Reply to Chat
                     </div>
-                    <div class="mt-6 text-gray-500">
-                        @if (session('status'))
-                            <div class="mb-4 font-medium text-sm text-green-600">
-                                {{ session('status') }}
-                            </div>
-                        @endif
+                    <div class="mt-4 text-gray-500"> <!-- Reduced margin from mt-6 to mt-4 -->
                         <form id="replyForm" action="{{ route('chat.sendReply', ['chat' => 0]) }}" method="POST">
                             @csrf
                             <input type="hidden" id="replyChatId" name="chat_id" value="">

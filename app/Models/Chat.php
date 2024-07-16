@@ -10,11 +10,7 @@ class Chat extends Model
     //protected $table = 'chats';
 
     use HasFactory;
-    //protected $fillable = [
-      //  'message',
-        //'sender_id',
-        //'receiver_id',
-    //];
+    protected $fillable = ['sender_id', 'receiver_id', 'message', 'created_at', 'updated_at'];
 
     // Define relationships
     public function sender()

@@ -164,6 +164,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Chat::class, 'sender_id');
     }
+    public function receivedChats()
+    {
+        return $this->hasMany(Chat::class, 'receiver_id');
+    }
 
     // public function evaluationForms()
     // {
@@ -174,21 +178,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isSuspended()
     {
         return $this->suspended;
-    }
-
-    public function receivedChats()
-    {
-        return $this->hasMany(Chat::class, 'receiver_id');
-    }
-    // Custom relationship to read manager_id for chats
-    public function managerSentChats()
-    {
-        return $this->hasMany(Chat::class, 'sender_id')->where('sender_id', $this->manager_id);
-    }
-
-    public function managerReceivedChats()
-    {
-        return $this->hasMany(Chat::class, 'receiver_id')->where('receiver_id', $this->manager_id);
     }
     
 }

@@ -13,19 +13,20 @@ class FeedbackChatsController extends Controller
 {
     public function index()
     {
-        $authUserId = Auth::id();
-        Log::info('Authenticated User ID: ', ['id' => $authUserId]);
-    
-        // Fetch all chats where the current user is the receiver
-        $chats = Chat::where('receiver_id', $authUserId)->with('sender')->get();
-    
-        Log::info('Retrieved Chats: ', ['chats' => $chats]);
+        $managerRoleId = 2;
+        // Fetch authenticated user's ID
+        //$authUserId = Auth::id();
+        
+        // Get chats where the receiver is a manager (role_id = 2)
+        $chats = Chat::whereHas('receiver', function ($query) use ($managerRoleId) {
+            $query->where('role_id', $managerRoleId);
+        })->with('sender')->get();
     
         // Retrieve the current authenticated user (manager)
-        $manager = Auth::user();
+        //$manager = User::find($managerRoleId);
     
         // Ensure chats and manager are being passed correctly
-        return view('employee.chats', ['chats' => $chats, 'manager' => $manager]);
+        return view('employee.chats', ['chats' => $chats]);
     }
 
     public function showNotifications(Request $request)

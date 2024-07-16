@@ -57,12 +57,12 @@ class FeedbackController extends Controller
 
         //$feedback = Feedback::find($feedbackId);
 
-        // Create the reply in the feedback table
-        $feedback = new Feedback();
-        $feedback->message = $request->input('reply');
-        $feedback->sender_id = Auth::id(); // Set the sender_id (employee)
-        $feedback->receiver_id = $this->getReceiverId(); // Set the receiver_id (manager)
-        $feedback->save();
+        // Create the reply in the chats table
+        $chat = new Chat();
+        $chat->message = $request->input('reply');
+        $chat->sender_id = Auth::id(); // Set the sender_id (employee)
+        $chat->receiver_id = $this->getReceiverId(); // Set the receiver_id (manager)
+        $chat->save();
 
         // Redirect back with a success message
         return redirect()->back()->with('status', 'Reply sent!');

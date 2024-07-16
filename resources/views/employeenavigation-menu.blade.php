@@ -23,7 +23,7 @@
                         {{ __('Journaling') }}
                     </x-nav-link>
                     <x-nav-link href="{{ route('employee.fullcalendar') }}" :active="request()->routeIs('employee.fullcalendar')">
-                         {{ __('Therapist\'s Calender') }}
+                         {{ __('Therapist\'s Calendar') }}
                     </x-nav-link>
                     <x-nav-link href="{{ route('request-appointment') }}" :active="request()->routeIs('request-appointment')">
                         {{ __('Appointment') }}

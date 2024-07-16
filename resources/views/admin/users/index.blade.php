@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('View User Records') }}
+            {{ __('User Details') }}
         </h2>
     </x-slot>
 
@@ -50,7 +50,6 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Suspended</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -60,7 +59,6 @@
                                 <td>{{ $user->id }}</td>
                                 <td>{{ $user->fname }} {{ $user->lname }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ $user->is_suspended ? 'Yes' : 'No' }}</td>
                                 <td><a href="{{ route('admin.users.show', $user->id) }}" class="view-link">View</a></td>
                             </tr>
                         @endforeach
